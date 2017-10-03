@@ -11,6 +11,7 @@ import com.maher.nowhere.mainActivity.MainActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin,btnLoginFb;
+    // kol mate5dem 7aja w tkamlha ajoutiha lel git
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
