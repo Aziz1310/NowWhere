@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NowWhere</string>
+    <string name="connecter">Se Connecter</string>
+    <string name="pr_nom_amp_nom"><![CDATA[Prénom & nom]]></string>
+</resources>
