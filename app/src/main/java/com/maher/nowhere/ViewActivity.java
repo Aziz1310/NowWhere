@@ -12,7 +12,7 @@ import android.support.v4.view.PagerAdapter;
 public class ViewActivity extends FragmentStatePagerAdapter {
 
     int numOfTabs;
-    public PagerAdapter(FragmentManager fm, int NumberOfTabs){
+    public ViewActivity(FragmentManager fm, int NumberOfTabs){
         super(fm);
         this.numOfTabs = NumberOfTabs;
     }

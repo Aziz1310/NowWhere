@@ -1,5 +1,6 @@
 package com.maher.nowhere.mainActivity;
 
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -11,9 +12,13 @@ import android.widget.TableLayout;
 import com.maher.nowhere.Accueil;
 import com.maher.nowhere.Categories;
 import com.maher.nowhere.R;
+import com.maher.nowhere.ViewActivity;
 import com.maher.nowhere.Weeklik;
+import com.maher.nowhere.mainActivity.Adapter.ScreenSlidePagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmentInteractionListener,Accueil.OnFragmentInteractionListener,Categories.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmentInteractionListener,
+        Accueil.OnFragmentInteractionListener
+        ,Categories.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +31,9 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
         tabLayout.addTab(tabLayout.newTab().setText("Categories"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final ViewActivity adapter = new ViewActivity(getSupportFragmentManager(),3);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -53,5 +59,10 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
