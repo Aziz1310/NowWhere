@@ -1,31 +1,52 @@
 package com.maher.nowhere.mainActivity;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TableLayout;
 
+import com.maher.nowhere.Accueil;
+import com.maher.nowhere.Categories;
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.Adapter.ScreenSlidePagerAdapter;
+import com.maher.nowhere.Weeklik;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final int NUM_PAGES = 5;
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
-
-
-
+public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmentInteractionListener,Accueil.OnFragmentInteractionListener,Categories.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Weeklik"));
+        tabLayout.addTab(tabLayout.newTab().setText("Accueil"));
+        tabLayout.addTab(tabLayout.newTab().setText("Categories"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
