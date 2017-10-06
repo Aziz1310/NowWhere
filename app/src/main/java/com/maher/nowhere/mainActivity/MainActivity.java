@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText),getResources().getColor(R.color.white));
 
 
+
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final MainActivityFragmentStatePagerAdapter adapter = new MainActivityFragmentStatePagerAdapter(getSupportFragmentManager(),3);
         viewPager.setAdapter(adapter);
