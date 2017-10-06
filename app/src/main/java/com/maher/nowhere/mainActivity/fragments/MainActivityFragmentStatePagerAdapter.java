@@ -1,22 +1,24 @@
-package com.maher.nowhere;
+package com.maher.nowhere.mainActivity.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
+
+import com.maher.nowhere.mainActivity.fragments.Accueil;
+import com.maher.nowhere.mainActivity.fragments.Categories;
+import com.maher.nowhere.mainActivity.fragments.Weeklik;
 
 /**
  * Created by RaniaH on 06/10/2017.
  */
 
-public class ViewActivity extends FragmentStatePagerAdapter {
+public class MainActivityFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
     int numOfTabs;
-    public ViewActivity(FragmentManager fm, int NumberOfTabs){
+    public MainActivityFragmentStatePagerAdapter(FragmentManager fm, int NumberOfTabs){
         super(fm);
         this.numOfTabs = NumberOfTabs;
     }
-
 
     @Override
     public Fragment getItem(int position) {

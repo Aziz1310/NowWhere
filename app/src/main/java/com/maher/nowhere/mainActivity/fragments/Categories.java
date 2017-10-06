@@ -1,4 +1,4 @@
-package com.maher.nowhere;
+package com.maher.nowhere.mainActivity.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.maher.nowhere.R;
 
 
 /**
