@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
         tabLayout.addTab(tabLayout.newTab().setText("Accueil"));
         tabLayout.addTab(tabLayout.newTab().setText("Categories"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText),getResources().getColor(R.color.white));
 
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
