@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/ImgEv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/image"
+            android:scaleType="centerCrop"
+            />
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:id="@+id/tvDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lundi"
+                android:textSize="30sp"
+                android:textColor="@color/colorAccent"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+
+            <TextView
+                android:id="@+id/tvMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09"
+                android:layout_marginTop="-8dp"
+                android:textSize="40sp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+            <TextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SEP"
+                android:layout_gravity="center"
+                android:layout_marginTop="-8dp"
+                android:textSize="36sp"
+                android:textColor="@color/colorAccent"
+                android:textStyle="normal"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Labess : The GiPSY NIGHT"
+                android:textSize="30sp"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carpe Dieam"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"
+                android:textStyle="normal"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnIGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

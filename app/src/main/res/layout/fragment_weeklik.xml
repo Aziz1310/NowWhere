@@ -5,11 +5,32 @@
     tools:context="com.maher.nowhere.mainActivity.fragments.Weeklik">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.mindorks.placeholderview.SwipePlaceHolderView
+        android:id="@+id/swipeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weeklik"
-        android:layout_centerInParent="true"
-        android:textSize="30dp"/>
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/btnLike"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/icon_like"/>
+        <ImageView
+            android:id="@+id/btnDislike"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icon_dislike"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

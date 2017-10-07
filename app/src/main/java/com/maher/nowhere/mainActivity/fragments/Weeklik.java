@@ -9,6 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Post;
+import com.maher.nowhere.utiles.TinderCard;
+import com.mindorks.placeholderview.SwipeDecor;
+import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.mindorks.placeholderview.Utils;
+
+import java.util.ArrayList;
 
 
 /**
@@ -28,27 +35,22 @@ public class Weeklik extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private View view ;
+    ArrayList<Post> posts ;
+    private SwipePlaceHolderView mSwipeView;
     private OnFragmentInteractionListener mListener;
+    private int nbr=0;
 
     public Weeklik() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Weeklik.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static Weeklik newInstance(String param1, String param2) {
+    public static Weeklik newInstance(ArrayList<Post> posts) {
         Weeklik fragment = new Weeklik();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_PARAM1, posts);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +59,7 @@ public class Weeklik extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            posts = (ArrayList<Post>) getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -66,7 +68,48 @@ public class Weeklik extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_weeklik, container, false);
+
+        view =  inflater.inflate(R.layout.fragment_weeklik, container, false);
+
+        mSwipeView = (SwipePlaceHolderView)view.findViewById(R.id.swipeView);
+
+        mSwipeView.getBuilder()
+                .setDisplayViewCount(3)
+                .setSwipeDecor(new SwipeDecor()
+                        .setPaddingTop(20)
+                        .setRelativeScale(0.01f)
+                        .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
+                        .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
+
+
+        for(Post post : posts){
+            mSwipeView.addView(new TinderCard(getActivity(), post, mSwipeView));
+
+        }
+
+        view.findViewById(R.id.btnDislike).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(false);
+
+
+
+            }
+        });
+
+        view.findViewById(R.id.btnLike).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(true);
+
+            }
+        });
+
+
+        return  view;
+
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
