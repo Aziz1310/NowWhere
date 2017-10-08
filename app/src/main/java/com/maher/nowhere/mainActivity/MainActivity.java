@@ -17,6 +17,7 @@ import com.maher.nowhere.mainActivity.fragments.Categories;
 import com.maher.nowhere.R;
 import com.maher.nowhere.mainActivity.fragments.MainActivityFragmentStatePagerAdapter;
 import com.maher.nowhere.mainActivity.fragments.Weeklik;
+import com.maher.nowhere.model.Categ;
 import com.maher.nowhere.model.Post;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
     Toolbar toolbar;
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
     ArrayList<Post> posts;
+    ArrayList<Categ> post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
