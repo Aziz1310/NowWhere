@@ -27,8 +27,9 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".mainActivity.MainActivity"></activity>
-        <activity android:name=".categoriesDetail.CategoriesDetailActivity"></activity>
+        <activity android:name=".mainActivity.MainActivity" />
+        <activity android:name=".categoriesDetail.CategoriesDetailActivity" />
+        <activity android:name=".SearchActivity.SearchActivity"></activity>
     </application>
 
 </manifest>

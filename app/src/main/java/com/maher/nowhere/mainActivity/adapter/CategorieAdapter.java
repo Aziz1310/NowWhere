@@ -33,7 +33,7 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
     @Override
     public RecycleView_Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categorie, parent, false);
-        CategorieAdapter.RecycleView_Holder vh = new CategorieAdapter().RecycleView_Holder(view);
+        RecycleView_Holder vh = new RecycleView_Holder(view);
 
         return vh;
     }
@@ -63,7 +63,7 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
             super(itemView);
             img1 = itemView.findViewById(R.id.img1);
             img2 = itemView.findViewById(R.id.img2);
-            textview = itemView.findViewById(R.id.textview);
+            //textview = itemView.findViewById(R.id.textview);
         }
     }
 }
