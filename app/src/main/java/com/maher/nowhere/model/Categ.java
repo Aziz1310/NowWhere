@@ -12,6 +12,12 @@ public class Categ {
 
     }
 
+    public Categ(int img1, int img2, String text) {
+        this.img1 = img1;
+        this.img2 = img2;
+        this.text = text;
+    }
+
     public int getImg1() {
         return img1;
     }
