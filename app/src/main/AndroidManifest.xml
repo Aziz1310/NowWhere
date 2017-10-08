@@ -29,7 +29,8 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".mainActivity.MainActivity" />
         <activity android:name=".categoriesDetail.CategoriesDetailActivity" />
-        <activity android:name=".SearchActivity.SearchActivity"></activity>
+        <activity android:name=".SearchActivity.SearchActivity" />
+        <activity android:name=".ContactActivity"></activity>
     </application>
 
 </manifest>
