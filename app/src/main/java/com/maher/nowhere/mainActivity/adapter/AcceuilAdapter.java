@@ -1,6 +1,7 @@
 package com.maher.nowhere.mainActivity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.categoriesDetail.CategoriesDetailActivity;
 import com.maher.nowhere.model.Post;
 import com.squareup.picasso.Picasso;
 
@@ -45,6 +47,13 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
         Post post= posts.get(position);
        // holder.tvHeure.setText(post.getHeure());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, CategoriesDetailActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
         /*
         Picasso.with(mContext).load(Uri.parse(position.getIconUrl())).into(holder.img, new com.squareup.picasso.Callback() {
             @Override
