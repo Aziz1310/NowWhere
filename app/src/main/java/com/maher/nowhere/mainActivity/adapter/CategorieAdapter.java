@@ -33,7 +33,7 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
     @Override
     public RecycleView_Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categorie, parent, false);
-        RecycleView_Holder vh = new RecycleView_Holder(view);
+       RecycleView_Holder vh = new RecycleView_Holder(view);
 
         return vh;
     }
@@ -41,6 +41,9 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
         Categ categ = post.get(position);
+        holder.img1.setImageResource(categ.getImg1());
+        holder.img2.setImageResource(categ.getImg2());
+        holder.textview.setText(categ.getText());
 
 
 
@@ -63,7 +66,7 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
             super(itemView);
             img1 = itemView.findViewById(R.id.img1);
             img2 = itemView.findViewById(R.id.img2);
-            //textview = itemView.findViewById(R.id.textview);
+            textview = itemView.findViewById(R.id.text);
         }
     }
 }

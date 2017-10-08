@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.CategorieAdapter;
 import com.maher.nowhere.model.Categ;
+import com.maher.nowhere.model.Post;
 
 import java.util.ArrayList;
 
@@ -33,8 +37,11 @@ public class Categories extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<Categ> categs;
+    private View view;
+
     private RecyclerView recyclerView;
-    private ArrayList<Categ>post;
+    private LinearLayoutManager lm;
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,7 +83,23 @@ public class Categories extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_categories, container, false);
+
+        view= inflater.inflate(R.layout.fragment_categories, container, false);
+        categs=new ArrayList<>();
+        categs.add(new Categ(R.drawable.img1,R.drawable.categorie_happy_hours,"HAPPY HOURS"));
+        categs.add(new Categ(R.drawable.img2,R.drawable.categorie_food,"RESTAURANTS & FOOD"));
+        categs.add(new Categ(R.drawable.img3,R.drawable.categorie_parties,"LOUNGES, DISCOS & PARTIES"));
+        categs.add(new Categ(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE TIME"));
+        categs.add(new Categ(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS, THEATRES & FESTIVALS"));
+        categs.add(new Categ(R.drawable.img6,R.drawable.categorie_mind,"MIND & BODY"));
+
+        recyclerView=(RecyclerView)view.findViewById(R.id.rv_categorie);
+        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(lm);
+        CategorieAdapter categorieAdapter=new CategorieAdapter(getActivity(),categs);
+        recyclerView.setAdapter(categorieAdapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
