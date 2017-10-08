@@ -1,6 +1,7 @@
 package com.maher.nowhere.mainActivity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.categoriesDetail.CategoriesDetailActivity;
 import com.maher.nowhere.model.Categ;
 
 import org.w3c.dom.Text;
@@ -40,10 +42,19 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
 
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        Categ categ = post.get(position);
+        final Categ categ = post.get(position);
         holder.img1.setImageResource(categ.getImg1());
         holder.img2.setImageResource(categ.getImg2());
         holder.textview.setText(categ.getText());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mContext, CategoriesDetailActivity.class);
+                intent.putExtra("categorie",categ);
+                mContext.startActivity(intent);
+            }
+        });
 
 
 

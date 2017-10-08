@@ -1,10 +1,12 @@
 package com.maher.nowhere.model;
 
+import java.io.Serializable;
+
 /**
  * Created by RaniaH on 08/10/2017.
  */
 
-public class Categ {
+public class Categ implements Serializable{
     private int img1,img2;
     private String text;
 

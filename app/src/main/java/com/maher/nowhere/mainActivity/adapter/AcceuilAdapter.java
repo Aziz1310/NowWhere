@@ -47,13 +47,7 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
         Post post= posts.get(position);
        // holder.tvHeure.setText(post.getHeure());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(mContext, CategoriesDetailActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
+
         /*
         Picasso.with(mContext).load(Uri.parse(position.getIconUrl())).into(holder.img, new com.squareup.picasso.Callback() {
             @Override
