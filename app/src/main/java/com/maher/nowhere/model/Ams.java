@@ -6,49 +6,41 @@ package com.maher.nowhere.model;
 
 public class Ams {
 
-    private int img_amis, img_suppAmis;
-    private String tv_nameAmis, tv_dispoAmis;
+    private int profileImage;
+    private String nom;
+    private String disponibility;
 
     public Ams(){
 
     }
 
-    public Ams(int img_amis, int img_suppAmis, String tv_nameAmis, String tv_dispoAmis) {
-        this.img_amis = img_amis;
-        this.img_suppAmis = img_suppAmis;
-        this.tv_nameAmis = tv_nameAmis;
-        this.tv_dispoAmis = tv_dispoAmis;
+    public Ams(int profileImage, String nom, String disponibility) {
+        this.profileImage = profileImage;
+        this.nom = nom;
+        this.disponibility = disponibility;
     }
 
-    public int getImg_amis() {
-        return img_amis;
+    public int getProfileImage() {
+        return profileImage;
     }
 
-    public void setImg_amis(int img_amis) {
-        this.img_amis = img_amis;
+    public void setProfileImage(int profileImage) {
+        this.profileImage = profileImage;
     }
 
-    public int getImg_suppAmis() {
-        return img_suppAmis;
+    public String getNom() {
+        return nom;
     }
 
-    public void setImg_suppAmis(int img_suppAmis) {
-        this.img_suppAmis = img_suppAmis;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getTv_nameAmis() {
-        return tv_nameAmis;
+    public String getDisponibility() {
+        return disponibility;
     }
 
-    public void setTv_nameAmis(String tv_nameAmis) {
-        this.tv_nameAmis = tv_nameAmis;
-    }
-
-    public String getTv_dispoAmis() {
-        return tv_dispoAmis;
-    }
-
-    public void setTv_dispoAmis(String tv_dispoAmis) {
-        this.tv_dispoAmis = tv_dispoAmis;
+    public void setDisponibility(String disponibility) {
+        this.disponibility = disponibility;
     }
 }

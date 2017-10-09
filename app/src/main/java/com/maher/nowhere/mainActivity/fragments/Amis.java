@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.AmisAdapter;
+import com.maher.nowhere.model.Ams;
 
 import java.util.ArrayList;
 
@@ -31,14 +33,14 @@ public class Amis extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Amis> amis;
+    private ArrayList<Ams> amis;
     private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
 
-    private OnFragmentInteractionListener mListener;
 
-    public Amis(int profile_image, int icon_clock, String s, String online) {
+
+    public Amis() {
         // Required empty public constructor
     }
 
@@ -52,7 +54,7 @@ public class Amis extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static Amis newInstance(String param1, String param2) {
-        Amis fragment = new Amis(R.drawable.profile_image, R.drawable.supprimer, "Lili", "Last seen 12 minutes ago");
+        Amis fragment = new Amis();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,56 +77,22 @@ public class Amis extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_amis, container, false);
         amis = new ArrayList<>();
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Lili","Last seen 12 minutes ago"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Bilel D","Online"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Oumaima H","Offline"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Selima T","Offline"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Intissar S","Online"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Lassaad","Online"));
+        amis.add(new Ams(R.drawable.profile_image,"Lili","Last seen 12 minutes ago"));
+        amis.add(new Ams(R.drawable.profile_image,"Bilel D","Online"));
+        amis.add(new Ams(R.drawable.profile_image,"Oumaima H","Offline"));
+        amis.add(new Ams(R.drawable.profile_image,"Selima T","Offline"));
+        amis.add(new Ams(R.drawable.profile_image,"Intissar S","Online"));
+        amis.add(new Ams(R.drawable.profile_image,"Lassaad","Online"));
 
+        AmisAdapter amisAdapter=new AmisAdapter(getActivity(),amis);
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_amis);
         lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setAdapter(amisAdapter);
         recyclerView.setLayoutManager(lm);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

@@ -1,10 +1,12 @@
 package com.maher.nowhere;
 
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.maher.nowhere.mainActivity.fragments.Amis;
 import com.maher.nowhere.mainActivity.fragments.ContactPagerAdapter;
 
 public class ContactActivity extends AppCompatActivity {
@@ -43,4 +45,6 @@ public class ContactActivity extends AppCompatActivity {
         });
 
     }
+
+
 }

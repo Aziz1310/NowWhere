@@ -41,16 +41,22 @@ public class AmisAdapter extends RecyclerView.Adapter<AmisAdapter.RecycleView_Ho
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
         Ams amiss = amis.get(position);
-        holder.img_amis.setImageResource(amiss.getImg_amis());
-        holder.img_suppAmis.setImageResource(amiss.getImg_suppAmis());
-        holder.tv_nameAmis.setText(amiss.getTv_nameAmis());
-        holder.tv_dispoAmis.setText(amiss.getTv_dispoAmis());
+        holder.img_amis.setImageResource(amiss.getProfileImage());
+        holder.tv_nameAmis.setText(amiss.getNom());
+        holder.tv_dispoAmis.setText(amiss.getDisponibility());
+
+        holder.img_suppAmis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // taw ba3ed hethi ne5dmouha supprime
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return amis.size();
     }
 
 
