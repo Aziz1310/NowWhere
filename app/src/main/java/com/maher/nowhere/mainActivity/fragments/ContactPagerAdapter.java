@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.maher.nowhere.R;
+
 /**
  * Created by RaniaH on 08/10/2017.
  */
@@ -21,7 +23,7 @@ public class ContactPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                Amis amis = new Amis(R.drawable.profile_image, R.drawable.icon_clock, "Bilel D", "Online");
+                Amis amis = new Amis(R.drawable.profile_image, R.drawable.icon_clock, "Lili", "Last seen 12 minutes ago");
                 return amis;
             case 1:
                 Invitations invitations = new Invitations();

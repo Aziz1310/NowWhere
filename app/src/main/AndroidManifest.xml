@@ -30,7 +30,9 @@
         <activity android:name=".mainActivity.MainActivity" />
         <activity android:name=".categoriesDetail.CategoriesDetailActivity" />
         <activity android:name=".SearchActivity.SearchActivity" />
-        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".ContactActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
