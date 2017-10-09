@@ -37,6 +37,10 @@
         <activity android:name=".SearchDetailActivity.SearchDetailActivity" />
         <activity android:name=".MapActivity.MapActivity" />
         <activity android:name=".reservationActivity.ReservationActivity"></activity>
+        <activity android:name=".SearchActivity.SearchActivity" />
+        <activity android:name=".ContactActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.maher.nowhere.ContactActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.utiles.RecyclerItemClickListener;
 
@@ -53,6 +54,9 @@ public class RightFragmentNaviguation extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 switch (position){
+                    case 0:
+                        getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
+                        break;
 
                     default:
                         getActivity().onBackPressed();
