@@ -4,11 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,10 +31,14 @@ public class Amis extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<Amis> amis;
+    private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
 
     private OnFragmentInteractionListener mListener;
 
-    public Amis() {
+    public Amis(int profile_image, int icon_clock, String s, String online) {
         // Required empty public constructor
     }
 
@@ -44,7 +52,7 @@ public class Amis extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static Amis newInstance(String param1, String param2) {
-        Amis fragment = new Amis();
+        Amis fragment = new Amis(R.drawable.profile_image, R.drawable.icon_clock, "Bilel D", "Online");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +73,20 @@ public class Amis extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_amis, container, false);
+        view= inflater.inflate(R.layout.fragment_amis, container, false);
+        amis = new ArrayList<>();
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Lili","Last seen 12 minutes ago"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Bilel D","Online"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Oumaima H","Offline"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Selima T","Offline"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Intissar S","Online"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Lassaad","Online"));
+
+        recyclerView=(RecyclerView)view.findViewById(R.id.rv_amis);
+        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(lm);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

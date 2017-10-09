@@ -21,7 +21,7 @@ public class ContactPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                Amis amis = new Amis();
+                Amis amis = new Amis(R.drawable.profile_image, R.drawable.icon_clock, "Bilel D", "Online");
                 return amis;
             case 1:
                 Invitations invitations = new Invitations();
