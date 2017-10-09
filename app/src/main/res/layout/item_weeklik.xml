@@ -11,7 +11,14 @@
             android:id="@+id/ImgEv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/image"
+            android:src="@drawable/gg"
+            android:scaleType="centerCrop"
+            />
+        <ImageView
+            android:id="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/mask2"
             android:scaleType="centerCrop"
             />
 
@@ -78,7 +85,7 @@
                 android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat"/>
             <TextView
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="1dp"
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
