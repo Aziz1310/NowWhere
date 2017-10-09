@@ -52,7 +52,7 @@ public class Amis extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static Amis newInstance(String param1, String param2) {
-        Amis fragment = new Amis(R.drawable.profile_image, R.drawable.icon_clock, "Bilel D", "Online");
+        Amis fragment = new Amis(R.drawable.profile_image, R.drawable.supprimer, "Lili", "Last seen 12 minutes ago");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,12 +75,12 @@ public class Amis extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_amis, container, false);
         amis = new ArrayList<>();
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Lili","Last seen 12 minutes ago"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Bilel D","Online"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Oumaima H","Offline"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Selima T","Offline"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Intissar S","Online"));
-        amis.add(new Amis(R.drawable.profile_image,R.drawable.icon_clock,"Lassaad","Online"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Lili","Last seen 12 minutes ago"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Bilel D","Online"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Oumaima H","Offline"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Selima T","Offline"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Intissar S","Online"));
+        amis.add(new Amis(R.drawable.profile_image,R.drawable.supprimer,"Lassaad","Online"));
 
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_amis);
         lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
