@@ -86,12 +86,12 @@ public class Categories extends Fragment {
 
         view= inflater.inflate(R.layout.fragment_categories, container, false);
         categs=new ArrayList<>();
-        categs.add(new Categ(R.drawable.img1,R.drawable.categorie_happy_hours,"HAPPY HOURS"));
-        categs.add(new Categ(R.drawable.img2,R.drawable.categorie_food,"RESTAURANTS & FOOD"));
-        categs.add(new Categ(R.drawable.img3,R.drawable.categorie_parties,"LOUNGES, DISCOS & PARTIES"));
-        categs.add(new Categ(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE TIME"));
-        categs.add(new Categ(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS, THEATRES & FESTIVALS"));
-        categs.add(new Categ(R.drawable.img6,R.drawable.categorie_mind,"MIND & BODY"));
+        categs.add(new Categ(R.drawable.img1,R.drawable.categorie_happy_hours,"HAPPY HOURS","magic places"));
+        categs.add(new Categ(R.drawable.img2,R.drawable.categorie_food,"RESTAURANTS & FOOD","Réstaurant"));
+        categs.add(new Categ(R.drawable.img3,R.drawable.categorie_parties,"LOUNGES, DISCOS & PARTIES","Discos"));
+        categs.add(new Categ(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE TIME","Caffées"));
+        categs.add(new Categ(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS, THEATRES & FESTIVALS","Cinémas"));
+        categs.add(new Categ(R.drawable.img6,R.drawable.categorie_mind,"MIND & BODY","Centres"));
 
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_categorie);
         lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);

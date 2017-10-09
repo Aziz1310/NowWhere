@@ -18,6 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDK4glYe0KTd2qReFq0B8dF5uXTXdvNC4s" />
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +33,10 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".mainActivity.MainActivity" />
         <activity android:name=".categoriesDetail.CategoriesDetailActivity" />
-        <activity android:name=".SearchActivity.SearchActivity"></activity>
+        <activity android:name=".SearchActivity.SearchActivity" />
+        <activity android:name=".SearchDetailActivity.SearchDetailActivity" />
+        <activity android:name=".MapActivity.MapActivity" />
+        <activity android:name=".reservationActivity.ReservationActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    class="com.maher.nowhere.utiles.ShadowLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/shadowLayout"
+    tools:context="com.maher.nowhere.SearchDetailActivity.SearchDetailActivity">
+
+    <include layout="@layout/toolbar"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/item_search"
+                android:id="@+id/rl_header"
+                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                 />
+
+            <LinearLayout
+                android:id="@+id/ll_inof"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_header"
+                android:background="@color/colorAccent"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4">
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/icon_clock"/>
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textColor="@color/colorGreySoft"
+                        android:text="Ouver ce Soir \n(de 20h00 à 22h00"/>
+
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/side_menu_devider"
+                    android:alpha="0.5"
+                    android:layout_weight="0.2"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4">
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/icon_pin"/>
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textColor="@color/colorGreySoft"
+                        android:text="8 Rue boulgeon -13100 Aix en provence"/>
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/tvaprop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_inof"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="A PROPOS"/>
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/tvaprop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGreyText"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis odio nibh. Sed varius tempor nisl, sed gravida justo sodales in. Donec eget convallis "
+                />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_below="@id/tvDescription"
+                android:layout_height="150dp">
+
+            </com.google.android.gms.maps.MapView>
+
+           <TextView
+               android:id="@+id/mesami"
+               android:layout_marginRight="20dp"
+               android:layout_marginLeft="20dp"
+               android:layout_marginBottom="10dp"
+               android:layout_marginTop="10dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/map"
+               android:textColor="@color/colorGreyText"
+               android:text="Mes amis qui aillent"/>
+
+            <ImageView
+                android:id="@+id/friends"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_below="@id/mesami"
+                android:src="@drawable/friends_list"/>
+
+                <ImageView
+                    android:id="@+id/btnIGo"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@+id/mesami"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/button_go"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_below="@+id/friends"
+                android:id="@+id/btnNotification"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_button"
+                android:text="Activier les notifications"
+                android:textColor="@color/colorGreyTextDark"/>
+
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_direction"
+                android:layout_below="@+id/btnNotification"
+
+                />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_share"
+                android:layout_below="@+id/btnNotification"
+                android:layout_centerInParent="true"
+
+                />
+            <ImageView
+                android:layout_marginRight="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_like_soft"
+                android:layout_below="@+id/btnNotification"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+
+                />
+
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+</view>

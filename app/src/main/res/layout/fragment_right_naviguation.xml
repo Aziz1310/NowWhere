@@ -17,7 +17,7 @@
             android:src="@drawable/signup_image" />
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ZEINEB AZZABI"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:layout_below="@+id/tvTitle"
+            android:layout_below="@+id/title"
             android:layout_centerHorizontal="true"
             android:gravity="center_vertical">
 

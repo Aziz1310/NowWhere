@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.maher.nowhere.reservationActivity.ReservationActivity">
+
+    <include layout="@layout/toolbar"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/item_search"
+                android:id="@+id/rl_header"
+                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_inof"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_header"
+                android:background="@color/colorAccent"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4">
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/icon_clock"/>
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textColor="@color/colorGreySoft"
+                        android:text="Ouver ce Soir \n(de 20h00 à 22h00"/>
+
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/side_menu_devider"
+                    android:alpha="0.5"
+                    android:layout_weight="0.2"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4">
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/icon_pin"/>
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textColor="@color/colorGreySoft"
+                        android:text="8 Rue boulgeon -13100 Aix en provence"/>
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/mesami"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_inof"
+                android:textColor="@color/colorGreyText"
+                android:text="Combien de personnes ?"/>
+            <TextView
+                android:id="@+id/tvPersNumber"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mesami"
+                android:textSize="20sp"
+                android:textColor="@color/colorGreyTextDark"
+                android:text="2 PERSONNES"/>
+
+            <android.support.v7.widget.AppCompatButton
+    android:id="@+id/btnPlus"
+    android:layout_alignParentRight="true"
+    android:layout_below="@+id/ll_inof"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginTop="35dp"
+    android:text="+"
+    android:textSize="18sp"
+    android:textColor="@color/white"
+    android:background="@drawable/message_oval"/>
+            <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnMinus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="34dp"
+        android:text="-"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:background="@drawable/message_oval"
+        android:layout_alignBaseline="@+id/btnPlus"
+        android:layout_alignBottom="@+id/btnPlus"
+        android:layout_alignRight="@+id/btnPlus"
+        android:layout_alignEnd="@+id/btnPlus"
+        android:layout_marginEnd="34dp" />
+
+
+            <TextView
+                android:id="@+id/mesami1"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPersNumber"
+                android:textColor="@color/colorGreyText"
+                android:text="Combien de personnes ?"/>
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mesami1"
+                android:textSize="20sp"
+                android:textColor="@color/colorGreyTextDark"
+                android:text="20:00"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnPlusH"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvPersNumber"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="35dp"
+                android:text="+"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:background="@drawable/message_oval"/>
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnMinusH"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="34dp"
+                android:text="-"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:background="@drawable/message_oval"
+                android:layout_alignBaseline="@+id/btnPlusH"
+                android:layout_alignBottom="@+id/btnPlusH"
+                android:layout_alignRight="@+id/btnPlusH"
+                android:layout_alignEnd="@+id/btnPlusH"
+                android:layout_marginEnd="34dp" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_below="@+id/btnPlusH"
+                android:id="@+id/btnReserver"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_button"
+                android:text="Réserver la table"
+                android:textColor="@color/colorGreyTextDark"/>
+
+
+            </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

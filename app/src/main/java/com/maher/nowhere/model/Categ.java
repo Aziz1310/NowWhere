@@ -9,15 +9,18 @@ import java.io.Serializable;
 public class Categ implements Serializable{
     private int img1,img2;
     private String text;
+    private String shortName;
+
 
     public Categ (){
 
     }
 
-    public Categ(int img1, int img2, String text) {
+    public Categ(int img1, int img2, String text,String shortName) {
         this.img1 = img1;
         this.img2 = img2;
         this.text = text;
+        this.shortName=shortName;
     }
 
     public int getImg1() {
@@ -47,5 +50,13 @@ public class Categ implements Serializable{
     public void setText(String text) {
 
         this.text = text;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 }
