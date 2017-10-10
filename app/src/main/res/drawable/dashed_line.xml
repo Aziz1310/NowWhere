@@ -4,20 +4,14 @@
 <item
     android:height="50dp">
     <shape android:shape="rectangle">
-        <solid android:color="@color/colorPrimaryDark"/>
+        <solid android:color="@android:color/transparent"/>
     </shape>
 </item>
 <item
+    android:drawable="@drawable/dashed_line_image"
     android:top="46dp"
     android:height="4dp">
 
-    <shape android:shape="line">
-        <stroke
-            android:width="3dp"
-            android:color="@color/colorGreyTextDark"
-            android:dashGap="10dp"
-            android:dashWidth="10dp"
-            />
-    </shape>
+
 </item>
 </layer-list>

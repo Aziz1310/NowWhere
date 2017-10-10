@@ -6,39 +6,41 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.maher.nowhere.mainActivity.fragments.Accueil;
-import com.maher.nowhere.mainActivity.fragments.Categories;
+import com.maher.nowhere.mainActivity.fragments.AccueilFragment;
+import com.maher.nowhere.mainActivity.fragments.CategoriesFragment;
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.fragments.MainActivityFragmentStatePagerAdapter;
-import com.maher.nowhere.mainActivity.fragments.Weeklik;
-import com.maher.nowhere.model.Categ;
+import com.maher.nowhere.mainActivity.fragments.WeeklikFragment;
+import com.maher.nowhere.model.Categorie;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.utiles.SwipeViewPager;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmentInteractionListener,
-        Accueil.OnFragmentInteractionListener
-        ,Categories.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements WeeklikFragment.OnFragmentInteractionListener,
+        AccueilFragment.OnFragmentInteractionListener
+        ,CategoriesFragment.OnFragmentInteractionListener {
 
     private DrawerLayout drawerLayout;
     Toolbar toolbar;
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
     ArrayList<Post> posts;
-    ArrayList<Categ> post;
+    ArrayList<Categorie> post;
+    SwipeViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dummyDate();
+        dummyData();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (SwipeViewPager) findViewById(R.id.pager);
+        viewPager.setPagingEnabled(false);
         final MainActivityFragmentStatePagerAdapter adapter = new MainActivityFragmentStatePagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -62,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition()==0)
+                    viewPager.setPagingEnabled(false);
+                else
+                    viewPager.setPagingEnabled(true);
             }
 
             @Override
@@ -89,11 +96,17 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
 
     }
 
-    private void dummyDate() {
+    private void dummyData() {
         posts = new ArrayList<>();
         posts.add(new Post(R.drawable.image));
         posts.add(new Post(R.drawable.signup_image));
+        posts.add(new Post(R.drawable.gg));
         posts.add(new Post(R.drawable.image));
+        posts.add(new Post(R.drawable.signup_image));
+        posts.add(new Post(R.drawable.gg));
+        posts.add(new Post(R.drawable.image));
+        posts.add(new Post(R.drawable.signup_image));
+        posts.add(new Post(R.drawable.gg));
         posts.add(new Post(R.drawable.signup_image));
     }
 
@@ -124,13 +137,12 @@ public class MainActivity extends AppCompatActivity implements Weeklik.OnFragmen
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Weeklik weeklik = new Weeklik();
-                    return Weeklik.newInstance(posts);
+                    return WeeklikFragment.newInstance(posts);
                 case 1:
-                    Accueil accueil = new Accueil();
+                    AccueilFragment accueil = new AccueilFragment();
                     return accueil;
                 case 2:
-                    Categories categories = new Categories();
+                    CategoriesFragment categories = new CategoriesFragment();
                     return categories;
                 default:
                     return null;

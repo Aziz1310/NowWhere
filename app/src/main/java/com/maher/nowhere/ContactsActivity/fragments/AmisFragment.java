@@ -1,7 +1,5 @@
-package com.maher.nowhere.mainActivity.fragments;
+package com.maher.nowhere.ContactsActivity.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,20 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.adapter.AmisAdapter;
-import com.maher.nowhere.model.Ams;
+import com.maher.nowhere.ContactsActivity.adapters.AmisAdapter;
+import com.maher.nowhere.model.Friend;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Amis.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Amis#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Amis extends Fragment {
+public class AmisFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,14 +23,14 @@ public class Amis extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Ams> amis;
+    private ArrayList<Friend> amis;
     private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
 
 
 
-    public Amis() {
+    public AmisFragment() {
         // Required empty public constructor
     }
 
@@ -50,11 +40,11 @@ public class Amis extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Amis.
+     * @return A new instance of fragment AmisFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Amis newInstance(String param1, String param2) {
-        Amis fragment = new Amis();
+    public static AmisFragment newInstance(String param1, String param2) {
+        AmisFragment fragment = new AmisFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,12 +67,12 @@ public class Amis extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_amis, container, false);
         amis = new ArrayList<>();
-        amis.add(new Ams(R.drawable.profile_image,"Lili","Last seen 12 minutes ago"));
-        amis.add(new Ams(R.drawable.profile_image,"Bilel D","Online"));
-        amis.add(new Ams(R.drawable.profile_image,"Oumaima H","Offline"));
-        amis.add(new Ams(R.drawable.profile_image,"Selima T","Offline"));
-        amis.add(new Ams(R.drawable.profile_image,"Intissar S","Online"));
-        amis.add(new Ams(R.drawable.profile_image,"Lassaad","Online"));
+        amis.add(new Friend(R.drawable.profile_image,"Lili","Last seen 12 minutes ago"));
+        amis.add(new Friend(R.drawable.profile_image,"Bilel D","Online"));
+        amis.add(new Friend(R.drawable.profile_image,"Oumaima H","Offline"));
+        amis.add(new Friend(R.drawable.profile_image,"Selima T","Offline"));
+        amis.add(new Friend(R.drawable.profile_image,"Intissar S","Online"));
+        amis.add(new Friend(R.drawable.profile_image,"Lassaad","Online"));
 
         AmisAdapter amisAdapter=new AmisAdapter(getActivity(),amis);
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_amis);

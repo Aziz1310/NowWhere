@@ -20,31 +20,55 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="horizontal"
             android:weightSum="1">
 
             <ImageView
+                android:layout_gravity="center"
                 android:id="@+id/img2"
                 android:layout_width="49dp"
                 android:layout_height="49dp"
                 android:layout_marginLeft="30dp"
                 app:srcCompat="@drawable/categorie_happy_hours"
                 />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <TextView
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="HAPPY HOURS"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:id="@+id/text"
-                />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="LOUNGES, DISCOS"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/text"
+                    />
+                <TextView
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="1sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/text2"
+                    />
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
 

@@ -1,6 +1,5 @@
 package com.maher.nowhere.sideMenu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -11,13 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.maher.nowhere.ContactActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.utiles.RecyclerItemClickListener;
-
-import java.util.ArrayList;
 
 public class RightFragmentNaviguation extends Fragment {
 
@@ -55,7 +50,8 @@ public class RightFragmentNaviguation extends Fragment {
             public void onItemClick(View view, int position) {
                 switch (position){
                     case 0:
-                        getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
+                      //  getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
+                        getActivity().onBackPressed();
                         break;
 
                     default:

@@ -1,13 +1,12 @@
-package com.maher.nowhere;
+package com.maher.nowhere.ContactsActivity;
 
-import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.maher.nowhere.mainActivity.fragments.Amis;
-import com.maher.nowhere.mainActivity.fragments.ContactPagerAdapter;
+import com.maher.nowhere.R;
+import com.maher.nowhere.ContactsActivity.fragments.ContactPagerAdapter;
 
 public class ContactActivity extends AppCompatActivity {
 
@@ -17,9 +16,9 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Mes Amis"));
-        tabLayout.addTab(tabLayout.newTab().setText("Invitations"));
-        tabLayout.addTab(tabLayout.newTab().setText("Suggestions"));
+        tabLayout.addTab(tabLayout.newTab().setText("Mes AmisFragment"));
+        tabLayout.addTab(tabLayout.newTab().setText("InvitationsFragment"));
+        tabLayout.addTab(tabLayout.newTab().setText("SuggestionsFragment"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 

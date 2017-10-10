@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.maher.nowhere.R;
 import com.maher.nowhere.SearchActivity.adapter.SearchAdapter;
-import com.maher.nowhere.mainActivity.fragments.Categories;
 import com.maher.nowhere.model.Search;
 
 import java.util.ArrayList;

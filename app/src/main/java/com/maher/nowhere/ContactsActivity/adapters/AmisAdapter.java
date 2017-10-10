@@ -1,4 +1,4 @@
-package com.maher.nowhere.mainActivity.adapter;
+package com.maher.nowhere.ContactsActivity.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maher.nowhere.R;
-import com.maher.nowhere.model.Ams;
+import com.maher.nowhere.model.Friend;
 
 import java.util.ArrayList;
 
@@ -20,11 +20,11 @@ import java.util.ArrayList;
 public class AmisAdapter extends RecyclerView.Adapter<AmisAdapter.RecycleView_Holder> {
 
     private final Context mContext;
-    private final ArrayList<Ams> amis;
+    private final ArrayList<Friend> amis;
 
 
 
-    public AmisAdapter(Context mContext, ArrayList<Ams> amis) {
+    public AmisAdapter(Context mContext, ArrayList<Friend> amis) {
 
         this.mContext = mContext;
         this.amis = amis;
@@ -40,7 +40,7 @@ public class AmisAdapter extends RecyclerView.Adapter<AmisAdapter.RecycleView_Ho
 
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        Ams amiss = amis.get(position);
+        Friend amiss = amis.get(position);
         holder.img_amis.setImageResource(amiss.getProfileImage());
         holder.tv_nameAmis.setText(amiss.getNom());
         holder.tv_dispoAmis.setText(amiss.getDisponibility());

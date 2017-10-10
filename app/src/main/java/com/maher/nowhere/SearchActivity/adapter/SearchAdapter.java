@@ -25,14 +25,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
 
     private final Context mContext;
     private final ArrayList<Search> lsearch;
-    private RecyclerView recyclerView;
-    private int lastPosition;
 
-    public SearchAdapter(Context mContext, ArrayList<Search> lsearch, RecyclerView recyclerView, int lastPosition) {
+
+
+    public SearchAdapter(Context mContext, ArrayList<Search> lsearch) {
         this.mContext = mContext;
         this.lsearch = lsearch;
-        this.recyclerView=recyclerView;
-        this.lastPosition=lastPosition;
+
+
 
     }
 
@@ -58,8 +58,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
             @Override
             public void onClick(View v) {
 
-               lastPosition= RecyclerViewPositionHelper.createHelper(recyclerView).findFirstVisibleItemPosition();
-                recyclerView.scrollToPosition(position);
 
                 int[] screenLocation = new int[2];
                 v.getLocationOnScreen(screenLocation);

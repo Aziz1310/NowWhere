@@ -38,7 +38,7 @@
         <activity android:name=".MapActivity.MapActivity" />
         <activity android:name=".reservationActivity.ReservationActivity"></activity>
         <activity android:name=".SearchActivity.SearchActivity" />
-        <activity android:name=".ContactActivity"
+        <activity android:name=".ContactsActivity.ContactActivity"
             android:exported="true">
         </activity>
     </application>

@@ -3,17 +3,18 @@ package com.maher.nowhere.mainActivity.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
 import com.maher.nowhere.model.Post;
-import com.maher.nowhere.utiles.TinderCard;
-import com.mindorks.placeholderview.SwipeDecor;
-import com.mindorks.placeholderview.SwipePlaceHolderView;
-import com.mindorks.placeholderview.Utils;
 
 import java.util.ArrayList;
 
@@ -21,36 +22,46 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Weeklik.OnFragmentInteractionListener} interface
+ * {@link AccueilFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Weeklik#newInstance} factory method to
+ * Use the {@link AccueilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Weeklik extends Fragment {
+public class AccueilFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "viewPager";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private View view ;
-    ArrayList<Post> posts ;
-    private SwipePlaceHolderView mSwipeView;
-    private OnFragmentInteractionListener mListener;
-    private int nbr=0;
 
-    public Weeklik() {
+    private String mParam2;
+    private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
+    private ArrayList<Post>posts;
+
+
+    private OnFragmentInteractionListener mListener;
+
+    public AccueilFragment() {
         // Required empty public constructor
     }
 
-
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment AccueilFragment.
+     */
     // TODO: Rename and change types and number of parameters
-    public static Weeklik newInstance(ArrayList<Post> posts) {
-        Weeklik fragment = new Weeklik();
+    public static AccueilFragment newInstance(String param1, String param2) {
+        AccueilFragment fragment = new AccueilFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_PARAM1, posts);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,7 +70,6 @@ public class Weeklik extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            posts = (ArrayList<Post>) getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -69,46 +79,25 @@ public class Weeklik extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view =  inflater.inflate(R.layout.fragment_weeklik, container, false);
+        view=inflater.inflate(R.layout.fragment_accueil, container, false);
+        recyclerView=view.findViewById(R.id.rv_acceuil);
+        posts=new ArrayList<Post>();
+        posts.add(new Post());
+        posts.add(new Post());
+        posts.add(new Post());
 
-        mSwipeView = (SwipePlaceHolderView)view.findViewById(R.id.swipeView);
-
-        mSwipeView.getBuilder()
-                .setDisplayViewCount(3)
-                .setSwipeDecor(new SwipeDecor()
-                        .setPaddingTop(20)
-                        .setRelativeScale(0.01f)
-                        .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
-                        .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
-
-
-        for(Post post : posts){
-            mSwipeView.addView(new TinderCard(getActivity(), post, mSwipeView));
-
-        }
-
-        view.findViewById(R.id.btnDislike).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwipeView.doSwipe(false);
+        lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
+        AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setAdapter(acceuilAdapter);
 
 
+        return view;
+    }
 
-            }
-        });
-
-        view.findViewById(R.id.btnLike).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwipeView.doSwipe(true);
-
-            }
-        });
-
-
-        return  view;
-
-
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
     }
 
@@ -122,6 +111,7 @@ public class Weeklik extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {

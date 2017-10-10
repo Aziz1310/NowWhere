@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     tools:context="com.maher.nowhere.categoriesDetail.CategoriesDetailActivity">
 
     <include layout="@layout/toolbar"></include>
@@ -49,10 +49,19 @@
             android:layout_height="50dp"
             android:textColor="@color/colorGreySoft"
             android:hint="Recherche"
+            android:text=""
+            android:paddingRight="35dp"
             android:background="@drawable/dashed_line"
             android:layout_centerInParent="true"
-            android:drawableRight="@drawable/icon_search"
             android:id="@+id/editText" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_search"
+            android:layout_marginTop="10dp"
+            android:layout_alignTop="@+id/editText"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnSearch"

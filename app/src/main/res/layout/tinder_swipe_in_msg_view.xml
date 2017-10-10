@@ -4,12 +4,13 @@
     android:orientation="vertical"
     android:layout_width="350dp"
     android:layout_height="425dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_margin="40dp"
-        android:textColor="@android:color/holo_green_light"
-        android:text="Like"/>
+
+    <ImageView
+        android:id="@+id/btnLike11"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="80dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/icon_like"/>
+
 </LinearLayout>

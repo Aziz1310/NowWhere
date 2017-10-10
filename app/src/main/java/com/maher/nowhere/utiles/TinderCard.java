@@ -41,7 +41,7 @@ public class TinderCard {
     @Resolve
     private void onResolved(){
 
-      //  profileImageView.setImageResource(post.getImage());
+       profileImageView.setImageResource(post.getImage());
     }
 
     @SwipeOut

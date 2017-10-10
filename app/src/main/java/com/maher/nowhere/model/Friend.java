@@ -4,17 +4,17 @@ package com.maher.nowhere.model;
  * Created by RaniaH on 09/10/2017.
  */
 
-public class Ams {
+public class Friend {
 
     private int profileImage;
     private String nom;
     private String disponibility;
 
-    public Ams(){
+    public Friend(){
 
     }
 
-    public Ams(int profileImage, String nom, String disponibility) {
+    public Friend(int profileImage, String nom, String disponibility) {
         this.profileImage = profileImage;
         this.nom = nom;
         this.disponibility = disponibility;

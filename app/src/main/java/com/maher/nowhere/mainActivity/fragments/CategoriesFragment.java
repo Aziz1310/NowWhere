@@ -9,11 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
-import com.maher.nowhere.model.Post;
+import com.maher.nowhere.mainActivity.adapter.CategorieAdapter;
+import com.maher.nowhere.model.Categorie;
 
 import java.util.ArrayList;
 
@@ -21,12 +20,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Accueil.OnFragmentInteractionListener} interface
+ * {@link CategoriesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Accueil#newInstance} factory method to
+ * Use the {@link CategoriesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Accueil extends Fragment {
+public class CategoriesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,15 +34,17 @@ public class Accueil extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<Categorie> categs;
     private View view;
+
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
-    private ArrayList<Post>posts;
-
 
     private OnFragmentInteractionListener mListener;
 
-    public Accueil() {
+
+
+    public CategoriesFragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +54,11 @@ public class Accueil extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Accueil.
+     * @return A new instance of fragment CategoriesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Accueil newInstance(String param1, String param2) {
-        Accueil fragment = new Accueil();
+    public static CategoriesFragment newInstance(String param1, String param2) {
+        CategoriesFragment fragment = new CategoriesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,22 +80,21 @@ public class Accueil extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view=inflater.inflate(R.layout.fragment_accueil, container, false);
-        recyclerView=view.findViewById(R.id.rv_acceuil);
-        posts=new ArrayList<Post>();
-        posts.add(new Post());
-        posts.add(new Post());
-        posts.add(new Post());
 
-        lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
-        AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts);
+        view= inflater.inflate(R.layout.fragment_categories, container, false);
+        categs=new ArrayList<>();
+        categs.add(new Categorie(R.drawable.img1,R.drawable.categorie_happy_hours,"HAPPY HOURS","magic places"));
+        categs.add(new Categorie(R.drawable.img2,R.drawable.categorie_food,"RESTAURANTS","Réstaurant","& FOOD"));
+        categs.add(new Categorie(R.drawable.img3,R.drawable.categorie_parties,"LOUNGES, DISCOS","Discos","& PARTIES"));
+        categs.add(new Categorie(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE","Caffées","TIME"));
+        categs.add(new Categorie(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS,","Cinémas","THEATRES & FESTIVALS"));
+        categs.add(new Categorie(R.drawable.img6,R.drawable.categorie_mind,"MIND","Centres","& BODY"));
+
+        recyclerView=(RecyclerView)view.findViewById(R.id.rv_categorie);
+        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(lm);
-        recyclerView.setAdapter(acceuilAdapter);
-
-
-
-
-
+        CategorieAdapter categorieAdapter=new CategorieAdapter(getActivity(),categs);
+        recyclerView.setAdapter(categorieAdapter);
 
         return view;
     }

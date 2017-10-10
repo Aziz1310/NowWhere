@@ -4,18 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.adapter.CategorieAdapter;
-import com.maher.nowhere.model.Categ;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.utiles.TinderCard;
+import com.mindorks.placeholderview.SwipeDecor;
+import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.util.ArrayList;
 
@@ -23,12 +20,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Categories.OnFragmentInteractionListener} interface
+ * {@link WeeklikFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Categories#newInstance} factory method to
+ * Use the {@link WeeklikFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Categories extends Fragment {
+public class WeeklikFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,34 +34,22 @@ public class Categories extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Categ> categs;
-    private View view;
-
-    private RecyclerView recyclerView;
-    private LinearLayoutManager lm;
-
+    private View view ;
+    ArrayList<Post> posts ;
+    private SwipePlaceHolderView mSwipeView;
     private OnFragmentInteractionListener mListener;
+    private int nbr=0;
 
-
-
-    public Categories() {
+    public WeeklikFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Categories.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static Categories newInstance(String param1, String param2) {
-        Categories fragment = new Categories();
+    public static WeeklikFragment newInstance(ArrayList<Post> posts) {
+        WeeklikFragment fragment = new WeeklikFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_PARAM1, posts);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,7 +58,7 @@ public class Categories extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            posts = (ArrayList<Post>) getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -83,23 +68,47 @@ public class Categories extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        view =  inflater.inflate(R.layout.fragment_weeklik, container, false);
 
-        view= inflater.inflate(R.layout.fragment_categories, container, false);
-        categs=new ArrayList<>();
-        categs.add(new Categ(R.drawable.img1,R.drawable.categorie_happy_hours,"HAPPY HOURS","magic places"));
-        categs.add(new Categ(R.drawable.img2,R.drawable.categorie_food,"RESTAURANTS & FOOD","Réstaurant"));
-        categs.add(new Categ(R.drawable.img3,R.drawable.categorie_parties,"LOUNGES, DISCOS & PARTIES","Discos"));
-        categs.add(new Categ(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE TIME","Caffées"));
-        categs.add(new Categ(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS, THEATRES & FESTIVALS","Cinémas"));
-        categs.add(new Categ(R.drawable.img6,R.drawable.categorie_mind,"MIND & BODY","Centres"));
+        mSwipeView = (SwipePlaceHolderView)view.findViewById(R.id.swipeView);
 
-        recyclerView=(RecyclerView)view.findViewById(R.id.rv_categorie);
-        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(lm);
-        CategorieAdapter categorieAdapter=new CategorieAdapter(getActivity(),categs);
-        recyclerView.setAdapter(categorieAdapter);
+        mSwipeView.getBuilder()
+                .setDisplayViewCount(3)
+                .setSwipeDecor(new SwipeDecor()
+                        .setPaddingTop(20)
+                        .setRelativeScale(0.01f)
+                        .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
+                        .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
-        return view;
+
+        for(Post post : posts){
+            mSwipeView.addView(new TinderCard(getActivity(), post, mSwipeView));
+
+        }
+
+        view.findViewById(R.id.btnDislike).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(false);
+
+
+
+            }
+        });
+
+        view.findViewById(R.id.btnLike).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(true);
+
+            }
+        });
+
+
+        return  view;
+
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

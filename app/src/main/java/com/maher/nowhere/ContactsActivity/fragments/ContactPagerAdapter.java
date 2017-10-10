@@ -1,10 +1,8 @@
-package com.maher.nowhere.mainActivity.fragments;
+package com.maher.nowhere.ContactsActivity.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.maher.nowhere.R;
 
 /**
  * Created by RaniaH on 08/10/2017.
@@ -23,13 +21,13 @@ public class ContactPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                Amis amis = new Amis();
+                AmisFragment amis = new AmisFragment();
                 return amis;
             case 1:
-                Invitations invitations = new Invitations();
+                InvitationsFragment invitations = new InvitationsFragment();
                 return invitations;
             case 2:
-                Suggestions suggestions = new Suggestions();
+                SuggestionsFragment suggestions = new SuggestionsFragment();
                 return suggestions;
             default:
                 return null;
