@@ -1,35 +1,39 @@
-package com.maher.nowhere.ContactsActivity;
+package com.maher.nowhere.ProfileActivity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.maher.nowhere.ProfileActivity.fragments.ProfilePagerAdapter;
 import com.maher.nowhere.R;
-import com.maher.nowhere.ContactsActivity.fragments.ContactPagerAdapter;
 
-public class ContactActivity extends AppCompatActivity {
+import static com.maher.nowhere.R.id.pagerProfile;
+
+
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        setContentView(R.layout.activity_profile);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Mes Amis"));
-        tabLayout.addTab(tabLayout.newTab().setText("Invitations"));
-        tabLayout.addTab(tabLayout.newTab().setText("Suggestions"));
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabbLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Ma page"));
+        tabLayout.addTab(tabLayout.newTab().setText("Mes réservations"));
+        tabLayout.addTab(tabLayout.newTab().setText("Favoris"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        final ContactPagerAdapter cadapter = new ContactPagerAdapter(getSupportFragmentManager(), 3);
-        viewPager.setAdapter(cadapter);
+        final ViewPager viewPager = (ViewPager) findViewById(pagerProfile);
+        final ProfilePagerAdapter profileAdapter = new ProfilePagerAdapter(getSupportFragmentManager(), 3);
+        viewPager.setAdapter(profileAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
@@ -42,8 +46,5 @@ public class ContactActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
-
 }

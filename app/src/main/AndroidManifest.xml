@@ -36,11 +36,12 @@
         <activity android:name=".SearchActivity.SearchActivity" />
         <activity android:name=".SearchDetailActivity.SearchDetailActivity" />
         <activity android:name=".MapActivity.MapActivity" />
-        <activity android:name=".reservationActivity.ReservationActivity"></activity>
+        <activity android:name=".reservationActivity.ReservationActivity" />
         <activity android:name=".SearchActivity.SearchActivity" />
-        <activity android:name=".ContactsActivity.ContactActivity"
-            android:exported="true">
-        </activity>
+        <activity
+            android:name=".ContactsActivity.ContactActivity"
+            android:exported="true"></activity>
+        <activity android:name=".ProfileActivity.ProfileActivity"></activity>
     </application>
 
 </manifest>
