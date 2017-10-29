@@ -48,7 +48,6 @@ public class AmisAdapter extends RecyclerView.Adapter<AmisAdapter.RecycleView_Ho
         holder.img_suppAmis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // taw ba3ed hethi ne5dmouha supprime
             }
         });
 
