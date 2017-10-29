@@ -7,7 +7,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.maher.nowhere.R;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
@@ -39,6 +41,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        MarkerOptions options = new MarkerOptions();
+        options.position(new LatLng(36.8558515, 10.1429342));
+        googleMap.addMarker(options);
+
+        MarkerOptions opt = new MarkerOptions();
+        opt.position(new LatLng(36.8629936, 10.1659368));
+        googleMap.addMarker(opt);
+
+        MarkerOptions opt1 = new MarkerOptions();
+        opt1.position(new LatLng(36.8629936, 10.1659368));
+        googleMap.addMarker(opt1);
+
+        MarkerOptions opt2 = new MarkerOptions();
+        opt2.position(new LatLng(36.8629936, 10.1659368));
+        googleMap.addMarker(opt2);
 
     }
 }
