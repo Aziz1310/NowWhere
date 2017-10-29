@@ -9,4 +9,6 @@
     <color name="white">#ffffff</color>
     <color name="tab_indocator">#7a7878</color>
     <color name="colorAccentBright">#BB7D4B</color>
+    <color name="colorBlackTransparent">#e8161616</color>
+    <color name="colorGrey">#e81b1b1b</color>
 </resources>
