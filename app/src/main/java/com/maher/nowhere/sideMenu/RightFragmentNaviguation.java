@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.ContactsActivity.ContactActivity;
+import com.maher.nowhere.ContactsActivity.ContactActivity;
+import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.utiles.RecyclerItemClickListener;
 
@@ -53,6 +55,7 @@ public class RightFragmentNaviguation extends Fragment {
                 switch (position){
                     case 0:
                         getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
+                      getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
                         getActivity().onBackPressed();
                         break;
 
