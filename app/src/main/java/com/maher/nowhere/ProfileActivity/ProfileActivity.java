@@ -1,17 +1,25 @@
 package com.maher.nowhere.ProfileActivity;
 
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
+import com.maher.nowhere.ProfileActivity.fragments.FavorisFragment;
+import com.maher.nowhere.ProfileActivity.fragments.PageFragment;
 import com.maher.nowhere.ProfileActivity.fragments.ProfilePagerAdapter;
+import com.maher.nowhere.ProfileActivity.fragments.ReservationsFragment;
 import com.maher.nowhere.R;
 
 import static com.maher.nowhere.R.id.pagerProfile;
 
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements PageFragment.OnFragmentInteractionListener,
+        FavorisFragment.OnFragmentInteractionListener,ReservationsFragment.OnFragmentInteractionListener{
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,5 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

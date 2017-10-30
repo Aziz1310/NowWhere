@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
+import com.maher.nowhere.model.Post;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +36,11 @@ public class PageFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
+    private ArrayList<Post> posts;
+
 
     public PageFragment() {
         // Required empty public constructor
@@ -65,7 +77,20 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page, container, false);
+        view= inflater.inflate(R.layout.fragment_page, container, false);
+        recyclerView=view.findViewById(R.id.rv_acceuil);
+        posts=new ArrayList<>();
+        posts.add(new Post());
+        posts.add(new Post());
+        posts.add(new Post());
+
+        lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
+        AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setAdapter(acceuilAdapter);
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

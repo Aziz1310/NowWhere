@@ -81,7 +81,7 @@ public class AccueilFragment extends Fragment {
 
         view=inflater.inflate(R.layout.fragment_accueil, container, false);
         recyclerView=view.findViewById(R.id.rv_acceuil);
-        posts=new ArrayList<Post>();
+        posts=new ArrayList<>();
         posts.add(new Post());
         posts.add(new Post());
         posts.add(new Post());
@@ -95,11 +95,7 @@ public class AccueilFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

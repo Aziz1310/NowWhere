@@ -2,11 +2,18 @@ package com.maher.nowhere.ContactsActivity.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.maher.nowhere.ContactsActivity.adapters.AmisAdapter;
+import com.maher.nowhere.ContactsActivity.adapters.InvitationAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Friend;
+
+import java.util.ArrayList;
 
 
 public class InvitationsFragment extends Fragment {
@@ -18,7 +25,10 @@ public class InvitationsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<Friend> amis;
+    private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
 
 
     public InvitationsFragment() {
@@ -56,7 +66,23 @@ public class InvitationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_invitations, container, false);
+        view=inflater.inflate(R.layout.fragment_invitations, container, false);
+
+        amis = new ArrayList<>();
+        amis.add(new Friend(R.drawable.profile_image,"Lili kiwi","Last seen 12 minutes ago"));
+        amis.add(new Friend(R.drawable.profile_img1,"Bilel Dunup","Online"));
+        amis.add(new Friend(R.drawable.profile_image,"Oumaima Hendi","Offline"));
+        amis.add(new Friend(R.drawable.profile_img1,"Selima Ta7et ma9ametch","Offline"));
+        amis.add(new Friend(R.drawable.profile_image,"Intissar Sim salapim","Online"));
+        amis.add(new Friend(R.drawable.profile_img1,"Lassaad ma3andouch zhar","Online"));
+
+        InvitationAdapter amisAdapter=new InvitationAdapter(getActivity(),amis);
+        recyclerView=(RecyclerView)view.findViewById(R.id.rv_amis);
+        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setAdapter(amisAdapter);
+        recyclerView.setLayoutManager(lm);
+
+        return view;
     }
 
 

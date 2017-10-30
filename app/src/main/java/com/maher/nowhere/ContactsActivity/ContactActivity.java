@@ -4,6 +4,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.maher.nowhere.R;
 import com.maher.nowhere.ContactsActivity.fragments.ContactPagerAdapter;
@@ -14,6 +18,9 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+
+
+        setUpToolbar();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Mes Amis"));
@@ -43,6 +50,27 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void setUpToolbar(){
+        Toolbar toolbar;
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        TextView title=toolbar.findViewById(R.id.toolbarTitle);
+        title.setText("Map");
+        ImageView btnBack=toolbar.findViewById(R.id.toolbarBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
 

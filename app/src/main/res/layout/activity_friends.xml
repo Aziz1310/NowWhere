@@ -14,16 +14,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="16dp"
-            android:clipToPadding="true">
+            android:clipToPadding="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp">
 
-            <RelativeLayout
+            <ImageView
                 android:id="@+id/relativeLayoutP"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:orientation="horizontal"
-                android:background="@drawable/signup_image">
+                android:src="@drawable/signup_image"
+                android:scaleType="centerCrop"
+                />
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_alignParentTop="true"
+                android:layout_margin="16dp" />
 
-            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,40 +48,31 @@
                     android:id="@+id/imageProfile"
                     android:src="@drawable/profile_image"/>
             </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="150dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageAdd"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginTop="165dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="22dp"
                     android:layout_marginStart="22dp"
-                    android:src="@drawable/icon_signup_name"/>
+                    android:src="@drawable/profile_icon_add"/>
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="150dp">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginTop="165dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="22dp"
                     android:layout_marginLeft="22dp"
                     android:id="@+id/imageChat"
-                    android:src="@drawable/icon_chat"/>
+                    android:src="@drawable/profile_icon_chat"/>
 
-            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/profileForm"
                 android:layout_width="match_parent"
@@ -83,9 +85,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,11 +97,11 @@
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat"/>
 
-                </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
 
                     <TextView
                         android:id="@+id/textView"
@@ -119,30 +119,30 @@
                         android:id="@+id/circleImageView"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:layout_toEndOf="@+id/textView"
                         android:layout_toRightOf="@+id/textView"
-                        android:src="@drawable/signup_image" />
+                        android:src="@drawable/profile_img1" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/circleImageView2"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:layout_toEndOf="@+id/circleImageView"
                         android:layout_toRightOf="@+id/circleImageView"
-                        android:src="@drawable/signup_image" />
+                        android:src="@drawable/profile_img1" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:layout_toEndOf="@+id/circleImageView2"
                         android:layout_toRightOf="@+id/circleImageView2"
-                        android:src="@drawable/signup_image"
+                        android:src="@drawable/profile_img1"
                         android:id="@+id/circleImageView6" />
 
                     <ImageView
@@ -159,7 +159,10 @@
                         android:id="@+id/textView3"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+
                         android:gravity="center"
+                        android:textColor="@color/colorGreyText"
+                        android:textStyle="bold"
                         android:text="+179"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/circleImageView6"/>
@@ -189,7 +192,7 @@
                         android:layout_height="50dp"
                         android:layout_marginLeft="15dp"
                         android:src="@drawable/signup_image"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/textView2"
                         android:layout_toEndOf="@+id/textView2"
                         android:id="@+id/circleImageView3" />
@@ -197,7 +200,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/signup_image"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/circleImageView3"
                         android:layout_toEndOf="@+id/circleImageView3"
@@ -207,7 +210,7 @@
                         android:layout_height="50dp"
                         android:layout_marginLeft="15dp"
                         android:src="@drawable/signup_image"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/circleImageView4"
                         android:layout_toEndOf="@+id/circleImageView4"
                         android:id="@+id/circleImageView5" />
@@ -225,7 +228,8 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_alignLeft="@+id/imageView2"
-                        android:layout_alignParentTop="true"
+                        android:textColor="@color/colorGreyText"
+                        android:textStyle="bold"
                         android:gravity="center"
                         android:layout_alignStart="@+id/imageView2"
                         android:text="+79" />
@@ -239,6 +243,8 @@
                     android:layout_marginTop="30dp"
                     android:background="@drawable/background_button"
                     android:text="Follow"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:textColor="@color/white"/>
 
             </LinearLayout>

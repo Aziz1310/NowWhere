@@ -8,5 +8,6 @@
     <string name="drawer_open">ffd</string>
     <string name="drawer_close">ff</string>
     <string name="restaurants_food"><![CDATA[Restaurants & food]]></string>
+    <string name="map_string"><![CDATA[Comptoir à cocktails-Bar à vin-Shooters Restaurants & Tapas-Dj Set-Musique Live]]></string>
 
 </resources>

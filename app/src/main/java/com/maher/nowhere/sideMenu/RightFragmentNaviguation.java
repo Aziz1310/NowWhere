@@ -55,8 +55,9 @@ public class RightFragmentNaviguation extends Fragment {
                 switch (position){
                     case 0:
                         getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
-                      getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
-                        getActivity().onBackPressed();
+                        break;
+                    case 3:
+                        getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
                         break;
 
                     default:
@@ -102,7 +103,6 @@ public class RightFragmentNaviguation extends Fragment {
             }
         });
     }
-
 
 
 
