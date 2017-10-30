@@ -4,28 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.R;
-import com.maher.nowhere.SearchActivity.adapter.SearchAdapter;
-import com.maher.nowhere.model.Search;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FavorisFragment.OnFragmentInteractionListener} interface
+ * {@link PhotosFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FavorisFragment#newInstance} factory method to
+ * Use the {@link PhotosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavorisFragment extends Fragment {
+public class PhotosFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,15 +27,10 @@ public class FavorisFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Search> lsearch;
-    private View view;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager lm;
-
 
     private OnFragmentInteractionListener mListener;
 
-    public FavorisFragment() {
+    public PhotosFragment() {
         // Required empty public constructor
     }
 
@@ -55,8 +43,8 @@ public class FavorisFragment extends Fragment {
      * @return A new instance of fragment FavorisFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavorisFragment newInstance(String param1, String param2) {
-        FavorisFragment fragment = new FavorisFragment();
+    public static PhotosFragment newInstance(String param1, String param2) {
+        PhotosFragment fragment = new PhotosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,20 +65,7 @@ public class FavorisFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_favoris, container, false);
-        lsearch = new ArrayList<>();
-        lsearch.add(new Search(R.drawable.image,"23","09","2017","BYE BYE SUMMER", "Carpe Dieam"));
-        lsearch.add(new Search(R.drawable.img3,"11","09","2017","FIESTA GITANA", "Yuka"));
-        lsearch.add(new Search(R.drawable.img1,"22","09","2017","SABRI MOSBAH", "Sabri"));
-        lsearch.add(new Search(R.drawable.img2,"31","2","2017","SABRI MOSBAH", "Sabri"));
-        lsearch.add(new Search(R.drawable.img4,"19","09","2017","SABRI MOSBAH", "Sabri"));
-
-        recyclerView=(RecyclerView)view.findViewById(R.id.rv_search);
-        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(lm);
-        SearchAdapter searchAdapter = new SearchAdapter(getActivity(), lsearch);
-        recyclerView.setAdapter(searchAdapter);
-        return view;
+        return inflater.inflate(R.layout.fragment_favoris, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

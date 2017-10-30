@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.maher.nowhere.ProfileActivity.fragments.FavorisFragment;
 import com.maher.nowhere.ProfileActivity.fragments.PageFragment;
+import com.maher.nowhere.ProfileActivity.fragments.PhotosFragment;
 import com.maher.nowhere.ProfileActivity.fragments.ProfilePagerAdapter;
 import com.maher.nowhere.ProfileActivity.fragments.ReservationsFragment;
 import com.maher.nowhere.R;
@@ -17,7 +18,8 @@ import static com.maher.nowhere.R.id.pagerProfile;
 
 
 public class ProfileActivity extends AppCompatActivity implements PageFragment.OnFragmentInteractionListener,
-        FavorisFragment.OnFragmentInteractionListener,ReservationsFragment.OnFragmentInteractionListener{
+        FavorisFragment.OnFragmentInteractionListener,ReservationsFragment.OnFragmentInteractionListener,
+        PhotosFragment.OnFragmentInteractionListener{
 
     Toolbar toolbar;
 
@@ -28,13 +30,14 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabbLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Ma page"));
+        tabLayout.addTab(tabLayout.newTab().setText("Photos"));
         tabLayout.addTab(tabLayout.newTab().setText("Mes réservations"));
         tabLayout.addTab(tabLayout.newTab().setText("Favoris"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
         final ViewPager viewPager = (ViewPager) findViewById(pagerProfile);
-        final ProfilePagerAdapter profileAdapter = new ProfilePagerAdapter(getSupportFragmentManager(), 3);
+        final ProfilePagerAdapter profileAdapter = new ProfilePagerAdapter(getSupportFragmentManager(), 4);
         viewPager.setAdapter(profileAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

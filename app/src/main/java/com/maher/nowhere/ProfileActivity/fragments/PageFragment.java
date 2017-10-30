@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.maher.nowhere.R;
@@ -40,6 +42,8 @@ public class PageFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
     private ArrayList<Post> posts;
+    private EditText etComment;
+    private ImageView imgGalerie;
 
 
     public PageFragment() {
@@ -78,6 +82,8 @@ public class PageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_page, container, false);
+        etComment=view.findViewById(R.id.etComment);
+        imgGalerie=view.findViewById(R.id.imageView4);
         recyclerView=view.findViewById(R.id.rv_acceuil);
         posts=new ArrayList<>();
         posts.add(new Post());

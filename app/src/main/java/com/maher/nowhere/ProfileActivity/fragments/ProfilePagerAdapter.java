@@ -23,9 +23,12 @@ public class ProfilePagerAdapter extends FragmentStatePagerAdapter {
                 PageFragment page = new PageFragment();
                 return page;
             case 1:
+                PhotosFragment photosFragment = new PhotosFragment();
+                return photosFragment;
+            case 2:
                 ReservationsFragment reservations = new ReservationsFragment();
                 return  reservations;
-            case 2:
+            case 3:
                 FavorisFragment favoris = new FavorisFragment();
                 return favoris;
             default:
