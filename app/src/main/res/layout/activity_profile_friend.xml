@@ -52,8 +52,8 @@
             android:textSize="20sp"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:layout_below="@+id/reLayout"
-            android:layout_toRightOf="@+id/imgFriend"
-            android:layout_toEndOf="@+id/imgFriend"
+            android:layout_toRightOf="@+id/pfreindImg"
+            android:layout_toEndOf="@+id/pfreindImg"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"/>
 
@@ -66,8 +66,8 @@
             android:textColor="@color/colorGreyText"
             android:textStyle="bold"
             android:layout_below="@+id/nomFriendProfile"
-            android:layout_toRightOf="@+id/imgFriend"
-            android:layout_toEndOf="@+id/imgFriend"
+            android:layout_toRightOf="@+id/pfreindImg"
+            android:layout_toEndOf="@+id/pfreindImg"
             android:id="@+id/lieuFriend"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"/>
@@ -78,7 +78,7 @@
             android:id="@+id/layoutTab"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/imgFriend"
+            android:layout_below="@+id/pfreindImg"
             android:layout_marginTop="16dp"
             app:tabMode="fixed"
             app:tabGravity="fill"
