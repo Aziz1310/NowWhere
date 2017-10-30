@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        tools:context="com.maher.nowhere.ProfileFriendActivity.ProfileFriendActivity">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:background="@drawable/signup_image"
+            android:id="@+id/reLayout">
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:src="@drawable/signup_hello"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/pfreindImg"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="-60dp"
+            android:layout_below="@+id/reLayout">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/imgFriend"
+                android:src="@drawable/profile_image"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nomFriendProfile"
+            android:text="Anouar Berhouma"
+            android:textColor="@color/colorAccentBright"
+            android:textSize="20sp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:layout_below="@+id/reLayout"
+            android:layout_toRightOf="@+id/imgFriend"
+            android:layout_toEndOf="@+id/imgFriend"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Morneg"
+            android:textSize="13sp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorGreyText"
+            android:textStyle="bold"
+            android:layout_below="@+id/nomFriendProfile"
+            android:layout_toRightOf="@+id/imgFriend"
+            android:layout_toEndOf="@+id/imgFriend"
+            android:id="@+id/lieuFriend"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/layoutTab"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imgFriend"
+            android:layout_marginTop="16dp"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            android:background="@drawable/tab_background_black"
+            app:tabIndicatorHeight="4dp">
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/pagerFriendProfile"
+            android:layout_below="@+id/layoutTab"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+</ScrollView>
