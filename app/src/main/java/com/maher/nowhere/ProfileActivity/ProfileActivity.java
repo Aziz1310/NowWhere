@@ -23,7 +23,7 @@ import static com.maher.nowhere.R.id.pagerProfile;
 
 public class ProfileActivity extends AppCompatActivity implements PageFragment.OnFragmentInteractionListener,
         FavorisFragment.OnFragmentInteractionListener,ReservationsFragment.OnFragmentInteractionListener,
-        PhotosFragment.OnFragmentInteractionListener{
+        com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment.OnFragmentInteractionListener{
 
     Toolbar toolbar;
 

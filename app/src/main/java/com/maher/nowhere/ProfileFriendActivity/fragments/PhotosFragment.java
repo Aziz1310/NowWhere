@@ -81,12 +81,15 @@ public class PhotosFragment extends Fragment {
         view=inflater.inflate(R.layout.fragment_photos, container, false);
         recyclerView=view.findViewById(R.id.rv_photo);
         photo = new ArrayList<>();
-        photo.add(new Photo());
-        photo.add(new Photo());
-        photo.add(new Photo());
+        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
+
 
         PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), photo);
-        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         recyclerView.setAdapter(photosAdapter);
 
         return view;
