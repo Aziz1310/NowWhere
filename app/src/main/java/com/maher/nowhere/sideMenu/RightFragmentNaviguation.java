@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.maher.nowhere.ContactsActivity.ContactActivity;
 import com.maher.nowhere.ContactsActivity.ContactActivity;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
+import com.maher.nowhere.ProfileFriendActivity.ProfileFriendActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.utiles.RecyclerItemClickListener;
 
