@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.maher.nowhere.ProfileFriendActivity.fragments.AmisFriendFragment;
 import com.maher.nowhere.ProfileFriendActivity.fragments.MurFragment;
@@ -57,6 +58,14 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         });
     }
 
+    private void setUpToolbar() {
+        Toolbar toolbar;
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+    }
+
     private void dummyData() {
         murs = new ArrayList<>();
         murs.add(new Mur(R.drawable.image));
@@ -67,5 +76,16 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
