@@ -26,26 +26,13 @@
     android:orientation="horizontal"
     android:weightSum="2"
     android:gravity="center">
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3">
-        <ImageView
-            android:id="@+id/toolbarBack"
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back"
-            android:layout_alignParentTop="true"
-            android:tint="@color/white"
-            android:layout_marginLeft="16dp" />
 
-    </RelativeLayout>
 
 
     <TextView
         android:id="@+id/toolbarTitle"
         android:layout_width="0dp"
-        android:layout_weight="1.4"
+        android:layout_weight="1.7"
         android:layout_height="30dp"
         android:text="Contacts"
         android:textColor="@color/white"

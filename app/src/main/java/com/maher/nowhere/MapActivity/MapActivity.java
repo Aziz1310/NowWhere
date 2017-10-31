@@ -47,18 +47,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        } catch (NullPointerException ignore) {
+        }
         TextView title=toolbar.findViewById(R.id.toolbarTitle);
         title.setText("Map");
-        ImageView btnBack=toolbar.findViewById(R.id.toolbarBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
+    }
+
 
 
     @Override
@@ -97,13 +99,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.addMarker(opt);
 
         MarkerOptions opt1 = new MarkerOptions();
-        opt1.position(new LatLng(36.8629800, 10.1659399))
+        opt1.position(new LatLng(36.7629800, 10.1659399))
         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker1))
         .anchor(0.5f,1);
         googleMap.addMarker(opt1);
 
         MarkerOptions opt2 = new MarkerOptions();
-        opt2.position(new LatLng(36.8629936, 10.1659368)).icon(BitmapDescriptorFactory.fromBitmap(smallMarker1));
+        opt2.position(new LatLng(36.8649936, 10.1659368)).icon(BitmapDescriptorFactory.fromBitmap(smallMarker1));
         googleMap.addMarker(opt2);
 
 

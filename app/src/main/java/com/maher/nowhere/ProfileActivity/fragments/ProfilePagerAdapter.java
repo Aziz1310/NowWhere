@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.maher.nowhere.ProfileFriendActivity.fragments.*;
+
 /**
  * Created by RaniaH on 11/10/2017.
  */
@@ -23,7 +25,7 @@ public class ProfilePagerAdapter extends FragmentStatePagerAdapter {
                 PageFragment page = new PageFragment();
                 return page;
             case 1:
-                PhotosFragment photosFragment = new PhotosFragment();
+                com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment photosFragment = new com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment();
                 return photosFragment;
             case 2:
                 ReservationsFragment reservations = new ReservationsFragment();

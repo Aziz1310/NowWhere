@@ -10,9 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maher.nowhere.MapActivity.MapActivity;
+import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.SearchActivity.SearchActivity;
+import com.maher.nowhere.mainActivity.MainActivity;
 import com.maher.nowhere.model.Categorie;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CategoriesDetailActivity extends AppCompatActivity {
 
@@ -29,10 +33,8 @@ public class CategoriesDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories_detail);
+setuptoolbar();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         categ=(Categorie) getIntent().getSerializableExtra("categorie");
         tvName=(TextView)findViewById(R.id.tvTitle);
@@ -62,6 +64,27 @@ public class CategoriesDetailActivity extends AppCompatActivity {
             }
         });
     }
+    private void setuptoolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }catch (NullPointerException ignore){}
+
+
+        CircleImageView profile=(CircleImageView)toolbar.findViewById(R.id.toolbarProfileImg);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoriesDetailActivity.this, ProfileActivity.class));
+            }
+        });
+
+    }
+
+
+
     @Override
     public boolean onSupportNavigateUp(){
         onBackPressed();

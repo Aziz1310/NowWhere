@@ -37,6 +37,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.RecycleVie
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
         Photo photo = photos.get(position);
+        holder.img.setImageResource(photo.getImage());
     }
 
     @Override

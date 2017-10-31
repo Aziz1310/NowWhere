@@ -12,87 +12,101 @@
         android:id="@+id/bb">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="top"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        app:layout_collapseMode="parallax"
-        tools:context="com.maher.nowhere.ProfileActivity.ProfileActivity">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/signup_image"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:src="@drawable/signup_hello" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlimg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/relativeLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="-60dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/profile_image" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/nomProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayout"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/rlimg"
-            android:layout_toRightOf="@+id/rlimg"
-            android:text="Zeinab Azzabi"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/colorAccentBright"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/nomProfile"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/rlimg"
-            android:layout_toRightOf="@+id/rlimg"
-            android:text="Friends"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/colorGreyText"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                app:layout_collapseMode="parallax"
+                tools:context="com.maher.nowhere.ProfileActivity.ProfileActivity">
 
 
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/signup_image"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:src="@drawable/signup_hello" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/relativeLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="-60dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/profile_image" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/nomProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toEndOf="@+id/rlimg"
+                    android:layout_toRightOf="@+id/rlimg"
+                    android:text="Zeinab Azzabi"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/colorAccentBright"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nomProfile"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toEndOf="@+id/rlimg"
+                    android:layout_toRightOf="@+id/rlimg"
+                    android:text="Friends"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
 
-    </RelativeLayout>
+            </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

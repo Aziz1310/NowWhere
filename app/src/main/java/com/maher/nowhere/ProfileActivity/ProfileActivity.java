@@ -1,11 +1,15 @@
 package com.maher.nowhere.ProfileActivity;
 
 import android.net.Uri;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.maher.nowhere.ProfileActivity.fragments.FavorisFragment;
 import com.maher.nowhere.ProfileActivity.fragments.PageFragment;
@@ -19,7 +23,7 @@ import static com.maher.nowhere.R.id.pagerProfile;
 
 public class ProfileActivity extends AppCompatActivity implements PageFragment.OnFragmentInteractionListener,
         FavorisFragment.OnFragmentInteractionListener,ReservationsFragment.OnFragmentInteractionListener,
-        PhotosFragment.OnFragmentInteractionListener{
+        com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment.OnFragmentInteractionListener{
 
     Toolbar toolbar;
 
@@ -27,6 +31,8 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        setUpToolbar();
+        collapsingToolbar();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabbLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Ma page"));
@@ -57,6 +63,30 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
 
             }
         });
+    }
+    private void setUpToolbar(){
+        Toolbar toolbar;
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+    }
+    private void collapsingToolbar(){
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle("Zeinab Azzabi");
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
