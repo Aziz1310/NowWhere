@@ -37,15 +37,15 @@
         <activity android:name=".SearchDetailActivity.SearchDetailActivity" />
         <activity android:name=".MapActivity.MapActivity" />
         <activity android:name=".reservationActivity.ReservationActivity" />
-
         <activity
             android:name=".ContactsActivity.ContactActivity"
             android:exported="true" />
         <activity android:name=".ProfileActivity.ProfileActivity" />
         <activity android:name=".ProfileActivity.FriendsActivity" />
-        <activity android:name=".MapActivity.DetailMapActivity"
-            android:theme="@style/ThemeTransparent">
-        </activity>
+        <activity
+            android:name=".MapActivity.DetailMapActivity"
+            android:theme="@style/ThemeTransparent"></activity>
+        <activity android:name=".ProfileFriendActivity.ProfileFriendActivity"></activity>
     </application>
 
 </manifest>
