@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.maher.nowhere.ProfileFriendActivity.adapter.MurAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Mur;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,12 +28,16 @@ import com.maher.nowhere.R;
 public class MurFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "viewPager";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+
     private String mParam2;
+    private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
+    private ArrayList<Mur> mur;
 
     private OnFragmentInteractionListener mListener;
 
@@ -56,7 +67,6 @@ public class MurFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -65,7 +75,19 @@ public class MurFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mur, container, false);
+        view=inflater.inflate(R.layout.fragment_mur, container, false);
+        recyclerView=view.findViewById(R.id.rv_mur);
+        mur=new ArrayList<>();
+        mur.add(new Mur());
+        mur.add(new Mur());
+        mur.add(new Mur());
+
+        lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
+        MurAdapter murAdapter = new MurAdapter(getActivity(),mur);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setAdapter(murAdapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

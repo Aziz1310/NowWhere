@@ -11,16 +11,22 @@ import com.maher.nowhere.ProfileFriendActivity.fragments.MurFragment;
 import com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment;
 import com.maher.nowhere.ProfileFriendActivity.fragments.ProfileFriendPagerAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Mur;
+
+import java.util.ArrayList;
 
 import static com.maher.nowhere.R.id.pagerFriendProfile;
 
 public class ProfileFriendActivity extends AppCompatActivity implements MurFragment.OnFragmentInteractionListener,
         PhotosFragment.OnFragmentInteractionListener, AmisFriendFragment.OnFragmentInteractionListener {
 
+    ArrayList<Mur> murs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_friend);
+        dummyData();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.layoutTab);
         tabLayout.addTab(tabLayout.newTab().setText("Mur"));
@@ -49,6 +55,13 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
 
             }
         });
+    }
+
+    private void dummyData() {
+        murs = new ArrayList<>();
+        murs.add(new Mur(R.drawable.image));
+        murs.add(new Mur(R.drawable.signup_image));
+        murs.add(new Mur(R.drawable.gg));
     }
 
     @Override
