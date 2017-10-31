@@ -13,6 +13,7 @@ import com.maher.nowhere.R;
 import com.maher.nowhere.ContactsActivity.fragments.ContactPagerAdapter;
 
 public class ContactActivity extends AppCompatActivity {
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,22 +52,25 @@ public class ContactActivity extends AppCompatActivity {
         });
 
     }
-    private void setUpToolbar(){
-        Toolbar toolbar;
+
+    private void setUpToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TextView title=toolbar.findViewById(R.id.toolbarTitle);
-        title.setText("Map");
-        ImageView btnBack=toolbar.findViewById(R.id.toolbarBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        } catch (NullPointerException ignore) {
+        }
+        TextView title = toolbar.findViewById(R.id.toolbarTitle);
+        title.setText("Contacts");
 
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
+    }
+
 
     @Override
     public void onBackPressed() {

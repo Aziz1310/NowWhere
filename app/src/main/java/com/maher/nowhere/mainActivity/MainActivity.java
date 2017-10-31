@@ -1,5 +1,6 @@
 package com.maher.nowhere.mainActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.mainActivity.fragments.AccueilFragment;
 import com.maher.nowhere.mainActivity.fragments.CategoriesFragment;
 import com.maher.nowhere.R;
@@ -20,6 +23,8 @@ import com.maher.nowhere.model.Post;
 import com.maher.nowhere.utiles.SwipeViewPager;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements WeeklikFragment.OnFragmentInteractionListener,
         AccueilFragment.OnFragmentInteractionListener
@@ -41,10 +46,7 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        setupToolbar();
         setupDrawerToggle();
 
 
@@ -81,6 +83,24 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
 
             }
         });
+    }
+
+    private void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }catch (NullPointerException ignore){}
+
+        CircleImageView profile=(CircleImageView)toolbar.findViewById(R.id.toolbarProfileImg);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+            }
+        });
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.maher.nowhere.SearchActivity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,11 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.SearchActivity.adapter.SearchAdapter;
+import com.maher.nowhere.mainActivity.MainActivity;
 import com.maher.nowhere.model.Search;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -29,9 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setupToolbar();
 
 
         lsearch = new ArrayList<>();
@@ -46,6 +49,24 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(lm);
         SearchAdapter searchAdapter = new SearchAdapter(this, lsearch);
         recyclerView.setAdapter(searchAdapter);
+
+    }
+    private void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }catch (NullPointerException ignore){}
+
+
+        CircleImageView profile=(CircleImageView)toolbar.findViewById(R.id.toolbarProfileImg);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SearchActivity.this, ProfileActivity.class));
+            }
+        });
 
     }
 
@@ -65,4 +86,6 @@ public class SearchActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+
+
 }

@@ -25,10 +25,14 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Marker;
+import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.MainActivity;
 import com.maher.nowhere.reservationActivity.ReservationActivity;
 import com.maher.nowhere.utiles.BitmapUtils;
 import com.maher.nowhere.utiles.ShadowLayout;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchDetailActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
         GoogleMap.OnMarkerClickListener{
@@ -58,13 +62,12 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_detail);
+        setupToolbar();
         mShadowLayout = (ShadowLayout) findViewById(R.id.shadowLayout);
         mImageView = (ImageView) findViewById(R.id.img1);
         btnIgo = (ImageView) findViewById(R.id.btnIGo);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Bundle bundle = getIntent().getExtras();
         Bitmap bitmap = BitmapUtils.getBitmap(getResources(),
@@ -125,6 +128,23 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
         });
 
 
+
+    }
+    private void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        }catch (NullPointerException ignore){}
+
+        CircleImageView profile=(CircleImageView)toolbar.findViewById(R.id.toolbarProfileImg);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SearchDetailActivity.this, ProfileActivity.class));
+            }
+        });
 
     }
 
