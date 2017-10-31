@@ -35,6 +35,7 @@ public class PhotosFragment extends Fragment {
     // TODO: Rename and change types of parameters
 
     private String mParam2;
+    private Context mContext;
     private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
@@ -85,7 +86,7 @@ public class PhotosFragment extends Fragment {
         photo.add(new Photo());
 
         PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), photo);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         recyclerView.setAdapter(photosAdapter);
 
         return view;
