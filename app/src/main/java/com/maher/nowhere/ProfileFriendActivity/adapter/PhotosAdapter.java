@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.Photo;
+import com.maher.nowhere.utiles.EqualWidthAndHeightView;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.RecycleVie
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
         Photo photo = photos.get(position);
+       // holder.img.setMaxHeight(holder.img.getWidth());
         holder.img.setImageResource(photo.getImage());
+
     }
 
     @Override
@@ -45,10 +48,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.RecycleVie
         return (null != photos ? photos.size():0);
     }
 
-
     class RecycleView_Holder extends RecyclerView.ViewHolder{
 
-        final ImageView img;
+        final EqualWidthAndHeightView img;
         public RecycleView_Holder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.img_photo);

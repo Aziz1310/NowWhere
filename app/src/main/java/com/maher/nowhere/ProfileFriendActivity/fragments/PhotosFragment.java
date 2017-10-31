@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.maher.nowhere.ProfileFriendActivity.adapter.PhotosAdapter;
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.Photo;
+import com.maher.nowhere.utiles.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
 
@@ -86,10 +87,16 @@ public class PhotosFragment extends Fragment {
         photo.add(new Photo(R.drawable.image));
         photo.add(new Photo(R.drawable.image));
         photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.image));
 
+        GridLayoutManager gl=new GridLayoutManager(mContext, 3);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, 2, false));
 
         PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), photo);
-        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
+        recyclerView.setLayoutManager(gl);
         recyclerView.setAdapter(photosAdapter);
 
         return view;

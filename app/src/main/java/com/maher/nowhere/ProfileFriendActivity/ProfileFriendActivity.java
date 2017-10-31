@@ -27,6 +27,7 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_friend);
+        setUpToolbar();
         dummyData();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.layoutTab);
@@ -58,6 +59,7 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         });
     }
 
+
     private void setUpToolbar() {
         Toolbar toolbar;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -84,8 +86,10 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         return true;
     }
 
+
     @Override
     public void onBackPressed() {
         finish();
+
     }
 }

@@ -7,13 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.maher.nowhere.ProfileActivity.fragments.FavorisFragment;
 import com.maher.nowhere.ProfileActivity.fragments.PageFragment;
-import com.maher.nowhere.ProfileActivity.fragments.PhotosFragment;
 import com.maher.nowhere.ProfileActivity.fragments.ProfilePagerAdapter;
 import com.maher.nowhere.ProfileActivity.fragments.ReservationsFragment;
 import com.maher.nowhere.R;
