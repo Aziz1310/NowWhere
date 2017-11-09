@@ -17,6 +17,7 @@ import com.maher.nowhere.ContactsActivity.ContactActivity;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.ProfileFriendActivity.ProfileFriendActivity;
 import com.maher.nowhere.R;
+import com.maher.nowhere.RestaurantProfileActivity.RestaurantProfileActivity;
 import com.maher.nowhere.utiles.RecyclerItemClickListener;
 
 public class RightFragmentNaviguation extends Fragment {
@@ -59,6 +60,9 @@ public class RightFragmentNaviguation extends Fragment {
                         break;
                     case 1:
                         getActivity().startActivity(new Intent(getActivity(), ProfileFriendActivity.class));
+                        break;
+                    case 2:
+                        getActivity().startActivity(new Intent(getActivity(), RestaurantProfileActivity.class));
                         break;
                     case 3:
                         getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));

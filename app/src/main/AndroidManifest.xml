@@ -44,8 +44,9 @@
         <activity android:name=".ProfileActivity.FriendsActivity" />
         <activity
             android:name=".MapActivity.DetailMapActivity"
-            android:theme="@style/ThemeTransparent"></activity>
-        <activity android:name=".ProfileFriendActivity.ProfileFriendActivity"></activity>
+            android:theme="@style/ThemeTransparent" />
+        <activity android:name=".ProfileFriendActivity.ProfileFriendActivity" />
+        <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity"></activity>
     </application>
 
 </manifest>
