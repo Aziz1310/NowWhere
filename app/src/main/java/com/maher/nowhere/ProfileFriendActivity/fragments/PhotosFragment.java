@@ -82,18 +82,19 @@ public class PhotosFragment extends Fragment {
         view=inflater.inflate(R.layout.fragment_photos, container, false);
         recyclerView=view.findViewById(R.id.rv_photo);
         photo = new ArrayList<>();
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
-        photo.add(new Photo(R.drawable.image));
+        photo.add(new Photo(R.drawable.p1));
+        photo.add(new Photo(R.drawable.p2));
+        photo.add(new Photo(R.drawable.p3));
+        photo.add(new Photo(R.drawable.p4));
+        photo.add(new Photo(R.drawable.p5));
+        photo.add(new Photo(R.drawable.p6));
+        photo.add(new Photo(R.drawable.p7));
+        photo.add(new Photo(R.drawable.p8));
+        photo.add(new Photo(R.drawable.p9));
+        photo.add(new Photo(R.drawable.p1));
 
-        GridLayoutManager gl=new GridLayoutManager(mContext, 3);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, 2, false));
+        GridLayoutManager gl=new GridLayoutManager(mContext, 3,GridLayoutManager.VERTICAL,false);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, 4, false));
 
         PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), photo);
         recyclerView.setLayoutManager(gl);

@@ -1,6 +1,7 @@
 package com.maher.nowhere.ProfileFriendActivity;
 
 import android.net.Uri;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_friend);
         setUpToolbar();
+        collapsingToolbar();
         dummyData();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.layoutTab);
@@ -66,6 +68,12 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+    }
+    private void collapsingToolbar(){
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle("Zeinab Azzabi");
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
     }
 
     private void dummyData() {

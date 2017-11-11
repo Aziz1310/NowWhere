@@ -8,8 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorHint">@color/colorGreyText</item>
         <item name="drawerArrowStyle">@style/DrawerIconStyle</item>
-        <item name="colorControlNormal">@color/white</item>
 
+        <item name="android:windowContentTransitions">true</item>
+
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="DrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -23,6 +25,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="colorControlNormal">@color/white</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 

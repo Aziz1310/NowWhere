@@ -78,12 +78,12 @@ public class AmisFriendFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_amis_friend, container, false);
         amisFriends = new ArrayList<>();
-        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Lili","Last seen 12 minutes ago"));
-        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Bilel D","Online"));
-        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Oumaima H","Offline"));
-        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Selima T","Offline"));
-        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Intissar S","Online"));
-        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Lassaad","Online"));
+        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Lili","Last seen 12 minutes ago",true));
+        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Bilel D","Online",true));
+        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Oumaima H","Offline",false));
+        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Selima T","Offline",true));
+        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Intissar S","Online",false));
+        amisFriends.add(new AmisFriend(R.drawable.profile_image,"Lassaad","Online",false));
 
         FriendAdapter friendAdapter = new FriendAdapter(getActivity(), amisFriends);
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_friend);

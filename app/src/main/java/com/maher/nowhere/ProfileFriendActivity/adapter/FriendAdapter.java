@@ -38,9 +38,14 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.RecycleVie
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
         AmisFriend amisFriend = amisFriends.get(position);
-        holder.img_friendAmis.setImageResource(amisFriend.getProfileImage());
-        holder.tv_dispoFriend.setText(amisFriend.getNom());
+        holder.tv_dispoFriend.setText(amisFriend.getDisponibility());
         holder.tv_nameFriend.setText(amisFriend.getNom());
+
+        if(amisFriend.isStatus()==true)
+            holder.img_suppFriend.setImageResource(R.drawable.profile_add);
+        else
+            holder.img_suppFriend.setImageResource(R.drawable.profile_delete);
+
         holder.img_suppFriend.setOnClickListener(new View.OnClickListener(){
 
             @Override

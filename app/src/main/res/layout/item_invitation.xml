@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="2.5"
             android:orientation="vertical">
 
@@ -67,7 +68,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="left|center"
                     android:text="Accepter"
-                    android:textColor="@color/green_button"
+                    android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
 
                 <Button
@@ -91,6 +92,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:src="@drawable/divider_list" />
 </LinearLayout>
 

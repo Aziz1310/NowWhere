@@ -1,6 +1,7 @@
 package com.maher.nowhere.MapActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,11 +13,13 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.maher.nowhere.R;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -84,7 +87,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.icon_map_coffe);
         Bitmap b = bitmapdraw1.getBitmap();
-        final Bitmap smallMarker1 = Bitmap.createScaledBitmap(b, 70, 100, false);
+        final Bitmap smallMarker1 = Bitmap.createScaledBitmap(b, 40, 60, false);
+
+        try {
+            boolean success = googleMap.setMapStyle(
+
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.jsonstyle));
+
+            if (!success) {
+                Log.e("vv", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("vv", "Can't find style. Error: ", e);
+        }
 
         MarkerOptions options = new MarkerOptions();
         options.position(new LatLng(36.8558515, 10.1429342))
@@ -105,7 +121,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.addMarker(opt1);
 
         MarkerOptions opt2 = new MarkerOptions();
-        opt2.position(new LatLng(36.8649936, 10.1659368)).icon(BitmapDescriptorFactory.fromBitmap(smallMarker1));
+        opt2.position(new LatLng(36.8558515, 10.1429342)).icon(BitmapDescriptorFactory.fromBitmap(smallMarker1));
         googleMap.addMarker(opt2);
 
 

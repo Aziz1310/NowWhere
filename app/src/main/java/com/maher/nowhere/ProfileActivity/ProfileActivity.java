@@ -69,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
     }
     private void collapsingToolbar(){
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle("Zeinab Azzabi");
+        collapsingToolbarLayout.setTitle("Anouar Berhouma");
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
     }

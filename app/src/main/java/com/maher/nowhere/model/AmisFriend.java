@@ -8,13 +8,31 @@ public class AmisFriend {
     private int profileImage;
     private String nom;
     private String disponibility;
+    private boolean status;
 
-    public AmisFriend(){}
+    public AmisFriend() {
+    }
 
     public AmisFriend(int profileImage, String nom, String disponibility) {
         this.profileImage = profileImage;
         this.nom = nom;
         this.disponibility = disponibility;
+    }
+
+
+    public AmisFriend(int profileImage, String nom, String disponibility, boolean status) {
+        this.profileImage = profileImage;
+        this.nom = nom;
+        this.disponibility = disponibility;
+        this.status = status;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public int getProfileImage() {

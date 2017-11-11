@@ -9,10 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.callbaks.VolleyCallback;
+import com.maher.nowhere.helpers.JsonToObjectParser;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.providers.EventManager;
 import com.maher.nowhere.utiles.TinderCard;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -34,11 +39,11 @@ public class WeeklikFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private View view ;
-    ArrayList<Post> posts ;
+    private View view;
+    ArrayList<Post> posts;
     private SwipePlaceHolderView mSwipeView;
     private OnFragmentInteractionListener mListener;
-    private int nbr=0;
+    private int nbr = 0;
 
     public WeeklikFragment() {
         // Required empty public constructor
@@ -58,7 +63,7 @@ public class WeeklikFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            posts = (ArrayList<Post>) getArguments().getSerializable(ARG_PARAM1);
+            //  posts = (ArrayList<Post>) getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -68,9 +73,10 @@ public class WeeklikFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view =  inflater.inflate(R.layout.fragment_weeklik, container, false);
+        view = inflater.inflate(R.layout.fragment_weeklik, container, false);
+        setRetainInstance(true);
 
-        mSwipeView = (SwipePlaceHolderView)view.findViewById(R.id.swipeView);
+        mSwipeView = (SwipePlaceHolderView) view.findViewById(R.id.swipeView);
 
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
@@ -80,33 +86,9 @@ public class WeeklikFragment extends Fragment {
                         .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
+        getAllPosts();
 
-        for(Post post : posts){
-            mSwipeView.addView(new TinderCard(getActivity(), post, mSwipeView));
-
-        }
-
-        view.findViewById(R.id.btnDislike).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwipeView.doSwipe(false);
-
-
-
-            }
-        });
-
-        view.findViewById(R.id.btnLike).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwipeView.doSwipe(true);
-
-            }
-        });
-
-
-        return  view;
-
+        return view;
 
 
     }
@@ -148,5 +130,39 @@ public class WeeklikFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void getAllPosts() {
+        EventManager eventManager = new EventManager(getActivity());
+        eventManager.getPosts(new VolleyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                posts = new JsonToObjectParser().parsePosts((JSONArray) response);
+                for (Post post : posts) {
+                    mSwipeView.addView(new TinderCard(getActivity(), post, mSwipeView));
+                }
+                view.findViewById(R.id.btnDislike).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSwipeView.doSwipe(false);
+
+                    }
+                });
+
+                view.findViewById(R.id.btnLike).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSwipeView.doSwipe(true);
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(Object error) {
+
+            }
+        });
     }
 }

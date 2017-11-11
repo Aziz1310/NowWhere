@@ -88,6 +88,7 @@
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:src="@drawable/divider_list" />
 
 </LinearLayout>

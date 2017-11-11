@@ -20,9 +20,15 @@ import com.maher.nowhere.R;
 import com.maher.nowhere.mainActivity.fragments.WeeklikFragment;
 import com.maher.nowhere.model.Categorie;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.SwipeViewPager;
+import com.maher.nowhere.utiles.Urls;
+import com.maher.nowhere.utiles.Utiles;
+import com.mindorks.placeholderview.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,7 +47,9 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dummyData();
+
+        Date date= new Utiles().parseDate("23/11/2017 02:00");
+        System.out.println(date.toString());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -60,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
 
         viewPager = (SwipeViewPager) findViewById(R.id.pager);
         viewPager.setPagingEnabled(false);
+        viewPager.setOffscreenPageLimit(3);
         final MainActivityFragmentStatePagerAdapter adapter = new MainActivityFragmentStatePagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -92,8 +101,20 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }catch (NullPointerException ignore){}
+        User user=User.getCurrentUser(this);
+
 
         CircleImageView profile=(CircleImageView)toolbar.findViewById(R.id.toolbarProfileImg);
+        Picasso.with(this).
+                load(Uri.parse(Urls.IMG_URL_USER+user.getImage()))
+                .into(profile, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {}
+
+                    @Override
+                    public void onError() {
+                    }
+                });
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,19 +137,6 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
 
     }
 
-    private void dummyData() {
-        posts = new ArrayList<>();
-        posts.add(new Post(R.drawable.image));
-        posts.add(new Post(R.drawable.signup_image));
-        posts.add(new Post(R.drawable.gg));
-        posts.add(new Post(R.drawable.image));
-        posts.add(new Post(R.drawable.signup_image));
-        posts.add(new Post(R.drawable.gg));
-        posts.add(new Post(R.drawable.image));
-        posts.add(new Post(R.drawable.signup_image));
-        posts.add(new Post(R.drawable.gg));
-        posts.add(new Post(R.drawable.signup_image));
-    }
 
 
     @Override
