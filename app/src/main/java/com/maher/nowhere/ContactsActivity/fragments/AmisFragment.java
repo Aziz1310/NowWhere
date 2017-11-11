@@ -1,5 +1,6 @@
 package com.maher.nowhere.ContactsActivity.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.maher.nowhere.LoginActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.ContactsActivity.adapters.AmisAdapter;
+import com.maher.nowhere.mainActivity.MainActivity;
 import com.maher.nowhere.model.Friend;
 
 import java.util.ArrayList;
@@ -79,6 +82,9 @@ public class AmisFragment extends Fragment {
         lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setAdapter(amisAdapter);
         recyclerView.setLayoutManager(lm);
+
+
+
 
         return view;
     }

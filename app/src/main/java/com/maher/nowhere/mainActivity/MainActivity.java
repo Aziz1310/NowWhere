@@ -20,6 +20,7 @@ import com.maher.nowhere.R;
 import com.maher.nowhere.mainActivity.fragments.WeeklikFragment;
 import com.maher.nowhere.model.Categorie;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.SwipeViewPager;
 
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
 
         setupToolbar();
         setupDrawerToggle();
+
+        //
+        //User u=(User) getIntent().getSerializableExtra("nom");
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);

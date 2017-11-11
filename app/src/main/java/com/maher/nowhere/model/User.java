@@ -1,10 +1,12 @@
 package com.maher.nowhere.model;
 
+import java.io.Serializable;
+
 /**
  * Created by maher on 07/10/2017.
  */
 
-class User {
+public class User implements Serializable{
     private String name;
     private int image;
 
