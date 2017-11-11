@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
         setupToolbar();
         setupDrawerToggle();
 
-        //
-        //User u=(User) getIntent().getSerializableExtra("nom");
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
