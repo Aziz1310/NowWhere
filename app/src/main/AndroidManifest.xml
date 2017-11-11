@@ -51,6 +51,9 @@
         <activity
             android:name=".PhotoActivity.PhotoActivity"
             android:theme="@style/ThemeTransparent"></activity>
+            android:theme="@style/ThemeTransparent" />
+        <activity android:name=".ProfileFriendActivity.ProfileFriendActivity" />
+        <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity"></activity>
     </application>
 
 </manifest>
