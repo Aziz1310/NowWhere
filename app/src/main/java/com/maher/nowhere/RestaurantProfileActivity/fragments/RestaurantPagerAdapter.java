@@ -19,8 +19,8 @@ public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                MenuFragment cc = new MenuFragment();
-                return cc;
+                AProposFragment aProposFragment = new AProposFragment();
+                return aProposFragment;
             case 1:
                 com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment photosFragment = new com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment();
                 return photosFragment;

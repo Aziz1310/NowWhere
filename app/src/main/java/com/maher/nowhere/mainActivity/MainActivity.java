@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
         setupDrawerToggle();
 
 
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Weeklik"));
         tabLayout.addTab(tabLayout.newTab().setText("Accueil"));

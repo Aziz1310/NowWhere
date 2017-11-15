@@ -1,10 +1,12 @@
 package com.maher.nowhere.model;
 
+import java.io.Serializable;
+
 /**
  * Created by RaniaH on 31/10/2017.
  */
 
-public class AmisFriend {
+public class AmisFriend implements Serializable{
     private int profileImage;
     private String nom;
     private String disponibility;
