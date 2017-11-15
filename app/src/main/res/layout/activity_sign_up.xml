@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.maher.nowhere.SignUpActivity"
+    tools:context="com.maher.nowhere.Register.SignUpActivity"
     android:background="@color/colorPrimaryDark"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true" >

@@ -7,12 +7,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.maher.nowhere.ProfileActivity.fragments.FavorisFragment;
 import com.maher.nowhere.ProfileActivity.fragments.PageFragment;
 import com.maher.nowhere.ProfileActivity.fragments.ProfilePagerAdapter;
 import com.maher.nowhere.ProfileActivity.fragments.ReservationsFragment;
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.User;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.maher.nowhere.R.id.pagerProfile;
 
@@ -21,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
         FavorisFragment.OnFragmentInteractionListener,ReservationsFragment.OnFragmentInteractionListener,
         com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment.OnFragmentInteractionListener{
 
-    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +53,20 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
+
+        getUserInfo();
+
+
     }
     private void setUpToolbar(){
         Toolbar toolbar;
@@ -69,9 +77,25 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
     }
     private void collapsingToolbar(){
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle("Anouar Berhouma");
+        collapsingToolbarLayout.setTitle(User.getCurrentUser(this).getName());
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+    }
+
+    private void getUserInfo(){
+        User user=User.getCurrentUser(this);
+        CircleImageView profileImage;
+        TextView tvUserName,tvUserAdresse;
+        profileImage=(CircleImageView)findViewById(R.id.imageView);
+        tvUserName=(TextView)findViewById(R.id.nomProfile);
+        tvUserAdresse=(TextView)findViewById(R.id.textView);
+
+        Picasso.with(this).
+                load(Uri.parse(Urls.IMG_URL_USER+user.getImage())).resize(100,100)
+                .into(profileImage);
+        tvUserName.setText(user.getName());
+
+
     }
 
     @Override

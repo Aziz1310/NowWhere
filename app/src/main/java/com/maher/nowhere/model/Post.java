@@ -3,7 +3,10 @@ package com.maher.nowhere.model;
 import com.maher.nowhere.utiles.Urls;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by maher on 07/10/2017.
@@ -13,9 +16,11 @@ public class Post implements Serializable {
     private int id;
     private int Image;
     private String title;
-    private String month;
-    private String year;
-    private String day;
+    private String monthNumber;//1-2-3....12
+    private String month;//nov-oct...december
+    private String year;//2015-2016...2020
+    private String day;//lun-mar....dim
+    private String dayOfWeek;//01-02-03...31
     private String name;
     private User user;
     private String heureFin;
@@ -135,6 +140,31 @@ public class Post implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE", Locale.FRANCE);
+        SimpleDateFormat formatterMonth = new SimpleDateFormat("MMM", Locale.FRANCE);
+        String formatedDay = formatter.format(date);
+        String formatedMonth = formatterMonth.format(date);
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+
+        setDay(formatedDay.substring(0,3));//lun-mar
+
+        String dayOfMonth=c.get(Calendar.DAY_OF_MONTH)+"";
+        if(dayOfMonth.length()==1)
+            dayOfMonth="0"+dayOfMonth;
+        setDayOfWeek(dayOfMonth);//01/09...31
+
+        if(formatedMonth.length()==4)
+            setMonth(formatedMonth.substring(0,(formatedMonth.length()-1)));//nov-oct
+        else
+            setMonth(formatedMonth);//nov-oct
+
+        setYear(c.get(Calendar.YEAR)+"");
+        setMonthNumber((c.get(Calendar.MONTH)+1)+"");
+        System.out.println("year"+getYear());
+
     }
 
     public int getNbrPlace() {
@@ -151,5 +181,21 @@ public class Post implements Serializable {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public String getMonthNumber() {
+        return monthNumber;
+    }
+
+    public void setMonthNumber(String monthNumber) {
+        this.monthNumber = monthNumber;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }

@@ -1,4 +1,4 @@
-package com.maher.nowhere;
+package com.maher.nowhere.Register;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,7 +16,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,8 +23,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.chootdev.csnackbar.Duration;
 import com.chootdev.csnackbar.Snackbar;
 import com.chootdev.csnackbar.Type;
+import com.maher.nowhere.R;
 import com.maher.nowhere.callbaks.VolleyCallback;
 import com.maher.nowhere.helpers.JsonToObjectParser;
+
 import com.maher.nowhere.mainActivity.MainActivity;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.providers.AccountManager;
@@ -44,7 +45,7 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SignUpActivity extends AppCompatActivity implements IPickResult.IPickClick {
+public class SignUpActivity extends AppCompatActivity implements IPickResult.IPickClick,SignUpView {
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     private static final int REQUEST_SIGNUP = 0;
@@ -59,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
 
     private CircleImageView imgProfile;
     private EditText etUserName, etPassword, etName;
-    private AccountManager accountManager;
+
     private LottieAnimationView lottieAnimationView;
     private AppCompatButton btnRegister;
     private FloatingActionButton btnGalerie;
@@ -71,7 +72,6 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        accountManager = new AccountManager(this);
         etUserName = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etName = (EditText) findViewById(R.id.etName);
@@ -79,8 +79,8 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         imgProfile = (CircleImageView) findViewById(R.id.imageView);
         btnGalerie = (FloatingActionButton) findViewById(R.id.btnGalerie);
         btnRegister = (AppCompatButton) findViewById(R.id.btnRegister);
-        inputValidator = new InputValidator();
 
+        final SignUpPresenter signUpPresenter=new SignUpPresenter(this,this);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +89,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
                 String userName = etUserName.getText().toString();
                 String password = etPassword.getText().toString();
                 String name = etName.getText().toString();
-                if (checkInput(userName, name, password))
-                    signUp(userName, name, password);
+                signUpPresenter.signUp(name,password,userName,bitmap);
 
             }
         });
@@ -168,6 +167,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         // start the image capture Intent
         startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
     }
+
     public void takeImageFromCamera() {
         captureImage();
         if (!isDeviceSupportCamera()) {
@@ -263,17 +263,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
     }
 
     private void launchUploadActivity() {
-
         filePath = fileUri.getPath();
-
-
-    }
-    public String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
     }
 
     public String getPath(Uri uri) {
@@ -300,86 +290,37 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
     }
 
 
-    private void signUp(String userName, String name, String password) {
+
+
+    @Override
+    public void showProgress() {
         lottieAnimationView.setVisibility(View.VISIBLE);
-        String image=getStringImage(bitmap);
-        accountManager.register(userName,name, password,image,"jpg", new VolleyCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                lottieAnimationView.setVisibility(View.INVISIBLE);
-                System.out.println(response.toString());
-                User user = new JsonToObjectParser().parseUser( (JSONObject) response);
-                User.setCurrentUser(user, SignUpActivity.this);
-                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-
-            @Override
-            public void onError(Object error) {
-                lottieAnimationView.setVisibility(View.INVISIBLE);
-                Snackbar.with(SignUpActivity.this, null);
-                Snackbar.type(Type.ERROR);
-                Snackbar.message("Error");
-                Snackbar.duration(Duration.SHORT);
-                Snackbar.show();
-
-            }
-        });
     }
 
-    private boolean checkInput(String userName, String name, String password) {
-        if (userName.isEmpty()) {
-            //  etUserName.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-            Snackbar.with(this, null);
-            Snackbar.type(Type.ERROR);
-            Snackbar.message("Email cannot be empty");
-            Snackbar.duration(Duration.SHORT);
-            Snackbar.show();
-            return false;
-        }
-        if (!inputValidator.isEmailValid(userName)) {
-           // email.setBackground(getResources().getDrawable(R.drawable.text_box_warning));
-            Snackbar.with(this, null);
-            Snackbar.type(Type.WARNING);
-            Snackbar.message("Email address is badly formatted");
-            Snackbar.duration(Duration.SHORT);
-            Snackbar.show();
-            return false;
-        }
-        if (name.isEmpty()) {
-            //  etUserName.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-            Snackbar.with(this, null);
-            Snackbar.type(Type.ERROR);
-            Snackbar.message("UserName cannot be empty");
-            Snackbar.duration(Duration.SHORT);
-            Snackbar.show();
-            return false;
-        }
-        if (password.isEmpty()) {
-            //  password.setBackground(getResources().getDrawable(R.drawable.text_box_error));
-            Snackbar.with(this, null);
-            Snackbar.type(Type.ERROR);
-            Snackbar.message("Password cannot be empty");
-            Snackbar.duration(Duration.SHORT);
-            Snackbar.show();
-            return false;
-        }
-        if (password.length() < 4) {
-            //   password.setBackground(getResources().getDrawable(R.drawable.text_box_warning));
-            Snackbar.with(this, null);
-            Snackbar.type(Type.WARNING);
-            Snackbar.message("Password cannot be less than 4 characters");
-            Snackbar.duration(Duration.SHORT);
-            Snackbar.show();
-            return false;
-        }
-
-        return true;
+    @Override
+    public void hideProgress() {
+        lottieAnimationView.setVisibility(View.INVISIBLE);
 
     }
 
-    private void hideSoftKeyBoard() {
+    @Override
+    public void SignUpError() {
+        Snackbar.with(SignUpActivity.this, null);
+        Snackbar.type(Type.ERROR);
+        Snackbar.message("Error");
+        Snackbar.duration(Duration.SHORT);
+        Snackbar.show();
+    }
+
+    @Override
+    public void navigateToHome() {
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public void hideSoftKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         if (imm.isAcceptingText()) { // verify if the soft keyboard is open
@@ -390,6 +331,68 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
 
             }
         }
+    }
+
+
+    @Override
+    public void usernameEmpty() {
+        Snackbar.with(this, null);
+        Snackbar.type(Type.ERROR);
+        Snackbar.message("UserName cannot be empty");
+        Snackbar.duration(Duration.SHORT);
+        Snackbar.show();
+    }
+
+    @Override
+    public void passwordError(int code) {
+        switch (code){
+            case SignUpInteractor.EMPTY_PASSWORD:
+                Snackbar.with(this, null);
+                Snackbar.type(Type.ERROR);
+                Snackbar.message("Password cannot be empty");
+                Snackbar.duration(Duration.SHORT);
+                Snackbar.show();
+                break;
+            case SignUpInteractor.PASSWORD_LESS_THAN_4:
+                Snackbar.with(this, null);
+                Snackbar.type(Type.WARNING);
+                Snackbar.message("Password cannot be less than 4 characters");
+                Snackbar.duration(Duration.SHORT);
+                Snackbar.show();
+                break;
+        }
+
+
+    }
+
+    @Override
+    public void imageEmpty() {
+        Snackbar.with(this, null);
+        Snackbar.type(Type.WARNING);
+        Snackbar.message("Please choose an image");
+        Snackbar.duration(Duration.SHORT);
+        Snackbar.show();
+    }
+
+    @Override
+    public void emailError(int code) {
+        switch (code){
+            case SignUpInteractor.EMPTY_EMAIL:
+                Snackbar.with(this, null);
+                Snackbar.type(Type.ERROR);
+                Snackbar.message("Email cannot be empty");
+                Snackbar.duration(Duration.SHORT);
+                Snackbar.show();
+                break;
+            case SignUpInteractor.EMAIL_BADLY_FORMATED:
+                Snackbar.with(this, null);
+                Snackbar.type(Type.WARNING);
+                Snackbar.message("Email address is badly formatted");
+                Snackbar.duration(Duration.SHORT);
+                Snackbar.show();
+                break;
+        }
+
     }
 
 }

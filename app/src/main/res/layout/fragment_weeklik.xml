@@ -2,14 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.maher.nowhere.mainActivity.fragments.WeeklikFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.maher.nowhere.mainActivity.fragments.weeklik.WeeklikFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <com.mindorks.placeholderview.SwipePlaceHolderView
         android:id="@+id/swipeView"
         android:layout_width="match_parent"
         android:background="@color/colorPrimaryDark"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+
+    </com.mindorks.placeholderview.SwipePlaceHolderView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        android:layout_centerInParent="true"
+        app:lottie_colorFilter="@color/colorAccent"
+        app:lottie_fileName="loading_animation.json"
+        app:lottie_loop="true" />
 
     <LinearLayout
         android:layout_margin="20dp"

@@ -67,7 +67,6 @@ public class JsonToObjectParser {
     public Post parsePost(JSONObject postJson) {
         Post post = new Post();
 
-
         try {
             post.setTitle(postJson.getString("_groupe_nom"));
         } catch (JSONException e) {
@@ -114,28 +113,6 @@ public class JsonToObjectParser {
             e.printStackTrace();
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE", Locale.FRANCE);
-        SimpleDateFormat formatterMonth = new SimpleDateFormat("MMM", Locale.FRANCE);
-        String formatedDay = formatter.format(post.getDate());
-        String formatedMonth = formatterMonth.format(post.getDate());
-
-        Calendar c = Calendar.getInstance();
-        c.setTime(post.getDate());
-
-
-        post.setDay(formatedDay.substring(0,3));
-        String dayOfMonth=c.get(Calendar.DAY_OF_MONTH)+"";
-        if(dayOfMonth.length()==1)
-            dayOfMonth="0"+dayOfMonth;
-        post.setYear(dayOfMonth);
-
-        if(formatedMonth.length()==4)
-            post.setMonth(formatedMonth.substring(0,(formatedMonth.length()-1)));
-        else
-
-        post.setMonth(formatedMonth);
-
-
         try {
             Owner owner = parseOwner(postJson.getJSONObject("prestataire"));
             post.setOwner(owner);
@@ -148,7 +125,6 @@ public class JsonToObjectParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         return post;
 

@@ -1,6 +1,7 @@
 package com.maher.nowhere.providers;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -22,10 +23,10 @@ import org.json.JSONObject;
 
 public class EventManager {
 
-    private final Activity activity;
+    private final Context context;
 
-    public EventManager(Activity activity) {
-        this.activity = activity;
+    public EventManager(Context context) {
+        this.context = context;
     }
 
 
@@ -46,7 +47,7 @@ public class EventManager {
             }
         });
 
-        ConnectionSingleton.getInstance(activity).addToRequestque(req);
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
 
     public void reservation(int idEvent, String nbrPersonne,String heure, final VolleyCallback volleyCallback) {
@@ -54,7 +55,7 @@ public class EventManager {
         JSONObject reservation = new JSONObject();
         try {
             reservation.put("idEvent",idEvent);
-            reservation.put("iduser", User.getCurrentUser(activity).getId());
+            reservation.put("iduser", User.getCurrentUser(context).getId());
             reservation.put("nbrPersonne", nbrPersonne);
             reservation.put("heureArrivee", heure);
         } catch (JSONException e) {
@@ -78,7 +79,7 @@ public class EventManager {
             }
         });
 
-        ConnectionSingleton.getInstance(activity).addToRequestque(req);
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
 
 

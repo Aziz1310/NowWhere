@@ -17,14 +17,13 @@ import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.mainActivity.fragments.AccueilFragment;
 import com.maher.nowhere.mainActivity.fragments.CategoriesFragment;
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.fragments.WeeklikFragment;
+import com.maher.nowhere.mainActivity.fragments.weeklik.WeeklikFragment;
 import com.maher.nowhere.model.Categorie;
 import com.maher.nowhere.model.Post;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.SwipeViewPager;
 import com.maher.nowhere.utiles.Urls;
 import com.maher.nowhere.utiles.Utiles;
-import com.mindorks.placeholderview.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,9 +31,9 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements WeeklikFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements
         AccueilFragment.OnFragmentInteractionListener
-        ,CategoriesFragment.OnFragmentInteractionListener {
+        , CategoriesFragment.OnFragmentInteractionListener {
 
     private DrawerLayout drawerLayout;
     Toolbar toolbar;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Date date= new Utiles().parseDate("23/11/2017 02:00");
+        Date date = new Utiles().parseDate("23/11/2017 02:00");
         System.out.println(date.toString());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition()==0)
+                if (tab.getPosition() == 0)
                     viewPager.setPagingEnabled(false);
                 else
                     viewPager.setPagingEnabled(true);
@@ -94,27 +93,21 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
         });
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        }catch (NullPointerException ignore){}
-        User user=User.getCurrentUser(this);
+        } catch (NullPointerException ignore) {
+        }
+        User user = User.getCurrentUser(this);
 
 
-        CircleImageView profile=(CircleImageView)toolbar.findViewById(R.id.toolbarProfileImg);
+        CircleImageView profile = (CircleImageView) toolbar.findViewById(R.id.toolbarProfileImg);
         Picasso.with(this).
-                load(Uri.parse(Urls.IMG_URL_USER+user.getImage()))
-                .into(profile, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {}
-
-                    @Override
-                    public void onError() {
-                    }
-                });
+                load(Uri.parse(Urls.IMG_URL_USER + user.getImage())).resize(50, 50)
+                .into(profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
         }
 
     }
-
 
 
     @Override
@@ -165,13 +157,11 @@ public class MainActivity extends AppCompatActivity implements WeeklikFragment.O
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return WeeklikFragment.newInstance(posts);
+                    return new WeeklikFragment();
                 case 1:
-                    AccueilFragment accueil = new AccueilFragment();
-                    return accueil;
+                    return new AccueilFragment();
                 case 2:
-                    CategoriesFragment categories = new CategoriesFragment();
-                    return categories;
+                    return new CategoriesFragment();
                 default:
                     return null;
             }

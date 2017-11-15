@@ -103,8 +103,9 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
             tvTitle.setText(post.getName());
             tvPlace.setText(post.getOwner().getNom());
             tvDate.setText("Ouvert\n de "+post.getHeureDebut()+" à "+post.getHeureFin());
-            // tvDay.setText(post.getDay());
-            // tvMonth.setText(post.getDay());
+            tvYear.setText(post.getYear());
+            tvDay.setText(post.getDayOfWeek());
+            tvMonth.setText(post.getMonthNumber());
             Picasso.with(this).
                     load(Uri.parse(post.getUrlImage()))
                     .into(mImageView, new com.squareup.picasso.Callback() {

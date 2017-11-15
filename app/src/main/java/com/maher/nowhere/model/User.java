@@ -1,6 +1,7 @@
 package com.maher.nowhere.model;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
@@ -57,7 +58,7 @@ public class User {
         this.email = email;
     }
 
-    public static void setCurrentUser(User user, Activity a){
+    public static void setCurrentUser(User user, Context a){
 
         SharedPreferences sharedpreferences = a.getSharedPreferences("user_credentials",Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -71,7 +72,7 @@ public class User {
     }
 
 
-    public static User getCurrentUser(Activity a){
+    public static User getCurrentUser(Context a){
         SharedPreferences sharedpreferences = a.getSharedPreferences("user_credentials", Activity.MODE_PRIVATE);
         User u =new User();
         u.setEmail(sharedpreferences.getString("email", ""));
@@ -79,7 +80,6 @@ public class User {
         u.setName(sharedpreferences.getString("name",""));
         u.setImage(sharedpreferences.getString("image",""));
         u.setId(sharedpreferences.getInt("id",0));
-
 
         return u;
 

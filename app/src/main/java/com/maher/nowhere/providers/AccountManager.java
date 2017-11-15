@@ -1,6 +1,7 @@
 package com.maher.nowhere.providers;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,10 +24,10 @@ import java.util.Map;
 
 public class AccountManager {
 
-    private final Activity activity;
+    private final Context context;
 
-    public AccountManager(Activity activity) {
-        this.activity = activity;
+    public AccountManager(Context context) {
+        this.context = context;
     }
 
 
@@ -58,7 +59,7 @@ public class AccountManager {
             }
         });
 
-        ConnectionSingleton.getInstance(activity).addToRequestque(req);
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
 
     public void register(String email, String name,String password,String image,String extension, final VolleyCallback volleyCallback) {
@@ -92,10 +93,7 @@ public class AccountManager {
             }
         });
 
-        ConnectionSingleton.getInstance(activity).addToRequestque(req);
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
-
-
-
 
 }

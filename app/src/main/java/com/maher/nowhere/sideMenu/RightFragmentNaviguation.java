@@ -13,11 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maher.nowhere.ContactsActivity.ContactActivity;
-import com.maher.nowhere.ContactsActivity.ContactActivity;
+import com.maher.nowhere.login.LoginActivity;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.ProfileFriendActivity.ProfileFriendActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.RestaurantProfileActivity.RestaurantProfileActivity;
+import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.RecyclerItemClickListener;
 
 public class RightFragmentNaviguation extends Fragment {
@@ -66,6 +67,11 @@ public class RightFragmentNaviguation extends Fragment {
                         break;
                     case 3:
                         getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+                        break;
+                    case 5:
+                        User.logOut(getActivity());
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        getActivity().finish();
                         break;
 
                     default:

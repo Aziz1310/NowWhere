@@ -87,8 +87,9 @@
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
                     android:text="Labess:"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textColor="@color/colorAccentBright"
                     android:textSize="30sp"
@@ -103,12 +104,11 @@
                 android:id="@+id/tvTitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:maxLines="1"
-
                 android:text="Gipsy night"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/white"
-
                 android:textSize="20sp" />
 
             <TextView
@@ -120,6 +120,8 @@
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textStyle="normal" />
 
         </LinearLayout>

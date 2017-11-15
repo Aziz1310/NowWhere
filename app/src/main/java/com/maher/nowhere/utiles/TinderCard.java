@@ -83,12 +83,12 @@ public class TinderCard {
                     public void onError() {
                     }
                 });
-        tvGroupeName.setText(post.getTitle()+":");
+        tvGroupeName.setText(String.format("%s:", post.getTitle()));
         tvName.setText(post.getName());
-        tvPlace.setText("At "+post.getOwner().getNom());
+        tvPlace.setText(String.format("At %s", post.getOwner().getNom()));
         tvDay.setText(post.getDay().toUpperCase());
         tvMonth.setText(post.getMonth().toUpperCase());
-        tvYear.setText(post.getYear());
+        tvYear.setText(post.getDayOfWeek().toUpperCase());
         btnIGo.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
