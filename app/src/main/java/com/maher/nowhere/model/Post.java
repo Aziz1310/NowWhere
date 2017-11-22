@@ -25,7 +25,9 @@ public class Post implements Serializable {
     private User user;
     private String heureFin;
     private String heureDebut;
+    private String heureDispo;
     private String description;
+    private String apropos;
     private Date date;
     private int nbrPlace;
     private String urlImage;
@@ -197,5 +199,21 @@ public class Post implements Serializable {
 
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    public String getHeureDispo() {
+        return heureDispo;
+    }
+
+    public void setHeureDispo(String heureDispo) {
+        this.heureDispo = heureDispo;
+    }
+
+    public String getApropos() {
+        return apropos;
+    }
+
+    public void setApropos(String apropos) {
+        this.apropos = apropos;
     }
 }
