@@ -55,7 +55,8 @@
         <activity android:name=".ProfileFriendActivity.ProfileFriendActivity" />
         <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity" />
         <activity android:name=".CinemaActivity.CinemaActivity" />
-        <activity android:name=".CinemaActivity.FilmDetailActivity"></activity>
+        <activity android:name=".CinemaActivity.FilmDetailActivity" />
+        <activity android:name=".SalleDeSportActivity.SalleSportActivity"></activity>
     </application>
 
 </manifest>

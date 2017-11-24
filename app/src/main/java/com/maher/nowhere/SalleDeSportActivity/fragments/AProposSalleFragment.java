@@ -1,31 +1,37 @@
-package com.maher.nowhere.mainActivity.fragments;
+package com.maher.nowhere.SalleDeSportActivity.fragments;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.adapter.CategorieAdapter;
-import com.maher.nowhere.model.Categorie;
-
-import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CategoriesFragment.OnFragmentInteractionListener} interface
+ * {@link AProposSalleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CategoriesFragment#newInstance} factory method to
+ * Use the {@link AProposSalleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoriesFragment extends Fragment {
+public class AProposSalleFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnMarkerClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,17 +40,13 @@ public class CategoriesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Categorie> categs;
+    private GoogleMap map;
+    private TextView tvTimeSalle,tvAdresseSalle,tvDescriptionSalle;
     private View view;
-
-    private RecyclerView recyclerView;
-    private LinearLayoutManager lm;
 
     private OnFragmentInteractionListener mListener;
 
-
-
-    public CategoriesFragment() {
+    public AProposSalleFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +56,11 @@ public class CategoriesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CategoriesFragment.
+     * @return A new instance of fragment AProposSalleFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CategoriesFragment newInstance(String param1, String param2) {
-        CategoriesFragment fragment = new CategoriesFragment();
+    public static AProposSalleFragment newInstance(String param1, String param2) {
+        AProposSalleFragment fragment = new AProposSalleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,24 +81,10 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
-        view= inflater.inflate(R.layout.fragment_categories, container, false);
-        categs=new ArrayList<>();
-        categs.add(new Categorie(R.drawable.img1,R.drawable.categorie_happy_hours,"HAPPY HOURS","magic places"));
-        categs.add(new Categorie(R.drawable.img2,R.drawable.categorie_food,"RESTAURANTS","Réstaurant","& FOOD"));
-        categs.add(new Categorie(R.drawable.img3,R.drawable.categorie_parties,"LOUNGES, DISCOS","Discos","& PARTIES"));
-        categs.add(new Categorie(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE","Caffées","TIME"));
-        categs.add(new Categorie(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS,","Cinémas","THEATRES & FESTIVALS"));
-        categs.add(new Categorie(R.drawable.img6,R.drawable.categorie_mind,"MIND","Centres","& BODY"));
-        categs.add(new Categorie(R.drawable.img7,R.drawable.categorie_art_ground,"ART","Art","GROUND"));
-
-        recyclerView=(RecyclerView)view.findViewById(R.id.rv_categorie);
-        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(lm);
-        CategorieAdapter categorieAdapter=new CategorieAdapter(getActivity(),categs);
-        recyclerView.setAdapter(categorieAdapter);
-
+        view = inflater.inflate(R.layout.fragment_apropos_salle, container, false);
+        tvDescriptionSalle=(TextView) view.findViewById(R.id.tvDescriptionSalle);
+        tvAdresseSalle=(TextView)view.findViewById(R.id.tvAdresseSalle);
+        tvTimeSalle=(TextView)view.findViewById(R.id.tvTimeSalle);
         return view;
     }
 
@@ -122,6 +110,41 @@ public class CategoriesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        this.map = googleMap;
+        try {
+            boolean success = googleMap.setMapStyle(
+
+                    MapStyleOptions.loadRawResourceStyle(
+                            this.getActivity(), R.raw.jsonstyle));
+
+            if (!success) {
+                Log.e("vv", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("vv", "Can't find style. Error: ", e);
+        }
+
+        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.icon_map_happy_hour);
+        Bitmap b = bitmapdraw1.getBitmap();
+        final Bitmap smallMarker1 = Bitmap.createScaledBitmap(b, 40, 60, false);
+
+        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+
     }
 
     /**

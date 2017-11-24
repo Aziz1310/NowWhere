@@ -1,10 +1,12 @@
 package com.maher.nowhere.model;
 
+import java.io.Serializable;
+
 /**
  * Created by RaniaH on 22/11/2017.
  */
 
-public class EnSalle {
+public class EnSalle implements Serializable{
 
     private int image;
     private String day, month, year, title, lieu;

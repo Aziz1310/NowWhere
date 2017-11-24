@@ -1,4 +1,4 @@
-package com.maher.nowhere.mainActivity.fragments;
+package com.maher.nowhere.SalleDeSportActivity.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,23 +9,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.adapter.CategorieAdapter;
-import com.maher.nowhere.model.Categorie;
+import com.maher.nowhere.SalleDeSportActivity.adapter.TrynowAdapter;
+import com.maher.nowhere.model.Trynow;
 
 import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CategoriesFragment.OnFragmentInteractionListener} interface
+ * {@link TrynowFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CategoriesFragment#newInstance} factory method to
+ * Use the {@link TrynowFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoriesFragment extends Fragment {
+public class TrynowFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,17 +34,14 @@ public class CategoriesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Categorie> categs;
     private View view;
-
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
+    private ArrayList<Trynow> trynow;
 
     private OnFragmentInteractionListener mListener;
 
-
-
-    public CategoriesFragment() {
+    public TrynowFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +51,11 @@ public class CategoriesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CategoriesFragment.
+     * @return A new instance of fragment TrynowFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CategoriesFragment newInstance(String param1, String param2) {
-        CategoriesFragment fragment = new CategoriesFragment();
+    public static TrynowFragment newInstance(String param1, String param2) {
+        TrynowFragment fragment = new TrynowFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,23 +76,19 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_trynow, container, false);
+        recyclerView = view.findViewById(R.id.rv_trynow);
+        trynow = new ArrayList<>();
+        trynow.add(new Trynow());
+        trynow.add(new Trynow());
+        trynow.add(new Trynow());
+        trynow.add(new Trynow());
+        trynow.add(new Trynow());
 
-
-        view= inflater.inflate(R.layout.fragment_categories, container, false);
-        categs=new ArrayList<>();
-        categs.add(new Categorie(R.drawable.img1,R.drawable.categorie_happy_hours,"HAPPY HOURS","magic places"));
-        categs.add(new Categorie(R.drawable.img2,R.drawable.categorie_food,"RESTAURANTS","Réstaurant","& FOOD"));
-        categs.add(new Categorie(R.drawable.img3,R.drawable.categorie_parties,"LOUNGES, DISCOS","Discos","& PARTIES"));
-        categs.add(new Categorie(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE","Caffées","TIME"));
-        categs.add(new Categorie(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS,","Cinémas","THEATRES & FESTIVALS"));
-        categs.add(new Categorie(R.drawable.img6,R.drawable.categorie_mind,"MIND","Centres","& BODY"));
-        categs.add(new Categorie(R.drawable.img7,R.drawable.categorie_art_ground,"ART","Art","GROUND"));
-
-        recyclerView=(RecyclerView)view.findViewById(R.id.rv_categorie);
-        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        lm = new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
+        TrynowAdapter trynowAdapter = new TrynowAdapter(getActivity(), trynow);
         recyclerView.setLayoutManager(lm);
-        CategorieAdapter categorieAdapter=new CategorieAdapter(getActivity(),categs);
-        recyclerView.setAdapter(categorieAdapter);
+        recyclerView.setAdapter(trynowAdapter);
 
         return view;
     }

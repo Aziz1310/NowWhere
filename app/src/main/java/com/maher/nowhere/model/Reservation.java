@@ -1,10 +1,12 @@
 package com.maher.nowhere.model;
 
+import java.io.Serializable;
+
 /**
  * Created by maher on 30/10/2017.
  */
 
-public class Reservation {
+public class Reservation implements Serializable{
     private String resNum;
     private String date;
     private boolean status;

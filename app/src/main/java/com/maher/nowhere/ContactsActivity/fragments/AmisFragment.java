@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.maher.nowhere.LoginActivity;
+
 import com.maher.nowhere.R;
 import com.maher.nowhere.ContactsActivity.adapters.AmisAdapter;
 import com.maher.nowhere.mainActivity.MainActivity;

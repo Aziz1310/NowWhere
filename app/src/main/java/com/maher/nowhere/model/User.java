@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.io.Serializable;
+
 /**
  * Created by maher on 07/10/2017.
  */
 
-public class User {
+public class User implements Serializable{
     private int id;
     private String name;
     private String image;
