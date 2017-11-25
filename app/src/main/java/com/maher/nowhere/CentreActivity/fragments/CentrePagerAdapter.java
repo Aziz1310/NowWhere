@@ -1,35 +1,33 @@
-package com.maher.nowhere.RestaurantProfileActivity.fragments;
+package com.maher.nowhere.CentreActivity.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
- * Created by RaniaH on 05/11/2017.
+ * Created by RaniaH on 25/11/2017.
  */
 
-public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
-    int numTab;
+public class CentrePagerAdapter extends FragmentStatePagerAdapter {
 
-    public RestaurantPagerAdapter(FragmentManager fm, int NumberOfTabs){
+    int numTab;
+    public  CentrePagerAdapter(FragmentManager fm, int NumberOfTabs){
         super(fm);
         this.numTab = NumberOfTabs;
     }
+
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                AProposFragment aProposFragment = new AProposFragment();
-                return aProposFragment;
+                AProposCentreFragment aProposCentre = new AProposCentreFragment();
+                return aProposCentre;
             case 1:
                 com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment photosFragment = new com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment();
                 return photosFragment;
             case 2:
-                MenuFragment menu = new MenuFragment();
-                return menu;
-            case 3:
-                FeedbackFragment feedback = new FeedbackFragment();
-                return feedback;
+                ProductsFragment products = new ProductsFragment();
+                return products;
             default:
                 return null;
         }

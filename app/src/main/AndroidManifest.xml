@@ -56,7 +56,9 @@
         <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity" />
         <activity android:name=".CinemaActivity.CinemaActivity" />
         <activity android:name=".CinemaActivity.FilmDetailActivity" />
-        <activity android:name=".SalleDeSportActivity.SalleSportActivity"></activity>
+        <activity android:name=".SalleDeSportActivity.SalleSportActivity" />
+        <activity android:name=".Settings.SettingsActivity" />
+        <activity android:name=".CentreActivity.CentreActivity"></activity>
     </application>
 
 </manifest>
