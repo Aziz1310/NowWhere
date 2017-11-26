@@ -34,31 +34,26 @@ public class ReservationActivity extends AppCompatActivity implements Reservatio
 
     private Post post;
 
-    private TextView tvTitle, tvNumPersonne, tvNumH;
-    private TextView tvPlace, tvDay, tvMonth, tvYear;
-    private TextView tvDate, tvAdresse;
+    private TextView tvNumPersonne;
+    private TextView tvNumH;
     private LottieAnimationView lottieAnimationView;
-    ImageView img1;
-
+    private ImageView img1;
     private AppCompatButton btnPlusPersonne, btnMinusPersonne, btnPlusH, btnMinusH, btnReserver;
-    private EventManager eventManager;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
         setupToolbar();
-        eventManager = new EventManager(this);
 
 
-        tvAdresse = (TextView) findViewById(R.id.tvAdresse);
-        tvDate = (TextView) findViewById(R.id.tvDate);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvPlace = (TextView) findViewById(R.id.tvName);
-        tvDay = (TextView) findViewById(R.id.tvDay);
-        tvMonth = (TextView) findViewById(R.id.tvMonth);
-        tvYear = (TextView) findViewById(R.id.tvYear);
+        TextView tvAdresse = (TextView) findViewById(R.id.tvAdresse);
+        TextView tvDate = (TextView) findViewById(R.id.tvDate);
+        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
+        TextView tvPlace = (TextView) findViewById(R.id.tvName);
+        TextView tvDay = (TextView) findViewById(R.id.tvDay);
+        TextView tvMonth = (TextView) findViewById(R.id.tvMonth);
+        TextView tvYear = (TextView) findViewById(R.id.tvYear);
         btnMinusH = (AppCompatButton) findViewById(R.id.btnMinusH);
         btnMinusPersonne = (AppCompatButton) findViewById(R.id.btnMinus);
         btnPlusH = (AppCompatButton) findViewById(R.id.btnPlusH);
@@ -135,7 +130,6 @@ public class ReservationActivity extends AppCompatActivity implements Reservatio
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         CircleImageView profile = (CircleImageView) toolbar.findViewById(R.id.toolbarProfileImg);
         Picasso.with(this).
