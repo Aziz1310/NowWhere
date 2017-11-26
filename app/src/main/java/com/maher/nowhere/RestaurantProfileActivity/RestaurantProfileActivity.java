@@ -31,11 +31,12 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
         tabLayout.addTab(tabLayout.newTab().setText("A propos"));
         tabLayout.addTab(tabLayout.newTab().setText("Photos"));
         tabLayout.addTab(tabLayout.newTab().setText("Menu"));
+        tabLayout.addTab(tabLayout.newTab().setText("FeedBack"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
         final ViewPager viewPager = (ViewPager) findViewById(pagerRestaut);
-        final RestaurantPagerAdapter restaurantPagerAdapter = new RestaurantPagerAdapter(getSupportFragmentManager(), 3);
+        final RestaurantPagerAdapter restaurantPagerAdapter = new RestaurantPagerAdapter(getSupportFragmentManager(), 4);
         viewPager.setAdapter(restaurantPagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){

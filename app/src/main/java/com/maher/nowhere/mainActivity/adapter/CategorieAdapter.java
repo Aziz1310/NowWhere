@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.maher.nowhere.CinemaActivity.CinemaActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.categoriesDetail.CategoriesDetailActivity;
 import com.maher.nowhere.model.Categorie;
@@ -48,11 +49,11 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
             if(position==4){
                 holder.textView2.setTextSize(18);
                 holder.textView2.setText(categ.getText2());
-                return;
-            }
 
-            holder.textView2.setTextSize(28);
-            holder.textView2.setText(categ.getText2());
+            }else{
+                holder.textView2.setTextSize(28);
+                holder.textView2.setText(categ.getText2());
+            }
         }
 
 
@@ -60,6 +61,12 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(categ.getShortName().equals("Cinémas")){
+                    Intent intent=new Intent(mContext, CinemaActivity.class);
+                 //   intent.putExtra("categorie",categ);
+                    mContext.startActivity(intent);
+                    return;
+                }
                 Intent intent=new Intent(mContext, CategoriesDetailActivity.class);
                 intent.putExtra("categorie",categ);
                 mContext.startActivity(intent);

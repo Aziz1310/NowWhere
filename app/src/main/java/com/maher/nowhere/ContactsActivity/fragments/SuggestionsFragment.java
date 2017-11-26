@@ -1,12 +1,19 @@
 package com.maher.nowhere.ContactsActivity.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.maher.nowhere.ContactsActivity.adapters.SuggestionsAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Suggestions;
+
+import java.util.ArrayList;
 
 
 public class SuggestionsFragment extends Fragment {
@@ -18,6 +25,10 @@ public class SuggestionsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<Suggestions> suggestionses;
+    private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
 
 
 
@@ -56,7 +67,27 @@ public class SuggestionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_suggestions, container, false);
+        view = inflater.inflate(R.layout.fragment_suggestions, container, false);
+        suggestionses = new ArrayList<>();
+        suggestionses.add(new Suggestions(R.drawable.profile_image,"Lili","2 amis en commun"));
+        suggestionses.add(new Suggestions(R.drawable.profile_image,"Bilel D","5 amis en commun"));
+        suggestionses.add(new Suggestions(R.drawable.profile_image,"Oumaima H","10 amis en commun"));
+        suggestionses.add(new Suggestions(R.drawable.profile_image,"Selima T","9 amis en commun"));
+        suggestionses.add(new Suggestions(R.drawable.profile_image,"Intissar S","6 amis en commun"));
+        suggestionses.add(new Suggestions(R.drawable.profile_image,"Lassaad","8 amis en commun"));
+
+        SuggestionsAdapter suggestionsAdapter = new SuggestionsAdapter(getActivity(), suggestionses);
+        recyclerView=(RecyclerView)view.findViewById(R.id.rv_suggestion);
+        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setAdapter(suggestionsAdapter);
+        recyclerView.setLayoutManager(lm);
+
+        return view;
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 
 

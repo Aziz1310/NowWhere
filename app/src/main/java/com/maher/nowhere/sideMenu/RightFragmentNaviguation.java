@@ -62,9 +62,6 @@ public class RightFragmentNaviguation extends Fragment {
                     case 1:
                         getActivity().startActivity(new Intent(getActivity(), ProfileFriendActivity.class));
                         break;
-                    case 2:
-                        getActivity().startActivity(new Intent(getActivity(), RestaurantProfileActivity.class));
-                        break;
                     case 3:
                         getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
                         break;

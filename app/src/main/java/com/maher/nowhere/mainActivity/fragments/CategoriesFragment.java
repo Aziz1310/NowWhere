@@ -89,6 +89,7 @@ public class CategoriesFragment extends Fragment {
         categs.add(new Categorie(R.drawable.img4,R.drawable.categorie_coffe,"COFFEE","Caffées","TIME"));
         categs.add(new Categorie(R.drawable.img5,R.drawable.categorie_cinema,"CINEMAS,","Cinémas","THEATRES & FESTIVALS"));
         categs.add(new Categorie(R.drawable.img6,R.drawable.categorie_mind,"MIND","Centres","& BODY"));
+        categs.add(new Categorie(R.drawable.img7,R.drawable.categorie_art_ground,"ART","Art","GROUND"));
 
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_categorie);
         lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);

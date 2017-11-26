@@ -1,10 +1,12 @@
 package com.maher.nowhere.model;
 
+import java.io.Serializable;
+
 /**
  * Created by RaniaH on 08/10/2017.
  */
 
-public class Search {
+public class Search implements Serializable{
     private int image;
     private String day, month, year, title, name;
 

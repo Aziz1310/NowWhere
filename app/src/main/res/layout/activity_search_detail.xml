@@ -8,12 +8,17 @@
     android:id="@+id/shadowLayout"
     tools:context="com.maher.nowhere.SearchDetailActivity.SearchDetailActivity">
 
-    <include layout="@layout/toolbar"></include>
+    <include layout="@layout/toolbar"
+        android:id="@+id/too"/>
+
+
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_below="@id/too"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"

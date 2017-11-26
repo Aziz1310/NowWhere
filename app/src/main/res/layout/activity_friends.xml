@@ -97,23 +97,27 @@
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat"/>
 
-
-                <RelativeLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:id="@+id/tv_text"
+                    android:layout_centerInParent="true"
+                    android:text="People You May Know"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:layout_marginTop="60dp"/>
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:rotation="90"
-                        android:text="Friends"
-                        android:textSize="13sp"
-                        android:gravity="center"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/circleImageView"
@@ -170,82 +174,7 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:text="Following"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:rotation="90"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:textColor="@color/white"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:id="@+id/textView2" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="15dp"
-                        android:src="@drawable/signup_image"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/textView2"
-                        android:layout_toEndOf="@+id/textView2"
-                        android:id="@+id/circleImageView3" />
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/signup_image"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/circleImageView3"
-                        android:layout_toEndOf="@+id/circleImageView3"
-                        android:id="@+id/circleImageView4" />
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="15dp"
-                        android:src="@drawable/signup_image"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/circleImageView4"
-                        android:layout_toEndOf="@+id/circleImageView4"
-                        android:id="@+id/circleImageView5" />
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_toRightOf="@+id/circleImageView5"
-                        android:layout_toEndOf="@+id/circleImageView5"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/backgrounf_oval"
-                        android:id="@+id/imageView2" />
-
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignLeft="@+id/imageView2"
-                        android:textColor="@color/colorGreyText"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:layout_alignStart="@+id/imageView2"
-                        android:text="+79" />
-
-
-                </RelativeLayout>
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/btn_follow"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/background_button"
-                    android:text="Follow"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:textColor="@color/white"/>
 
             </LinearLayout>
 

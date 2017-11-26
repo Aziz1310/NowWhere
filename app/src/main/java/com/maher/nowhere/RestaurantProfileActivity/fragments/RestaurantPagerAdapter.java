@@ -27,6 +27,9 @@ public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 MenuFragment menu = new MenuFragment();
                 return menu;
+            case 3:
+                FeedbackFragment feedback = new FeedbackFragment();
+                return feedback;
             default:
                 return null;
         }

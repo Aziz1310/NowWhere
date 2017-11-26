@@ -66,6 +66,7 @@ public class ReservationActivity extends AppCompatActivity implements Reservatio
 
         post = (Post) getIntent().getSerializableExtra("post");
 
+
         tvAdresse.setText(post.getOwner().getAdresse());
         tvTitle.setText(post.getName());
         tvPlace.setText(post.getOwner().getNom());

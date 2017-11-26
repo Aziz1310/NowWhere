@@ -10,8 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -50,10 +50,15 @@
         <activity android:name=".ProfileFriendActivity.ProfileFriendActivity" />
         <activity
             android:name=".PhotoActivity.PhotoActivity"
-            android:theme="@style/ThemeTransparent"></activity>
             android:theme="@style/ThemeTransparent" />
+        android:theme="@style/ThemeTransparent" />
         <activity android:name=".ProfileFriendActivity.ProfileFriendActivity" />
-        <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity"></activity>
+        <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity" />
+        <activity android:name=".CinemaActivity.CinemaActivity" />
+        <activity android:name=".CinemaActivity.FilmDetailActivity" />
+        <activity android:name=".SalleDeSportActivity.SalleSportActivity" />
+        <activity android:name=".Settings.SettingsActivity" />
+        <activity android:name=".CentreActivity.CentreActivity"></activity>
     </application>
 
 </manifest>
