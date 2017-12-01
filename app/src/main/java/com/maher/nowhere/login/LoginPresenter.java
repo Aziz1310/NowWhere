@@ -23,6 +23,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     void login(String username, String password) {
 
         if (loginInteractor.checkInput(username, password, this)) {
+            loginView.hideSoftKeyBoard();
             loginView.showProgress();
             loginInteractor.login(username, password, this,mcContext);
         }

@@ -1,5 +1,6 @@
 package com.maher.nowhere.ProfileActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -7,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.maher.nowhere.ProfileActivity.fragments.PageFragment;
 import com.maher.nowhere.ProfileActivity.fragments.ProfilePagerAdapter;
 import com.maher.nowhere.ProfileActivity.fragments.ReservationsFragment;
 import com.maher.nowhere.R;
+import com.maher.nowhere.Settings.SettingsActivity;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.Urls;
 import com.squareup.picasso.Picasso;
@@ -65,6 +68,13 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
         });
 
         getUserInfo();
+        ImageView btnSettings=findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
+            }
+        });
 
 
     }

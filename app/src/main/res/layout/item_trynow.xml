@@ -23,7 +23,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="15dp"
-                android:src="@drawable/splash_screen_start" />
+                android:src="@drawable/icon_salle" />
 
         </LinearLayout>
         <LinearLayout
@@ -52,12 +52,14 @@
 
             <TextView
                 android:id="@+id/pack_prst"
-                android:layout_width="199dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Force, Cardio vasculaire, Dance, TRX"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorGreyText"
                 android:textSize="12sp"
+                android:lines="1"
+                android:freezesText="true"
                 android:textStyle="normal"
                 android:layout_marginTop="10dp"/>
 

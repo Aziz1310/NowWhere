@@ -1,17 +1,32 @@
 package com.maher.nowhere.RestaurantProfileActivity.fragments;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.maher.nowhere.R;
 
 
-public class AProposFragment extends Fragment {
+public class AProposFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnMarkerClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -20,6 +35,7 @@ public class AProposFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private GoogleMap map;
 
 
 
@@ -58,7 +74,63 @@ public class AProposFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_search_detail, container, false);
+        View view= inflater.inflate(R.layout.fragment_apropos_resto, container, false);
+
+
+        MapView mMapView = (MapView) view.findViewById(R.id.map);
+        MapsInitializer.initialize(getActivity());
+
+        mMapView.onCreate(savedInstanceState);
+        mMapView.onResume();// needed to get the map to display immediately
+        mMapView.getMapAsync(this);
+        return view;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        this.map = googleMap;
+        try {
+            boolean success = googleMap.setMapStyle(
+
+                    MapStyleOptions.loadRawResourceStyle(
+                            this.getActivity(), R.raw.jsonstyle));
+
+            if (!success) {
+                Log.e("vv", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("vv", "Can't find style. Error: ", e);
+        }
+
+        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.icon_map_restorant);
+        Bitmap b = bitmapdraw1.getBitmap();
+        final Bitmap smallMarker1 = Bitmap.createScaledBitmap(b, 40, 60, false);
+
+        MarkerOptions opt1 = new MarkerOptions();
+        opt1.position(new LatLng(36.7629800, 10.1659399))
+                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker1))
+                .anchor(0.5f,1);
+        googleMap.addMarker(opt1);
+
+        googleMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(36.7629800, 10.1659399), 12));
+
+
+
+        googleMap.getUiSettings().setScrollGesturesEnabled(false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

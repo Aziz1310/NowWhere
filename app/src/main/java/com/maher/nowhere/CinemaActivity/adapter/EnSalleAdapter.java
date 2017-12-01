@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.maher.nowhere.CinemaActivity.FilmDetailActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.EnSalle;
+import com.maher.nowhere.model.Search;
 
 import java.util.ArrayList;
 
@@ -22,9 +23,9 @@ import java.util.ArrayList;
 public class EnSalleAdapter extends RecyclerView.Adapter<EnSalleAdapter.RecycleView_Holder>{
 
     private final Context mContext;
-    private final ArrayList<EnSalle> enSalles;
+    private final ArrayList<Search> enSalles;
 
-    public EnSalleAdapter(Context mContext, ArrayList<EnSalle> enSalles) {
+    public EnSalleAdapter(Context mContext, ArrayList<Search> enSalles) {
         this.mContext = mContext;
         this.enSalles = enSalles;
     }
@@ -39,27 +40,18 @@ public class EnSalleAdapter extends RecyclerView.Adapter<EnSalleAdapter.RecycleV
 
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        EnSalle enSalle = enSalles.get(position);
+        Search enSalle = enSalles.get(position);
         holder.img_film.setImageResource(enSalle.getImage());
         holder.tvTitleFilm.setText(enSalle.getTitle());
-        holder.tvLieuFilm.setText(enSalle.getLieu());
+        holder.tvLieuFilm.setText(enSalle.getName());
         holder.tvDayFilm.setText(enSalle.getDay());
         holder.tvMonthFilm.setText(enSalle.getMonth());
         holder.tvYearFilm.setText(enSalle.getYear());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int[] screenLocation = new int[2];
-                v.getLocationOnScreen(screenLocation);
 
                 Intent intent=new Intent(mContext, FilmDetailActivity.class);
-                int orientation = mContext.getResources().getConfiguration().orientation;
-                intent.
-                        putExtra("orientation", orientation).
-                        putExtra("left", screenLocation[0]).
-                        putExtra("top", screenLocation[1]).
-                        putExtra("width", v.getWidth()).
-                        putExtra("height", v.getHeight());
                 mContext.startActivity(intent);
 
             }

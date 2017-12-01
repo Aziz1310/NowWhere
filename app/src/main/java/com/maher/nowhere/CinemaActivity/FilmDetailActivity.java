@@ -36,11 +36,12 @@ public class FilmDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_detail);
+        setupToolbar();
 
         mImageView = (ImageView) findViewById(R.id.img1);
         btnIgo = (ImageView) findViewById(R.id.btnIGo);
         tvDescription = (TextView)findViewById(R.id.tvDescriptionFilm);
-        tvAprop = (TextView)findViewById(R.id.tvApropFilm);
+        tvAprop = (TextView)findViewById(R.id.tvapropFilm);
         tvAdresse = (TextView)findViewById(R.id.tvAdresseLieufilm);
         tvDate = (TextView)findViewById(R.id.tvDateFilm);
         tvTitle = (TextView)findViewById(R.id.tvTitleFilm);

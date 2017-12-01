@@ -1,42 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<view xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    class="com.maher.nowhere.utiles.ShadowLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/shadowLayout"
-    tools:context="com.maher.nowhere.SearchDetailActivity.SearchDetailActivity">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/too"/>
-
-
-
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/too"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <include layout="@layout/item_search"
-                android:id="@+id/rl_header"
-                android:layout_height="200dp"
-                android:layout_width="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                 />
+
 
             <LinearLayout
                 android:id="@+id/ll_inof"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rl_header"
                 android:background="@color/colorAccent"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
@@ -207,8 +187,4 @@
 
 
         </RelativeLayout>
-    </ScrollView>
-
-
-
-</view>
+    </android.support.v4.widget.NestedScrollView>

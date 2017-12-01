@@ -88,7 +88,7 @@ public class FavorisFragment extends Fragment {
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_search);
         lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(lm);
-        SearchAdapter searchAdapter = new SearchAdapter(getActivity(), lsearch);
+        SearchAdapter searchAdapter = new SearchAdapter(getActivity(), lsearch,"b");
         recyclerView.setAdapter(searchAdapter);
         return view;
     }

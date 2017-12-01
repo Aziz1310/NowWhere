@@ -24,9 +24,9 @@
                 android:id="@+id/relativeLayoutP"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:src="@drawable/signup_image"
+                android:contentDescription="profile image"
                 android:scaleType="centerCrop"
-                />
+                android:src="@drawable/signup_image" />
             <ImageView
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
@@ -175,16 +175,6 @@
                 </RelativeLayout>
 
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/btn_follow"
-                    android:layout_marginTop="80dp"
-                    android:background="@drawable/background_button"
-                    android:text="Follow"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:textColor="@color/white"/>
 
             </LinearLayout>
 

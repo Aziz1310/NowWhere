@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -85,6 +88,13 @@ public class AProposSalleFragment extends Fragment implements OnMapReadyCallback
         tvDescriptionSalle=(TextView) view.findViewById(R.id.tvDescriptionSalle);
         tvAdresseSalle=(TextView)view.findViewById(R.id.tvAdresseSalle);
         tvTimeSalle=(TextView)view.findViewById(R.id.tvTimeSalle);
+
+        MapView mMapView = (MapView) view.findViewById(R.id.map);
+        MapsInitializer.initialize(getActivity());
+
+        mMapView.onCreate(savedInstanceState);
+        mMapView.onResume();// needed to get the map to display immediately
+        mMapView.getMapAsync(this);
         return view;
     }
 
@@ -139,9 +149,21 @@ public class AProposSalleFragment extends Fragment implements OnMapReadyCallback
             Log.e("vv", "Can't find style. Error: ", e);
         }
 
-        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.icon_map_happy_hour);
+        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.icon_map_mind);
         Bitmap b = bitmapdraw1.getBitmap();
         final Bitmap smallMarker1 = Bitmap.createScaledBitmap(b, 40, 60, false);
+
+        MarkerOptions opt1 = new MarkerOptions();
+        opt1.position(new LatLng(36.7629800, 10.1659399))
+                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker1))
+                .anchor(0.5f,1);
+        googleMap.addMarker(opt1);
+
+        googleMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(36.7629800, 10.1659399), 12));
+
+
 
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
 

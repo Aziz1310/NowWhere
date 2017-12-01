@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.maher.nowhere.CinemaActivity.adapter.EnSalleAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Search;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,10 @@ public class ProchainementFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
+    private ArrayList<Search> lsearch;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,7 +76,19 @@ public class ProchainementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_prochainement, container, false);
+        View view= inflater.inflate(R.layout.fragment_prochainement, container, false);
+        recyclerView=view.findViewById(R.id.rv_enSalle);
+        lsearch = new ArrayList<>();
+        lsearch.add(new Search(R.drawable.image,"23","09","2017","UN SAC DE BILLES", "Le Colisée"));
+        lsearch.add(new Search(R.drawable.img3,"11","09","2017","FIESTA GITANA", "Rio"));
+        lsearch.add(new Search(R.drawable.img1,"22","09","2017","SABRI MOSBAH", "masra7"));
+        lsearch.add(new Search(R.drawable.img2,"31","02","2017","SABRI MOSBAH", "baldi"));
+        lsearch.add(new Search(R.drawable.img4,"19","09","2017","SABRI MOSBAH", "Sabri"));
+        lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
+        recyclerView.setLayoutManager(lm);
+        EnSalleAdapter enSalleAdapter = new EnSalleAdapter(getActivity(), lsearch);
+        recyclerView.setAdapter(enSalleAdapter);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

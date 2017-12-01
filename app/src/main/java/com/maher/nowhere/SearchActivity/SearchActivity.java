@@ -35,6 +35,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         setupToolbar();
+        String categorie=getIntent().getStringExtra("categorie");
 
 
         lsearch = new ArrayList<>();
@@ -47,7 +48,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.rv_search);
         lm=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(lm);
-        SearchAdapter searchAdapter = new SearchAdapter(this, lsearch);
+        SearchAdapter searchAdapter = new SearchAdapter(this, lsearch,categorie);
         recyclerView.setAdapter(searchAdapter);
 
     }

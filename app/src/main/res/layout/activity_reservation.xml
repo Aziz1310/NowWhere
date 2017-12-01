@@ -7,11 +7,14 @@
     tools:context="com.maher.nowhere.reservationActivity.ReservationActivity">
 
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/too"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/too"
+        >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

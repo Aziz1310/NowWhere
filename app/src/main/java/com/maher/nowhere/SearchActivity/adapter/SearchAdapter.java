@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.maher.nowhere.CentreActivity.CentreActivity;
+import com.maher.nowhere.CinemaActivity.CinemaActivity;
 import com.maher.nowhere.R;
+import com.maher.nowhere.RestaurantProfileActivity.RestaurantProfileActivity;
+import com.maher.nowhere.SalleDeSportActivity.SalleSportActivity;
 import com.maher.nowhere.SearchDetailActivity.SearchDetailActivity;
 import com.maher.nowhere.model.Search;
 import com.maher.nowhere.utiles.RecyclerViewPositionHelper;
@@ -25,13 +29,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
 
     private final Context mContext;
     private final ArrayList<Search> lsearch;
+    public final static String CAT_RESTAURANT = "Réstaurant";
+    public final static String CAT_SALLE = "Centres";
+    public final static String CAT_ART = "Art";
+    private String categorie;
 
 
-
-    public SearchAdapter(Context mContext, ArrayList<Search> lsearch) {
+    public SearchAdapter(Context mContext, ArrayList<Search> lsearch, String categorie) {
         this.mContext = mContext;
         this.lsearch = lsearch;
-
+        this.categorie = categorie;
 
 
     }
@@ -48,6 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
     @Override
     public void onBindViewHolder(final RecycleView_Holder holder, final int position) {
         Search search = lsearch.get(position);
+
         holder.img1.setImageResource(search.getImage());
         holder.tvName.setText(search.getName());
         holder.tvTitle.setText(search.getTitle());
@@ -58,11 +66,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(mContext, SearchDetailActivity.class);
+
+
+                switch (categorie) {
+                    case CAT_RESTAURANT:
+                        intent = new Intent(mContext, RestaurantProfileActivity.class);
+                        break;
+                    case CAT_SALLE:
+                        intent = new Intent(mContext, SalleSportActivity.class);
+                        break;
+                    default:
+                        intent = new Intent(mContext, SearchDetailActivity.class);
+
+
+                }
+
 
                 int[] screenLocation = new int[2];
                 v.getLocationOnScreen(screenLocation);
 
-                Intent intent=new Intent(mContext, SearchDetailActivity.class);
 
                 int orientation = mContext.getResources().getConfiguration().orientation;
                 intent.
@@ -76,7 +99,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
                 mContext.startActivity(intent);
                 // Override transitions: we don't want the normal window animation in addition
                 // to our custom one
-                Activity a=(Activity)mContext;
+                Activity a = (Activity) mContext;
                 a.overridePendingTransition(R.anim.fragment_fade_in, R.anim.fragment_fade_out);
             }
         });
@@ -87,12 +110,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
         return (null != lsearch ? lsearch.size() : 0);
     }
 
-    class RecycleView_Holder extends RecyclerView.ViewHolder{
+    class RecycleView_Holder extends RecyclerView.ViewHolder {
 
 
         ImageView img1;
         TextView tvDay, tvMonth, tvYear, tvTitle, tvName;
-
 
 
         public RecycleView_Holder(View itemView) {

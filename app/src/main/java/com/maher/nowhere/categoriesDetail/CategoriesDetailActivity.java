@@ -57,6 +57,7 @@ public class CategoriesDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CategoriesDetailActivity.this, SearchActivity.class);
+                intent.putExtra("categorie",categ.getShortName());
                 startActivity(intent);
             }
         });

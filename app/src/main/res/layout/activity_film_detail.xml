@@ -8,12 +8,15 @@
     android:id="@+id/shadowLayout"
     tools:context="com.maher.nowhere.CinemaActivity.FilmDetailActivity">
 
-    <include layout="@layout/toolbar"></include>
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/too"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/too"
+        >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -164,8 +167,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/acteurFilm"
-                android:text="Dorian Le Clech, Batyste Fleurial, Patrick Bruel"
+                android:text="Dorian Le Clech, Batyste Fleurial"
                 android:textSize="15sp"
+                android:lines="1"
                 android:textColor="@color/colorMarron"
                 android:layout_alignBottom="@+id/tv_acteurFilm"
                 android:layout_toEndOf="@+id/tv_acteurFilm"

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.maher.nowhere.CinemaActivity.adapter.EnSalleAdapter;
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.EnSalle;
+import com.maher.nowhere.model.Search;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class EnSalleFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
-    private ArrayList<EnSalle> enSalles;
+    private ArrayList<Search> lsearch;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,14 +79,15 @@ public class EnSalleFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_en_salle, container, false);
         recyclerView=view.findViewById(R.id.rv_enSalle);
-        enSalles = new ArrayList<>();
-        enSalles.add(new EnSalle());
-        enSalles.add(new EnSalle());
-        enSalles.add(new EnSalle());
-
+        lsearch = new ArrayList<>();
+        lsearch.add(new Search(R.drawable.image,"23","09","2017","UN SAC DE BILLES", "Le Colisée"));
+        lsearch.add(new Search(R.drawable.img3,"11","09","2017","FIESTA GITANA", "Rio"));
+        lsearch.add(new Search(R.drawable.img1,"22","09","2017","SABRI MOSBAH", "masra7"));
+        lsearch.add(new Search(R.drawable.img2,"31","02","2017","SABRI MOSBAH", "baldi"));
+        lsearch.add(new Search(R.drawable.img4,"19","09","2017","SABRI MOSBAH", "Sabri"));
         lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
         recyclerView.setLayoutManager(lm);
-        EnSalleAdapter enSalleAdapter = new EnSalleAdapter(getActivity(), enSalles);
+        EnSalleAdapter enSalleAdapter = new EnSalleAdapter(getActivity(), lsearch);
         recyclerView.setAdapter(enSalleAdapter);
 
         return view;
