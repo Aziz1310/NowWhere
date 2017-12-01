@@ -58,7 +58,10 @@
         <activity android:name=".CinemaActivity.FilmDetailActivity" />
         <activity android:name=".SalleDeSportActivity.SalleSportActivity" />
         <activity android:name=".Settings.SettingsActivity" />
-        <activity android:name=".CentreActivity.CentreActivity"></activity>
+        <activity android:name=".CentreActivity.CentreActivity" />
+        <activity android:name=".ForgetPassword.MotDePasseOublieActivity" />
+        <activity android:name=".ForgetPassword.PassOublieActivity" />
+        <activity android:name=".ForgetPassword.CompteRenitialiserActivity"></activity>
     </application>
 
 </manifest>

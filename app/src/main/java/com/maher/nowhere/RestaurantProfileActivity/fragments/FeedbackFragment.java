@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.RestaurantProfileActivity.adapter.FeedbackAdapter;
+import com.maher.nowhere.model.Feedback;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,10 @@ public class FeedbackFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager lm;
+    private ArrayList<Feedback> feedbacks;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,7 +76,19 @@ public class FeedbackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feedback, container, false);
+        view = inflater.inflate(R.layout.fragment_feedback, container, false);
+        recyclerView=view.findViewById(R.id.rv_feedback);
+        feedbacks = new ArrayList<>();
+        feedbacks.add(new Feedback());
+        feedbacks.add(new Feedback());
+        feedbacks.add(new Feedback());
+
+        lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
+        FeedbackAdapter feedbackAdapter = new FeedbackAdapter(getActivity(), feedbacks);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setAdapter(feedbackAdapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

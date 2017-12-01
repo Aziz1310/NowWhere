@@ -269,7 +269,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
     public String getPath(Uri uri) {
         // just some safety built in
         if (uri == null) {
-            // TODO perform some logging or show user feedback
+            // TODO perform some logging or show user Feedback
             return null;
         }
         // try to retrieve the image from the media store first

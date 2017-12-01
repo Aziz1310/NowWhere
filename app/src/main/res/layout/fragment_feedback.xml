@@ -1,9 +1,232 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusableInTouchMode="true"
     tools:context="com.maher.nowhere.RestaurantProfileActivity.fragments.FeedbackFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/rv_avis">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/l_avis"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_avis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4,5"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/colorAccent"
+                android:textSize="40sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/l_heart"
+            android:layout_alignTop="@+id/l_avis"
+            android:layout_toRightOf="@+id/l_avis"
+            android:layout_toEndOf="@+id/l_avis">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/side_menu_heart"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/side_menu_heart"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/side_menu_heart"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/side_menu_heart"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="6dp"
+                android:src="@drawable/side_menu_heart"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/l_heart"
+            android:layout_toRightOf="@+id/l_avis"
+            android:layout_toEndOf="@+id/l_avis"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22,000 avis"
+                android:textColor="@color/colorGreyText"/>
+
+        </LinearLayout>
 
 
-</FrameLayout>
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/divider_list"
+        android:layout_below="@+id/rv_avis"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ttAvis"
+        android:layout_below="@+id/rv_feedback"
+        android:text="VOIR TOUT LES AVIS"
+        android:layout_centerInParent="true"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ttAvis"
+        android:id="@+id/tv_noterAvis"
+        android:layout_centerInParent="true"
+        android:text="Noter cet restaurant"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_noterAvis"
+        android:id="@+id/avisNotation"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/side_menu_heart"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/side_menu_heart"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/side_menu_heart"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/side_menu_heart"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
+            android:src="@drawable/side_menu_heart"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/avisNotation"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/profile_image"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/profile_img"
+            android:layout_toEndOf="@+id/profile_img"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Exprimez-vous"
+                android:textColor="@color/colorGreyText"
+                android:layout_marginTop="15dp"
+                android:textSize="12sp"
+                android:layout_marginLeft="6dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/textView7" />
+            <EditText
+                android:id="@+id/etAvis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:maxLines="3"
+                android:textSize="14sp"
+                android:layout_marginLeft="106dp"
+                android:layout_toRightOf="@+id/textView7"
+                android:layout_toLeftOf="@+id/imageView6"
+                android:layout_toStartOf="@+id/imageView6" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_send"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/imageView6" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
