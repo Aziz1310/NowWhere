@@ -1,5 +1,6 @@
 package com.maher.nowhere.Register;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Base64;
@@ -17,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -37,15 +40,20 @@ import com.vansuita.pickimage.PickSetup;
 
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SignUpActivity extends AppCompatActivity implements IPickResult.IPickClick,SignUpView {
+public class SignUpActivity extends AppCompatActivity implements IPickResult.IPickClick, SignUpView {
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     private static final int REQUEST_SIGNUP = 0;
@@ -57,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
     private Uri fileUri; // file url to store image/video
     private String filePath = null;
     private Bitmap bitmap;
+    private Bitmap bitmapCover;
 
     private CircleImageView imgProfile;
     private EditText etUserName, etPassword, etName;
@@ -65,6 +74,8 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
     private AppCompatButton btnRegister;
     private FloatingActionButton btnGalerie;
     private InputValidator inputValidator;
+    private ImageView btnCover, imgCover;
+    private int image = 0;
 
 
     @Override
@@ -73,6 +84,8 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         setContentView(R.layout.activity_sign_up);
 
         etUserName = (EditText) findViewById(R.id.etEmail);
+        btnCover = findViewById(R.id.btnCover);
+        imgCover = findViewById(R.id.imgCover);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etName = (EditText) findViewById(R.id.etName);
         lottieAnimationView = (LottieAnimationView) findViewById(R.id.loadingAnimation);
@@ -80,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         btnGalerie = (FloatingActionButton) findViewById(R.id.btnGalerie);
         btnRegister = (AppCompatButton) findViewById(R.id.btnRegister);
 
-        final SignUpPresenter signUpPresenter=new SignUpPresenter(this,this);
+        final SignUpPresenter signUpPresenter = new SignUpPresenter(this, this);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +102,28 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
                 String userName = etUserName.getText().toString();
                 String password = etPassword.getText().toString();
                 String name = etName.getText().toString();
-                signUpPresenter.signUp(name,password,userName,bitmap);
+                try {
+
+                    signUpPresenter.signUp(name, password, userName, fullyReadFileToBytes(bitmap), fullyReadFileToBytes(bitmapCover));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
         btnGalerie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                image = 0;
                 PickImageDialog.on(SignUpActivity.this, new PickSetup());
 
+            }
+        });
+        btnCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                image = 1;
+                PickImageDialog.on(SignUpActivity.this, new PickSetup());
             }
         });
 
@@ -125,7 +151,6 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
                 Uri selectedImageUri = data.getData();
                 filePath = getPath(selectedImageUri);
                 //launchUploadActivity();
-
                 previewMedia();
             }
 
@@ -135,7 +160,6 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
                     // successfully captured the image
                     // launching upload activity
                     launchUploadActivity();
-
                     previewMedia();
 
 
@@ -244,10 +268,16 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         // images
         options.inSampleSize = 8;
 
-        bitmap = BitmapFactory.decodeFile(filePath, options);
+        if (image == 0)
+            bitmap = BitmapFactory.decodeFile(filePath, options);
+        else if (image == 1)
+            bitmapCover = BitmapFactory.decodeFile(filePath, options);
 
         //Setting the Bitmap to ImageView
-        imgProfile.setImageBitmap(bitmap);
+        if (bitmap != null && image == 0)
+            imgProfile.setImageBitmap(bitmap);
+        else if (bitmapCover != null && image == 1)
+            imgCover.setImageBitmap(bitmapCover);
 
     }
 
@@ -275,7 +305,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         // try to retrieve the image from the media store first
         // this will only work for images selected from gallery
         String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             int column_index = cursor
                     .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -288,8 +318,6 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         return uri.getPath();
 
     }
-
-
 
 
     @Override
@@ -345,7 +373,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
 
     @Override
     public void passwordError(int code) {
-        switch (code){
+        switch (code) {
             case SignUpInteractor.EMPTY_PASSWORD:
                 Snackbar.with(this, null);
                 Snackbar.type(Type.ERROR);
@@ -376,7 +404,7 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
 
     @Override
     public void emailError(int code) {
-        switch (code){
+        switch (code) {
             case SignUpInteractor.EMPTY_EMAIL:
                 Snackbar.with(this, null);
                 Snackbar.type(Type.ERROR);
@@ -394,5 +422,83 @@ public class SignUpActivity extends AppCompatActivity implements IPickResult.IPi
         }
 
     }
+
+    public void AllowRunTimePermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+            Toast.makeText(SignUpActivity.this, "READ_EXTERNAL_STORAGE permission Access Dialog", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(SignUpActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int RC, String per[], int[] Result) {
+
+        switch (RC) {
+
+            case 1:
+
+                if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(SignUpActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    Toast.makeText(SignUpActivity.this, "Permission Canceled", Toast.LENGTH_LONG).show();
+
+                }
+                break;
+        }
+    }
+
+
+    byte[] fullyReadFileToBytes(Bitmap f) throws IOException {
+
+        byte bytes[] = null;
+        try {
+
+
+            if (filePath == null)
+                return null;
+
+            File file = new File(filePath);
+            OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+            f.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.close();
+
+            int size = (int) file.length();
+
+            bytes = new byte[size];
+            byte tmpBuff[] = new byte[size];
+            FileInputStream fis = new FileInputStream(file);
+            ;
+            try {
+
+                int read = fis.read(bytes, 0, size);
+                if (read < size) {
+                    int remain = size - read;
+                    while (remain > 0) {
+                        read = fis.read(tmpBuff, 0, remain);
+                        System.arraycopy(tmpBuff, 0, bytes, size - remain, read);
+                        remain -= read;
+                    }
+                }
+            } catch (IOException e) {
+                throw e;
+            } finally {
+                fis.close();
+            }
+
+            return bytes;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
 }

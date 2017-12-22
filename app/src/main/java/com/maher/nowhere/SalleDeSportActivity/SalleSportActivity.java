@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.maher.nowhere.ProfileFriendActivity.fragments.photos.PhotosFragment;
 import com.maher.nowhere.R;
 import com.maher.nowhere.SalleDeSportActivity.fragments.AProposSalleFragment;
 import com.maher.nowhere.SalleDeSportActivity.fragments.SalleSportPagerAdapter;
@@ -15,7 +16,7 @@ import com.maher.nowhere.SalleDeSportActivity.fragments.TrynowFragment;
 import static com.maher.nowhere.R.id.pagerSalle;
 
 public class SalleSportActivity extends AppCompatActivity implements AProposSalleFragment.OnFragmentInteractionListener,
-        com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment.OnFragmentInteractionListener,
+        PhotosFragment.OnFragmentInteractionListener,
         TrynowFragment.OnFragmentInteractionListener{
 
     @Override

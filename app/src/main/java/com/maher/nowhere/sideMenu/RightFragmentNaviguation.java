@@ -1,6 +1,7 @@
 package com.maher.nowhere.sideMenu;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.maher.nowhere.ContactsActivity.ContactActivity;
 import com.maher.nowhere.login.LoginActivity;
@@ -20,6 +23,8 @@ import com.maher.nowhere.R;
 import com.maher.nowhere.RestaurantProfileActivity.RestaurantProfileActivity;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.RecyclerItemClickListener;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Picasso;
 
 public class RightFragmentNaviguation extends Fragment {
 
@@ -28,10 +33,25 @@ public class RightFragmentNaviguation extends Fragment {
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_right_naviguation, container, false);
         setUpRecyclerView(view);
+        TextView tvName=(TextView)view.findViewById(R.id.title);
+            ImageView img=view.findViewById(R.id.img);
+            User user=User.getCurrentUser(getActivity());
+            tvName.setText(user.getName());
+            Picasso.with(getActivity()).load(Uri.parse(Urls.IMG_URL_USER_COVER +user.getCoverPhoto())).into(img, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    System.out.println(" maher image loaded with success cover photo");
+                }
+                @Override
+                public void onError() {
+                }
+            });
+
         return view;
     }
 

@@ -20,11 +20,11 @@ public class SignUpPresenter implements SignUpInteractor.OnSignUpFinishedListene
     }
 
 
-    void signUp(String username, String password, String email, Bitmap image) {
+    void signUp(String username, String password, String email, byte[] image, byte[] imageCover) {
 
-        if (signUpInteractor.checkInput(username, password,email,image, this)) {
+        if (signUpInteractor.checkInput(username, password,email,image,imageCover, this)) {
             signUpView.showProgress();
-            signUpInteractor.signUp(username, password,email,image, this,mcContext);
+            signUpInteractor.signUp(username, password,email,image,imageCover, this,mcContext);
         }
 
     }

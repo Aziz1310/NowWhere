@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.maher.nowhere.ProfileFriendActivity.fragments.photos.PhotosFragment;
+
 /**
  * Created by RaniaH on 25/11/2017.
  */
@@ -23,7 +25,7 @@ public class CentrePagerAdapter extends FragmentStatePagerAdapter {
                 AProposCentreFragment aProposCentre = new AProposCentreFragment();
                 return aProposCentre;
             case 1:
-                com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment photosFragment = new com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment();
+                PhotosFragment photosFragment = new PhotosFragment();
                 return photosFragment;
             case 2:
                 ProductsFragment products = new ProductsFragment();

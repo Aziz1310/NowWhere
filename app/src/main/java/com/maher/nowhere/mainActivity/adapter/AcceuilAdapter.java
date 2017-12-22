@@ -8,24 +8,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maher.nowhere.R;
 import com.maher.nowhere.categoriesDetail.CategoriesDetailActivity;
+import com.maher.nowhere.commentsActivity.CommentActivity;
+import com.maher.nowhere.model.Comment;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.model.Publication;
+import com.maher.nowhere.utiles.Urls;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleView_Holder> {
 
     private final Context mContext;
-    private final ArrayList<Post> posts;
+    private final ArrayList<Publication> posts;
 
-    public AcceuilAdapter(Context context, ArrayList<Post> posts){
+    public AcceuilAdapter(Context context, ArrayList<Publication> posts){
 
         this.mContext = context;
         this.posts = posts;
@@ -42,14 +49,18 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
     }
 
     @Override
-    public void onBindViewHolder(RecycleView_Holder holder, int position) {
+    public void onBindViewHolder(RecycleView_Holder holder, final int position) {
 
-        Post post= posts.get(position);
+        final Publication post= posts.get(position);
        // holder.tvHeure.setText(post.getHeure());
 
+        holder.tv1.setText(String.format(Locale.FRANCE,"%d", post.getNbrJaime()));
+        holder.tvComment.setText(post.getDescription());
+        holder.tvCommentOwner.setText(post.getOwnerName());
+        Picasso.with(mContext).load(Uri.parse(Urls.IMG_URL_USER +post.getOwnerImage())).into(holder.imgComment);
 
-        /*
-        Picasso.with(mContext).load(Uri.parse(position.getIconUrl())).into(holder.img, new com.squareup.picasso.Callback() {
+
+        Picasso.with(mContext).load(Uri.parse(Urls.IMG_URL_PUBLICATION +post.getImage())).into(holder.img, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
                 System.out.println(" maher image loaded with success");
@@ -58,7 +69,17 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
             public void onError() {
             }
         });
-        */
+        holder.btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, CommentActivity.class);
+                intent.putExtra("publication",post);
+                mContext.startActivity(intent);
+
+
+            }
+        });
+
     }
 
 
@@ -71,8 +92,11 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
     class RecycleView_Holder extends RecyclerView.ViewHolder{
 
 
-        final TextView tvDay,tvMonth,tvYear,tvHeure;
-        //final ImageView img;
+        final TextView tvDay,tvMonth,tvYear,tvHeure,tvCommentOwner,tvComment,tv1;
+        final ImageView img;
+        final CircleImageView imgComment;
+        final LinearLayout btnComment;
+
 
 
 
@@ -83,7 +107,12 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
             tvMonth=itemView.findViewById(R.id.tvMonth);
             tvYear=itemView.findViewById(R.id.tvYear);
             tvHeure=itemView.findViewById(R.id.tvheure);
-
+            img=itemView.findViewById(R.id.img);
+            imgComment=itemView.findViewById(R.id.ivProfile);
+            tv1=itemView.findViewById(R.id.tvlikk);
+            tvCommentOwner=itemView.findViewById(R.id.profineName);
+            tvComment=itemView.findViewById(R.id.tvComment);
+            btnComment=itemView.findViewById(R.id.btnComment);
         }
     }
 }

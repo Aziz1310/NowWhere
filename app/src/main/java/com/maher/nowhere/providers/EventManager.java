@@ -24,15 +24,23 @@ import org.json.JSONObject;
 public class EventManager {
 
     private final Context context;
+    public static final String TYPE_LOUNGES="Lounges";
+    public static final String TYPE_RESAUTANTS="Restaurants";
+    public static final String TYPE_HAPPY_HOUR="Happy-Hour";
+    public static final String TYPE_COFFE="Coffee";
+    public static final String TYPE_CINEMA="Cinemas";
+    public static final String TYPE_MIND="Mind";
+    public static final String TYPE_ART="art";
+
 
     public EventManager(Context context) {
         this.context = context;
     }
 
 
-    public void getPosts(final VolleyCallback volleyCallback) {
+    public void getPosts(int iduser,final VolleyCallback volleyCallback) {
 
-        final PostRequest req = new PostRequest(Request.Method.GET, Urls.getPosts,null, new Response.Listener<JSONArray>() {
+        final PostRequest req = new PostRequest(Request.Method.GET, Urls.getPosts+"/"+iduser+".json",null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -81,7 +89,150 @@ public class EventManager {
 
         ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
+    public void addToFavorit(int idUser,int idEvent, final VolleyCallback volleyCallback) {
+
+        JSONObject reservation = new JSONObject();
+        try {
+            reservation.put("idEvent",idEvent);
+            reservation.put("iduser", idUser);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.addFavoris, reservation, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
 
+                volleyCallback.onSuccess(response);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
+
+    public void eventArround(Double lat,Double lang,String type,int distance,final VolleyCallback volleyCallback) {
+
+        JSONObject reservation = new JSONObject();
+        try {
+            reservation.put("lat",lat);
+            reservation.put("lang", lang);
+            reservation.put("maxDistance", distance);
+            reservation.put("type", type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.event_arround,reservation, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
+    public void getPrestataires(String type,final VolleyCallback volleyCallback) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("type", type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.prestataires_list,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
+    public void getPrestataireById(String id,final VolleyCallback volleyCallback) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idprestataire", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.prestataire_by_id,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
+    public void getPrestataireMenu(String id,final VolleyCallback volleyCallback) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("idprestataire", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.menu,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
 }

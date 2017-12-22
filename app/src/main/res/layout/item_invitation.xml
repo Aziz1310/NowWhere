@@ -72,7 +72,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/btnYes"
+                    android:id="@+id/btnDecline"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

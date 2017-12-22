@@ -14,4 +14,15 @@
       >
 
     </android.support.v7.widget.RecyclerView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        android:layout_centerInParent="true"
+        app:lottie_colorFilter="@color/colorAccent"
+        app:lottie_fileName="loading_animation.json"
+        app:lottie_loop="true" />
 </RelativeLayout>

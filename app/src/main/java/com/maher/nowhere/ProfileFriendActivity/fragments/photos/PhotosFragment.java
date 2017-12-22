@@ -1,4 +1,4 @@
-package com.maher.nowhere.ProfileFriendActivity.fragments;
+package com.maher.nowhere.ProfileFriendActivity.fragments.photos;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,9 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.maher.nowhere.ProfileFriendActivity.adapter.PhotosAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
+import com.maher.nowhere.mainActivity.fragments.acceuil.AccueilPresenter;
 import com.maher.nowhere.model.Photo;
+import com.maher.nowhere.model.Publication;
+import com.maher.nowhere.model.User;
+import com.maher.nowhere.providers.AccueilManager;
 import com.maher.nowhere.utiles.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
@@ -26,21 +32,24 @@ import java.util.ArrayList;
  * Use the {@link PhotosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PhotosFragment extends Fragment {
+public class PhotosFragment extends Fragment implements PhotoView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "viewPager";
     private static final String ARG_PARAM2 = "param2";
+    public static final String FROM_PROFILE = "from_profile";
+    public static final String FROM_FRIEND_PROFILE = "from_friend_profile";
+    private static String from = "";
+    private static int FRIEND_ID = 0;
 
-
-    // TODO: Rename and change types of parameters
-
-    private String mParam2;
     private Context mContext;
     private View view;
     private RecyclerView recyclerView;
-    private LinearLayoutManager lm;
-    private ArrayList<Photo> photo;
+
+
+    private ArrayList<Publication> posts;
+
+    private LottieAnimationView lottieAnimationView;
 
 
     private OnFragmentInteractionListener mListener;
@@ -71,7 +80,10 @@ public class PhotosFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            from = getArguments().getString("from");
+            User user = (User) getArguments().getSerializable("friend_id");
+            if (user != null)
+                FRIEND_ID = user.getId();
         }
     }
 
@@ -79,24 +91,26 @@ public class PhotosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_photos, container, false);
-        recyclerView=view.findViewById(R.id.rv_photo);
-        photo = new ArrayList<>();
-        photo.add(new Photo(R.drawable.p1));
-        photo.add(new Photo(R.drawable.p2));
-        photo.add(new Photo(R.drawable.p3));
-        photo.add(new Photo(R.drawable.p4));
-        photo.add(new Photo(R.drawable.p5));
-        photo.add(new Photo(R.drawable.p6));
-        photo.add(new Photo(R.drawable.p7));
-        photo.add(new Photo(R.drawable.p8));
-        photo.add(new Photo(R.drawable.p9));
-        photo.add(new Photo(R.drawable.p1));
+        view = inflater.inflate(R.layout.fragment_photos, container, false);
+        setRetainInstance(true);
+        lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
+        final PhotoPresenter photoPresenter = new PhotoPresenter(this, getActivity());
 
-        GridLayoutManager gl=new GridLayoutManager(mContext, 3,GridLayoutManager.VERTICAL,false);
+
+        if (from != null) {
+            if (from.equals(FROM_PROFILE))
+                photoPresenter.getListPublication(User.getCurrentUser(getActivity()).getId());
+            else if (from.equals(FROM_FRIEND_PROFILE))
+                photoPresenter.getListPublication(FRIEND_ID);
+        }
+
+
+        recyclerView = view.findViewById(R.id.rv_photo);
+
+        GridLayoutManager gl = new GridLayoutManager(mContext, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, 4, false));
 
-        PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), photo);
+        PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), posts);
         recyclerView.setLayoutManager(gl);
         recyclerView.setAdapter(photosAdapter);
 
@@ -125,6 +139,40 @@ public class PhotosFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void showProgress() {
+        lottieAnimationView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideProgress() {
+        lottieAnimationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void networkError() {
+        System.out.println("network error load");
+
+    }
+
+    @Override
+    public void loadAllPosts(ArrayList<Publication> publications) {
+        System.out.println("load all publications");
+
+        posts = new ArrayList<>();
+        posts = publications;
+        PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), posts);
+        recyclerView.setAdapter(photosAdapter);
+    }
+
+    @Override
+    public void loadNoPosts(ArrayList<Publication> posts) {
+        System.out.println("load No publication");
+
     }
 
     /**

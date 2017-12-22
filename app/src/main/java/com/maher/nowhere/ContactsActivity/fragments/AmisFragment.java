@@ -10,14 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.maher.nowhere.ContactsActivity.presenters.AmisPresenter;
+import com.maher.nowhere.ContactsActivity.presenters.SuggestionPresenter;
+import com.maher.nowhere.ContactsActivity.views.AmisView;
 import com.maher.nowhere.R;
 import com.maher.nowhere.ContactsActivity.adapters.AmisAdapter;
 import com.maher.nowhere.mainActivity.MainActivity;
 import com.maher.nowhere.model.Friend;
+import com.maher.nowhere.model.User;
+import com.maher.nowhere.providers.ContactsManager;
 
 import java.util.ArrayList;
 
-public class AmisFragment extends Fragment {
+public class AmisFragment extends Fragment implements AmisView,AmisAdapter.OnDeleteFrindListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,11 +32,13 @@ public class AmisFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Friend> amis;
+    private ArrayList<User> amis;
     private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
 
+    private ContactsManager contactsManager;
+    private LottieAnimationView lottieAnimationView;
 
 
     public AmisFragment() {
@@ -68,27 +76,76 @@ public class AmisFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_amis, container, false);
-        amis = new ArrayList<>();
-        amis.add(new Friend(R.drawable.profile_image,"Lili","Last seen 12 minutes ago"));
-        amis.add(new Friend(R.drawable.profile_image,"Bilel D","Online"));
-        amis.add(new Friend(R.drawable.profile_image,"Oumaima H","Offline"));
-        amis.add(new Friend(R.drawable.profile_image,"Selima T","Offline"));
-        amis.add(new Friend(R.drawable.profile_image,"Intissar S","Online"));
-        amis.add(new Friend(R.drawable.profile_image,"Lassaad","Online"));
+        view = inflater.inflate(R.layout.fragment_amis, container, false);
 
-        AmisAdapter amisAdapter=new AmisAdapter(getActivity(),amis);
-        recyclerView=(RecyclerView)view.findViewById(R.id.rv_amis);
-        lm=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
+
+        final AmisPresenter amisPresenter = new AmisPresenter(this, getActivity());
+        amisPresenter.getListFrinds(User.getCurrentUser(getActivity()).getId());
+
+
+        amis = new ArrayList<>();
+
+        AmisAdapter amisAdapter = new AmisAdapter(getActivity(), amis,this);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_amis);
+        lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(amisAdapter);
         recyclerView.setLayoutManager(lm);
-
-
-
 
         return view;
     }
 
 
+    @Override
+    public void showProgress() {
+        lottieAnimationView.setVisibility(View.VISIBLE);
 
+    }
+
+    @Override
+    public void hideProgress() {
+        lottieAnimationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void networkError() {
+
+    }
+
+    @Override
+    public void loadAllFrinds(ArrayList<User> users) {
+        System.out.println("load friends");
+        amis = new ArrayList<>();
+        amis = users;
+        AmisAdapter amisAdapter=new AmisAdapter(getActivity(),amis,this);
+        recyclerView.setAdapter(amisAdapter);
+
+    }
+
+    @Override
+    public void loadNoFrind(ArrayList<User> users) {
+        System.out.println("load No friends");
+
+
+    }
+
+    @Override
+    public void deleteFrindSuccess() {
+        final AmisPresenter amisPresenter = new AmisPresenter(this, getActivity());
+        amisPresenter.getListFrinds(User.getCurrentUser(getActivity()).getId());
+
+    }
+
+    @Override
+    public void deleteFrindError() {
+
+    }
+
+    @Override
+    public void ondeleteBtnClick(User user) {
+        final AmisPresenter amisPresenter = new AmisPresenter(this, getActivity());
+        amisPresenter.deleteFrind(User.getCurrentUser(getActivity()).getId(),user.getId());
+
+    }
 }

@@ -14,6 +14,7 @@ public class User implements Serializable{
     private int id;
     private String name;
     private String image;
+    private String coverPhoto;
     private String password;
     private String email;
 
@@ -60,6 +61,14 @@ public class User implements Serializable{
         this.email = email;
     }
 
+    public String getCoverPhoto() {
+        return coverPhoto;
+    }
+
+    public void setCoverPhoto(String coverPhoto) {
+        this.coverPhoto = coverPhoto;
+    }
+
     public static void setCurrentUser(User user, Context a){
 
         SharedPreferences sharedpreferences = a.getSharedPreferences("user_credentials",Activity.MODE_PRIVATE);
@@ -68,11 +77,11 @@ public class User implements Serializable{
         editor.putString("email", user.getEmail());
         editor.putString("password", user.getPassword());
         editor.putString("image", user.getImage());
+        editor.putString("cover_photo", user.getCoverPhoto());
         editor.putInt("id", user.getId());
         editor.apply();
 
     }
-
 
     public static User getCurrentUser(Context a){
         SharedPreferences sharedpreferences = a.getSharedPreferences("user_credentials", Activity.MODE_PRIVATE);
@@ -82,6 +91,7 @@ public class User implements Serializable{
         u.setName(sharedpreferences.getString("name",""));
         u.setImage(sharedpreferences.getString("image",""));
         u.setId(sharedpreferences.getInt("id",0));
+        u.setCoverPhoto(sharedpreferences.getString("cover_photo",""));
 
         return u;
 

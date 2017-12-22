@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.maher.nowhere.R;
 import com.maher.nowhere.SearchDetailActivity.SearchDetailActivity;
+import com.maher.nowhere.mainActivity.fragments.weeklik.WeeklikPresenter;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.model.User;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.NonReusable;
@@ -114,6 +116,8 @@ public class TinderCard {
     @SwipeIn
     private void onSwipeIn(){
         Log.d("EVENT", "onSwipedIn");
+        WeeklikPresenter weeklikPresenter=new WeeklikPresenter(mContext);
+        weeklikPresenter.addToFavorit(User.getCurrentUser(mContext).getId(),post.getId());
     }
 
     @SwipeInState

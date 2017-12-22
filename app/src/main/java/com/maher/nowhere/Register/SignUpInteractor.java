@@ -39,7 +39,7 @@ public class SignUpInteractor {
     }
 
 
-    public boolean checkInput(String  etUsername, String  etPassword, String etEmail, Bitmap etImage, final OnSignUpFinishedListener listener) {
+    public boolean checkInput(String  etUsername, String  etPassword, String etEmail, byte[]  etImage,byte[]  imgCover, final OnSignUpFinishedListener listener) {
         InputValidator inputValidator = new InputValidator();
         if(etUsername.isEmpty()){
             listener.onUsernameError();
@@ -65,14 +65,18 @@ public class SignUpInteractor {
             listener.onImageEmpty();
             return false;
         }
+        if(imgCover==null){
+            listener.onImageEmpty();
+            return false;
+        }
         return true;
     }
 
-    public void signUp(String username, String password,String email,Bitmap image, final OnSignUpFinishedListener listener, final Context context) {
+    public void signUp(String username, String password,String email,byte[]  image,byte[]  imageCover, final OnSignUpFinishedListener listener, final Context context) {
         AccountManager accountManager=new AccountManager(context);
-        String imageS=getStringImage(image);
+        //String imageS=getStringImage(image);
 
-        accountManager.register(email,username, password,imageS,"jpg", new VolleyCallback() {
+        accountManager.register(email,username, password,image,imageCover, new VolleyCallback() {
             @Override
             public void onSuccess(Object response) {
                 System.out.println(response.toString());

@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.mainActivity.MainActivity;
+import com.maher.nowhere.model.Owner;
 import com.maher.nowhere.model.Post;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.reservationActivity.ReservationActivity;
@@ -73,6 +74,7 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
     private Toolbar toolbar;
     private ImageView btnIgo,img1;
     private Post post;
+    private Owner owner;
 
     private TextView tvTitle;
     private TextView tvPlace,tvDay,tvMonth,tvYear;
@@ -97,12 +99,13 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
         tvYear=(TextView)findViewById(R.id.tvYear);
 
         post=(Post) getIntent().getSerializableExtra("post");
+        owner=(Owner) getIntent().getSerializableExtra("owner");
         if(post!=null){
             tvDescription.setText(post.getDescription());
             tvAdresse.setText(post.getOwner().getAdresse());
             tvTitle.setText(post.getName());
             tvPlace.setText(post.getOwner().getNom());
-            tvDate.setText("Ouvert\n de "+post.getHeureDebut()+" à "+post.getHeureFin());
+            tvDate.setText(String.format("Ouvert\n de %s à %s", post.getHeureDebut(), post.getHeureFin()));
             tvYear.setText(post.getYear());
             tvDay.setText(post.getDayOfWeek());
             tvMonth.setText(post.getMonthNumber());
@@ -116,39 +119,27 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
                         public void onError() {
                         }
                     });
-        }
+        }else if (owner !=null){
+            tvDescription.setText(owner.getDescription());
+            tvAdresse.setText(owner.getAdresse());
+            tvTitle.setText(owner.getNom());
+          //  tvPlace.setText(post.getOwner().getNom());
+            tvDate.setText(String.format("Ouvert\n de %s à %s", owner.getHeure_overture(), owner.getHeure_fermeture()));
+           // tvYear.setText(post.getYear());
+           // tvDay.setText(post.getDayOfWeek());
+           // tvMonth.setText(post.getMonthNumber());
+            Picasso.with(this).
+                    load(Uri.parse(owner.getUrlImage()))
+                    .into(mImageView, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {}
 
-
-
-
-        /*
-        if (savedInstanceState==null){
-            ViewTreeObserver observer = mImageView.getViewTreeObserver();
-            observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-
-                @Override
-                public boolean onPreDraw() {
-                    mImageView.getViewTreeObserver().removeOnPreDrawListener(this);
-
-                    // Figure out where the thumbnail and full size versions are, relative
-                    // to the screen and each other
-                    int[] screenLocation = new int[2];
-                    mImageView.getLocationOnScreen(screenLocation);
-                    mLeftDelta = thumbnailLeft - screenLocation[0];
-                    mTopDelta = thumbnailTop - screenLocation[1];
-
-                    // Scale factors to make the large version the same size as the thumbnail
-                    mWidthScale = (float) thumbnailWidth / mImageView.getWidth();
-                    mHeightScale = (float) thumbnailHeight / mImageView.getHeight();
-
-                    runEnterAnimation();
-
-                    return true;
-                }
-            });
+                        @Override
+                        public void onError() {
+                        }
+                    });
 
         }
-        */
 
         MapView mMapView = (MapView) findViewById(R.id.map);
         MapsInitializer.initialize(this);
@@ -201,107 +192,6 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
     }
 
 
-    /**
-     * The enter animation scales the picture in from its previous thumbnail
-     * size/location, colorizing it in parallel. In parallel, the background of the
-     * activity is fading in. When the pictue is in place, the text description
-     * drops down.
-     */
-    public void runEnterAnimation() {
-        final long duration = (long) (ANIM_DURATION * sAnimatorScale);
-
-        // Set starting values for properties we're going to animate. These
-        // values scale and position the full size version down to the thumbnail
-        // size/location, from which we'll animate it back up
-        mImageView.setPivotX(0);
-        mImageView.setPivotY(0);
-        mImageView.setScaleX(mWidthScale);
-        mImageView.setScaleY(mHeightScale);
-        mImageView.setTranslationX(mLeftDelta);
-        mImageView.setTranslationY(mTopDelta);
-
-        // Animate scale and translation to go from thumbnail to full size
-        mImageView.animate().setDuration(duration).
-                scaleX(1).scaleY(1).
-                translationX(0).translationY(0).
-                setInterpolator(sDecelerator);
-
-
-        // Fade in the black background
-        ObjectAnimator bgAnim = ObjectAnimator.ofInt(mBackground, "alpha", 0, 255);
-        bgAnim.setDuration(duration);
-        bgAnim.start();
-
-        // Animate a color filter to take the image from grayscale to full color.
-        // This happens in parallel with the image scaling and moving into place.
-        ObjectAnimator colorizer = ObjectAnimator.ofFloat(SearchDetailActivity.this,
-                "saturation", 0, 1);
-        colorizer.setDuration(duration);
-        colorizer.start();
-
-        // Animate a drop-shadow of the image
-        ObjectAnimator shadowAnim = ObjectAnimator.ofFloat(mShadowLayout, "shadowDepth", 0, 1);
-        shadowAnim.setDuration(duration);
-        shadowAnim.start();
-
-    }
-
-    public void runExitAnimation(final Runnable endAction) {
-        final long duration = (long) (ANIM_DURATION * sAnimatorScale);
-
-        // No need to set initial values for the reverse animation; the image is at the
-        // starting size/location that we want to start from. Just animate to the
-        // thumbnail size/location that we retrieved earlier
-
-        // Caveat: configuration change invalidates thumbnail positions; just animate
-        // the scale around the center. Also, fade it out since it won't match up with
-        // whatever's actually in the center
-        final boolean fadeOut;
-        if (getResources().getConfiguration().orientation != mOriginalOrientation) {
-            mImageView.setPivotX(mImageView.getWidth() / 2);
-            mImageView.setPivotY(mImageView.getHeight() / 2);
-            mLeftDelta = 0;
-            mTopDelta = 0;
-            fadeOut = true;
-        } else {
-            fadeOut = false;
-        }
-
-        mImageView.animate().setDuration(duration).
-                scaleX(mWidthScale).scaleY(mHeightScale).
-                translationX(mLeftDelta).translationY(mTopDelta).
-                withEndAction(endAction);
-        if (fadeOut) {
-            mImageView.animate().alpha(0);
-        }
-        // Fade out background
-        ObjectAnimator bgAnim = ObjectAnimator.ofInt(mBackground, "alpha", 0);
-        bgAnim.setDuration(duration);
-        bgAnim.start();
-
-        // Animate the shadow of the image
-        ObjectAnimator shadowAnim = ObjectAnimator.ofFloat(mShadowLayout,
-                "shadowDepth", 1, 0);
-        shadowAnim.setDuration(duration);
-        shadowAnim.start();
-
-
-        // Animate a color filter to take the image back to grayscale,
-        // in parallel with the image scaling and moving into place.
-        ObjectAnimator colorizer =
-                ObjectAnimator.ofFloat(SearchDetailActivity.this,
-                        "saturation", 1, 0);
-        colorizer.setDuration(duration);
-        colorizer.start();
-
-
-    }
-
-    public void setSaturation(float value) {
-        colorizerMatrix.setSaturation(value);
-        ColorMatrixColorFilter colorizerFilter = new ColorMatrixColorFilter(colorizerMatrix);
-        mBitmapDrawable.setColorFilter(colorizerFilter);
-    }
 
     /**
      * Overriding this method allows us to run our exit animation first, then exiting
@@ -366,8 +256,14 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
 
             googleMap.addMarker(options);
 
-        }
+        }else if(owner!=null){
+            options.position(new LatLng(owner.getLatitude(), owner.getLongitude()))
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker1))
+                    .anchor(0.5f, 1);
 
+            googleMap.addMarker(options);
+
+        }
 
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
 
@@ -377,6 +273,10 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
         googleMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         new LatLng(post.getOwner().getLatitude(), post.getOwner().getLongitude()), 12));
+        else  if(owner!=null)
+            googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(owner.getLatitude(), owner.getLongitude()), 12));
 
 }
 }

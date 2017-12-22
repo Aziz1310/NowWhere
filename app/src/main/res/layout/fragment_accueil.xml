@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.maher.nowhere.mainActivity.fragments.AccueilFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.maher.nowhere.mainActivity.fragments.acceuil.AccueilFragment">
 
    <android.support.v7.widget.RecyclerView
        android:id="@+id/rv_acceuil"
@@ -10,5 +11,17 @@
        android:layout_height="match_parent">
 
    </android.support.v7.widget.RecyclerView>
+
+   <com.airbnb.lottie.LottieAnimationView
+       android:id="@+id/loadingAnimation"
+       android:layout_width="80dp"
+       android:layout_height="80dp"
+       android:layout_centerInParent="true"
+       android:layout_marginTop="-12dp"
+       android:visibility="invisible"
+       app:lottie_autoPlay="true"
+       app:lottie_colorFilter="@color/colorAccent"
+       app:lottie_fileName="loading_animation.json"
+       app:lottie_loop="true" />
 
 </RelativeLayout>

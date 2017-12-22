@@ -22,12 +22,20 @@ public class WeeklikPresenter implements WeeklikInteractor.OnSignUpFinishedListe
         this.mcContext = mcContext;
         weeklikInteractor = new WeeklikInteractor();
     }
-
-
-    void loadAllPosts() {
-            weeklikView.showProgress();
-            weeklikInteractor.loadAllPosts(this,mcContext);
+    public WeeklikPresenter(Context mcContext) {
+        this.mcContext = mcContext;
+        weeklikInteractor = new WeeklikInteractor();
     }
+
+
+    void loadAllPosts(int idUser) {
+            weeklikView.showProgress();
+            weeklikInteractor.loadAllPosts(idUser,this,mcContext);
+    }
+    public void addToFavorit(int idUser,int idPost) {
+        weeklikInteractor.addTofavorit(idUser,idPost,this,mcContext);
+    }
+
 
 
     @Override
@@ -42,5 +50,15 @@ public class WeeklikPresenter implements WeeklikInteractor.OnSignUpFinishedListe
     public void onError() {
         weeklikView.hideProgress();
         weeklikView.loadNoPost();
+    }
+
+    @Override
+    public void onSuccessDelet() {
+
+    }
+
+    @Override
+    public void onErrorDelet() {
+
     }
 }

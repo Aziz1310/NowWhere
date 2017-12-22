@@ -14,7 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
-import com.maher.nowhere.mainActivity.fragments.AccueilFragment;
+import com.maher.nowhere.mainActivity.fragments.acceuil.AccueilFragment;
 import com.maher.nowhere.mainActivity.fragments.CategoriesFragment;
 import com.maher.nowhere.R;
 import com.maher.nowhere.mainActivity.fragments.weeklik.WeeklikFragment;
@@ -47,15 +47,11 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Date date = new Utiles().parseDate("23/11/2017 02:00");
-        System.out.println(date.toString());
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
         setupToolbar();
         setupDrawerToggle();
-
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);

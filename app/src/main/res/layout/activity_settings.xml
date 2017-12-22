@@ -29,8 +29,15 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/signup_image"
             android:id="@+id/relativeLayout">
+
+            <ImageView
+                android:id="@+id/imgCover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/signup_image"
+                android:scaleType="centerCrop"
+                />
 
             <ImageView
                 android:layout_width="120dp"
@@ -40,19 +47,15 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/btnCover"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="30dp"
-                android:layout_marginRight="40dp">
+                android:layout_marginRight="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_camera"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_camera"/>
-
-            </RelativeLayout>
 
         </RelativeLayout>
             <RelativeLayout
@@ -65,26 +68,20 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageView"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/img_stroke"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/img_stroke"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageProfile"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/profile_image"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+
                 <ImageView
+                    android:id="@+id/btnGalerie"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/icon_camera"
                     android:foregroundGravity="center"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
-
 
             </RelativeLayout>
             <LinearLayout
@@ -105,7 +102,7 @@
 
                     <EditText
                         android:paddingRight="35dp"
-                        android:id="@+id/etNomPrenom"
+                        android:id="@+id/etName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/dashed_line"
@@ -117,7 +114,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/icon_signup_name"
                         android:layout_marginTop="10dp"
-                        android:layout_alignTop="@+id/etNomPrenom"
+                        android:layout_alignTop="@+id/etName"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
 
@@ -128,7 +125,7 @@
 
                     <EditText
                         android:paddingRight="35dp"
-                        android:id="@+id/etEmailSett"
+                        android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="Email"
@@ -140,7 +137,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/icon_signup_email"
                         android:layout_marginTop="10dp"
-                        android:layout_alignTop="@+id/etEmailSett"
+                        android:layout_alignTop="@+id/etEmail"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
 
@@ -150,7 +147,7 @@
                     android:layout_height="wrap_content">
                     <EditText
                         android:paddingRight="35dp"
-                        android:id="@+id/etPasswordSett"
+                        android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@drawable/dashed_line"
@@ -162,13 +159,13 @@
                         android:layout_height="30dp"
                         android:src="@drawable/icon_signup_password"
                         android:layout_marginTop="10dp"
-                        android:layout_alignTop="@+id/etPasswordSett"
+                        android:layout_alignTop="@+id/etPassword"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/btnSauvegarder"
+                    android:id="@+id/btnRegister"
                     android:layout_marginTop="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

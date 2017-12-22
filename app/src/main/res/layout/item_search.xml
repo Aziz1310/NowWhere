@@ -24,6 +24,25 @@
         android:src="@drawable/mask2" />
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:visibility="visible"
+        android:gravity="center">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/btnDelet"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/supprimer"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +54,7 @@
             android:id="@+id/tvDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="23"
+            android:text=""
             android:textSize="30sp"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
@@ -45,7 +64,7 @@
             android:id="@+id/tvMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="09"
+            android:text=""
             android:layout_marginTop="-8dp"
             android:textSize="30sp"
             android:textColor="@color/white"
@@ -55,7 +74,7 @@
             android:id="@+id/tvYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2017"
+            android:text=""
             android:layout_marginTop="-8dp"
             android:textSize="16sp"
             android:textColor="@color/colorAccent"
@@ -79,7 +98,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BYE BYE SUMMER"
+            android:text=""
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -90,7 +109,6 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Carpe Dieam"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="16sp"

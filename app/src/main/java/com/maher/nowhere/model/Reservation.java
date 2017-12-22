@@ -16,6 +16,9 @@ public class Reservation implements Serializable{
         this.date = date;
         this.status = status;
     }
+    public Reservation (){
+
+    }
 
     public String getResNum() {
         return resNum;

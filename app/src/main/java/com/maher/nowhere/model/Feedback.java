@@ -11,6 +11,44 @@ import java.io.Serializable;
 
 public class Feedback implements Serializable {
 
+
+    private String globalNote;
+    private User user;
+    private String contenu;
+    private String userNote;
+
+    public String getGlobalNote() {
+        return globalNote;
+    }
+
+    public void setGlobalNote(String globalNote) {
+        this.globalNote = globalNote;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public String getUserNote() {
+        return userNote;
+    }
+
+    public void setUserNote(String userNote) {
+        this.userNote = userNote;
+    }
+
     ImageView prof_img;
     TextView nomProf, comment_avis, time_avis;
 

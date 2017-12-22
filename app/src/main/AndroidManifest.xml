@@ -51,8 +51,7 @@
         <activity
             android:name=".PhotoActivity.PhotoActivity"
             android:theme="@style/ThemeTransparent" />
-        android:theme="@style/ThemeTransparent" />
-        <activity android:name=".ProfileFriendActivity.ProfileFriendActivity" />
+
         <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity" />
         <activity android:name=".CinemaActivity.CinemaActivity" />
         <activity android:name=".CinemaActivity.FilmDetailActivity" />
@@ -61,7 +60,9 @@
         <activity android:name=".CentreActivity.CentreActivity" />
         <activity android:name=".ForgetPassword.MotDePasseOublieActivity" />
         <activity android:name=".ForgetPassword.PassOublieActivity" />
-        <activity android:name=".ForgetPassword.CompteRenitialiserActivity"></activity>
+        <activity android:name=".ForgetPassword.CompteRenitialiserActivity" />
+        <activity android:name=".commentsActivity.CommentActivity"
+            android:label="Commentaires"></activity>
     </application>
 
 </manifest>

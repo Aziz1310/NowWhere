@@ -1,5 +1,6 @@
 package com.maher.nowhere.ProfileActivity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,24 +13,29 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.maher.nowhere.ProfileActivity.fragments.FavorisFragment;
-import com.maher.nowhere.ProfileActivity.fragments.PageFragment;
+import com.maher.nowhere.ProfileActivity.fragments.favoris.FavorisFragment;
+import com.maher.nowhere.ProfileActivity.fragments.page.PageFragment;
 import com.maher.nowhere.ProfileActivity.fragments.ProfilePagerAdapter;
-import com.maher.nowhere.ProfileActivity.fragments.ReservationsFragment;
+import com.maher.nowhere.ProfileActivity.fragments.reservation.ReservationsFragment;
+import com.maher.nowhere.ProfileFriendActivity.fragments.photos.PhotosFragment;
 import com.maher.nowhere.R;
 import com.maher.nowhere.Settings.SettingsActivity;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.maher.nowhere.R.id.pagerProfile;
+import static com.maher.nowhere.R.id.viewpager;
 
 
 public class ProfileActivity extends AppCompatActivity implements PageFragment.OnFragmentInteractionListener,
         FavorisFragment.OnFragmentInteractionListener,ReservationsFragment.OnFragmentInteractionListener,
-        com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment.OnFragmentInteractionListener{
+        PhotosFragment.OnFragmentInteractionListener{
+
+     ViewPager viewPager;
 
 
 
@@ -40,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
         setUpToolbar();
         collapsingToolbar();
 
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabbLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Ma page"));
         tabLayout.addTab(tabLayout.newTab().setText("Photos"));
@@ -48,7 +55,12 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
-        final ViewPager viewPager = (ViewPager) findViewById(pagerProfile);
+         viewPager = (ViewPager) findViewById(pagerProfile);
+         viewPager.setOffscreenPageLimit(4);
+
+
+
+
         final ProfilePagerAdapter profileAdapter = new ProfilePagerAdapter(getSupportFragmentManager(), 4);
         viewPager.setAdapter(profileAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -93,16 +105,40 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
     }
 
     private void getUserInfo(){
-        User user=User.getCurrentUser(this);
-        CircleImageView profileImage;
+        final User user=User.getCurrentUser(this);
+        final CircleImageView profileImage;
         TextView tvUserName,tvUserAdresse;
         profileImage=(CircleImageView)findViewById(R.id.imageView);
         tvUserName=(TextView)findViewById(R.id.nomProfile);
         tvUserAdresse=(TextView)findViewById(R.id.textView);
+        final ImageView img=findViewById(R.id.img);
+
+        Picasso.with(this).load(Uri.parse(Urls.IMG_URL_USER_COVER +user.getCoverPhoto()))
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(img, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Picasso.with(ProfileActivity.this).load(Uri.parse(Urls.IMG_URL_USER_COVER +user.getCoverPhoto()))
+                                .into(img);
+                    }
+                    @Override
+                    public void onError() {
+                    }
+                });
 
         Picasso.with(this).
                 load(Uri.parse(Urls.IMG_URL_USER+user.getImage())).resize(100,100)
-                .into(profileImage);
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(profileImage, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Picasso.with(ProfileActivity.this).load(Uri.parse(Urls.IMG_URL_USER +user.getImage()))
+                                .into(profileImage);
+                    }
+                    @Override
+                    public void onError() {
+                    }
+                });
         tvUserName.setText(user.getName());
 
 
@@ -122,5 +158,16 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        int index = viewPager.getCurrentItem();
+        ProfilePagerAdapter adapter = ((ProfilePagerAdapter)viewPager.getAdapter());
+        PageFragment fragment = (PageFragment) adapter.getItem(index);
+        final int unmaskedRequestCode = requestCode & 0x0000ffff;
+        fragment.onActivityResult(requestCode, resultCode, data);
     }
 }

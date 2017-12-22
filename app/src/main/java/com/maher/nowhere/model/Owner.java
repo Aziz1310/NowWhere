@@ -3,6 +3,7 @@ package com.maher.nowhere.model;
 import com.maher.nowhere.utiles.Urls;
 
 import java.io.Serializable;
+import java.net.URL;
 
 /**
  * Created by maher on 02/11/2017.
@@ -20,6 +21,15 @@ public class Owner implements Serializable{
     private Double longitude;
     private String urlImage;
 
+    private String mot_cles;
+    private String heure_overture;
+    private String heure_fermeture;
+    private String couverture;
+    private boolean bannee;
+    private boolean valide;
+
+
+
     public int getId() {
         return id;
     }
@@ -29,7 +39,7 @@ public class Owner implements Serializable{
     }
 
     public String getUrlImage() {
-        return Urls.IMG_URL+urlImage;
+        return Urls.IMG_URL_PRESTATAIRE+urlImage;
     }
 
     public void setUrlImage(String urlImage) {
@@ -98,5 +108,53 @@ public class Owner implements Serializable{
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getMot_cles() {
+        return mot_cles;
+    }
+
+    public void setMot_cles(String mot_cles) {
+        this.mot_cles = mot_cles;
+    }
+
+    public String getHeure_overture() {
+        return heure_overture;
+    }
+
+    public void setHeure_overture(String heure_overture) {
+        this.heure_overture = heure_overture;
+    }
+
+    public String getHeure_fermeture() {
+        return heure_fermeture;
+    }
+
+    public void setHeure_fermeture(String heure_fermeture) {
+        this.heure_fermeture = heure_fermeture;
+    }
+
+    public String getCouverture() {
+        return couverture;
+    }
+
+    public void setCouverture(String couverture) {
+        this.couverture = Urls.IMG_URL_PRESTATAIRE_COVER+couverture;
+    }
+
+    public boolean isBannee() {
+        return bannee;
+    }
+
+    public void setBannee(boolean bannee) {
+        this.bannee = bannee;
+    }
+
+    public boolean isValide() {
+        return valide;
+    }
+
+    public void setValide(boolean valide) {
+        this.valide = valide;
     }
 }

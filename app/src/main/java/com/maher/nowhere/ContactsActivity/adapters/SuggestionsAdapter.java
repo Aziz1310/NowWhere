@@ -1,6 +1,7 @@
 package com.maher.nowhere.ContactsActivity.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,13 @@ import android.widget.TextView;
 
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.Suggestions;
+import com.maher.nowhere.model.User;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by RaniaH on 24/11/2017.
@@ -19,12 +25,18 @@ import java.util.ArrayList;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.RecycleView_Holder> {
 
-    private final Context mContext;
-    private final ArrayList<Suggestions> suggestionss;
+    public interface OnSendInvitListener{
+        void onSendBtnClick(User user);
+    }
 
-    public SuggestionsAdapter(Context mContext, ArrayList<Suggestions> suggestionss) {
+    private final Context mContext;
+    private final ArrayList<User> suggestionss;
+    private OnSendInvitListener listener;
+
+    public SuggestionsAdapter(Context mContext, ArrayList<User> suggestionss,OnSendInvitListener listener) {
         this.mContext = mContext;
         this.suggestionss = suggestionss;
+        this.listener=listener;
     }
 
     @Override
@@ -37,15 +49,19 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        Suggestions suggestions = suggestionss.get(position);
-        holder.tv_communAmisSugg.setText(suggestions.getAmisCommun());
-        holder.tv_nameAmisSugg.setText(suggestions.getNom());
-        holder.img_addAmisSugg.setImageResource(R.drawable.profile_add);
+        final User user = suggestionss.get(position);
+        holder.tv_communAmisSugg.setText("5 amis en commun");
+        holder.tv_nameAmisSugg.setText(user.getName());
+
+        Picasso.with(mContext).
+                load(Uri.parse(Urls.IMG_URL_USER + user.getImage())).resize(100, 100)
+                .into(holder.img_amisSugg);
+
         holder.img_addAmisSugg.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-
+                listener.onSendBtnClick(user);
             }
         });
 

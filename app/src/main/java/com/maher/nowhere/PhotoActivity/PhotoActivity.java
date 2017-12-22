@@ -1,11 +1,14 @@
 package com.maher.nowhere.PhotoActivity;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Picasso;
 
 public class PhotoActivity extends AppCompatActivity {
     ImageView img;
@@ -18,7 +21,9 @@ public class PhotoActivity extends AppCompatActivity {
 
         img = (ImageView) findViewById(R.id.img);
 
-        img.setImageResource(getIntent().getExtras().getInt("img"));
+     //   img.setImageResource(getIntent().getExtras().getInt("img"));
+        Picasso.with(this).load(Uri.parse(Urls.IMG_URL_PUBLICATION +getIntent().getExtras().getString("img"))).into(img);
+
 
 
     }

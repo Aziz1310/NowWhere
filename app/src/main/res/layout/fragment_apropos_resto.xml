@@ -42,7 +42,7 @@
                         android:maxLines="2"
                         android:textSize="12sp"
                         android:textColor="@color/colorGreySoft"
-                        android:text="Ouvert\n(de 20h00 à 22h00"/>
+                        android:text="Ouvert\n(de 20h00 à 22h00)"/>
 
 
                 </LinearLayout>

@@ -7,22 +7,32 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.maher.nowhere.ProfileFriendActivity.fragments.AmisFriendFragment;
 import com.maher.nowhere.ProfileFriendActivity.fragments.MurFragment;
-import com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment;
+import com.maher.nowhere.ProfileFriendActivity.fragments.photos.PhotosFragment;
 import com.maher.nowhere.ProfileFriendActivity.fragments.ProfileFriendPagerAdapter;
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.Mur;
+import com.maher.nowhere.model.User;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.maher.nowhere.R.id.pagerFriendProfile;
+import static com.maher.nowhere.R.id.useLogo;
 
 public class ProfileFriendActivity extends AppCompatActivity implements MurFragment.OnFragmentInteractionListener,
         PhotosFragment.OnFragmentInteractionListener, AmisFriendFragment.OnFragmentInteractionListener {
 
     ArrayList<Mur> murs;
+    private User user;
+    private CircleImageView img;
+    private TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +41,16 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         setUpToolbar();
         collapsingToolbar();
         dummyData();
+        user=(User) getIntent().getSerializableExtra("friend_id");
+        img=findViewById(R.id.imgFriend);
+        tvName=findViewById(R.id.nomFriendProfile);
+
+        if(user!=null){
+            tvName.setText(user.getName());
+            Picasso.with(this).
+                    load(Uri.parse(Urls.IMG_URL_USER + user.getImage())).resize(100, 100)
+                    .into(img);
+        }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.layoutTab);
         tabLayout.addTab(tabLayout.newTab().setText("Mur"));
@@ -40,7 +60,7 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
         final ViewPager viewPager = (ViewPager) findViewById(pagerFriendProfile);
-        final ProfileFriendPagerAdapter profileFriendPagerAdapter = new ProfileFriendPagerAdapter(getSupportFragmentManager(), 3);
+        final ProfileFriendPagerAdapter profileFriendPagerAdapter = new ProfileFriendPagerAdapter(getSupportFragmentManager(), 3,user);
         viewPager.setAdapter(profileFriendPagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
@@ -71,7 +91,8 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
     }
     private void collapsingToolbar(){
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle("Zeinab Azzabi");
+        if (user!=null)
+        collapsingToolbarLayout.setTitle(user.getName());
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
     }

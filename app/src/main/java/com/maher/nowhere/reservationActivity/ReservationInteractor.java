@@ -58,21 +58,21 @@ public class ReservationInteractor {
             cal.add(Calendar.MINUTE, minutes);
             String newTime = df.format(cal.getTime());
 
-            if (cal.getTime().compareTo(dateDebut)>=0 && cal.getTime().compareTo(dateFin)<=0)
+           // if (cal.getTime().compareTo(dateDebut)>=0 && cal.getTime().compareTo(dateFin)<=0)
             reservationPresenter.onHourChange(newTime);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
-    public void incrementNbrPersonne(String nbr, ReservationPresenter reservationPresenter){
-        reservationPresenter.onNbrPersonnesChange(String.valueOf((Integer.parseInt(nbr)+1)));
+    public void incrementNbrPersonne(String nbr, onReservationFinish onReservationFinish){
+        onReservationFinish.onNbrPersonnesChange(String.valueOf((Integer.parseInt(nbr)+1)));
 
     }
-    public void decrementNbrPersonnes(String nbr, ReservationPresenter reservationPresenter){
+    public void decrementNbrPersonnes(String nbr, onReservationFinish onReservationFinish){
         int num=Integer.parseInt(nbr);
         if(num>1)
-            reservationPresenter.onNbrPersonnesChange((num-1)+"");
+            onReservationFinish.onNbrPersonnesChange((num-1)+"");
 
     }
 

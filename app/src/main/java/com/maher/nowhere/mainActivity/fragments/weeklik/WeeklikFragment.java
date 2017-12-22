@@ -13,6 +13,7 @@ import com.maher.nowhere.R;
 import com.maher.nowhere.callbaks.VolleyCallback;
 import com.maher.nowhere.helpers.JsonToObjectParser;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.model.User;
 import com.maher.nowhere.providers.EventManager;
 import com.maher.nowhere.utiles.TinderCard;
 import com.mindorks.placeholderview.SwipeDecor;
@@ -41,9 +42,9 @@ public class WeeklikFragment extends Fragment implements WeeklikView {
 
         view = inflater.inflate(R.layout.fragment_weeklik, container, false);
         setRetainInstance(true);
-        lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
+        lottieAnimationView = view.findViewById(R.id.loadingAnimation);
 
-        mSwipeView = (SwipePlaceHolderView) view.findViewById(R.id.swipeView);
+        mSwipeView =  view.findViewById(R.id.swipeView);
 
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
@@ -54,7 +55,7 @@ public class WeeklikFragment extends Fragment implements WeeklikView {
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
         WeeklikPresenter weeklikPresenter=new WeeklikPresenter(this,getActivity());
-        weeklikPresenter.loadAllPosts();
+        weeklikPresenter.loadAllPosts(User.getCurrentUser(getActivity()).getId());
         return view;
 
     }
@@ -78,6 +79,7 @@ public class WeeklikFragment extends Fragment implements WeeklikView {
             @Override
             public void onClick(View v) {
                 mSwipeView.doSwipe(false);
+
 
             }
         });

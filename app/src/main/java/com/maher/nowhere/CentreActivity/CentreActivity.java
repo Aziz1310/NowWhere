@@ -13,6 +13,7 @@ import com.maher.nowhere.CentreActivity.fragments.AProposCentreFragment;
 import com.maher.nowhere.CentreActivity.fragments.CentrePagerAdapter;
 import com.maher.nowhere.CentreActivity.fragments.ProductsFragment;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
+import com.maher.nowhere.ProfileFriendActivity.fragments.photos.PhotosFragment;
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.Product;
 import com.maher.nowhere.model.User;
@@ -26,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.maher.nowhere.R.id.pagerCentre;
 
 public class CentreActivity extends AppCompatActivity implements AProposCentreFragment.OnFragmentInteractionListener,
-        com.maher.nowhere.ProfileFriendActivity.fragments.PhotosFragment.OnFragmentInteractionListener,
+        PhotosFragment.OnFragmentInteractionListener,
         ProductsFragment.OnFragmentInteractionListener{
 
     private ArrayList<Product> products;

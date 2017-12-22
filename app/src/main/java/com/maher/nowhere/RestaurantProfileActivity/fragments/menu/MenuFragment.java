@@ -1,9 +1,8 @@
-package com.maher.nowhere.mainActivity.fragments;
+package com.maher.nowhere.RestaurantProfileActivity.fragments.menu;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,21 +12,22 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.maher.nowhere.R;
-import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
-import com.maher.nowhere.model.Post;
+import com.maher.nowhere.RestaurantProfileActivity.adapter.MenuHAdapter;
+import com.maher.nowhere.RestaurantProfileActivity.adapter.MenuVAdapter;
+import com.maher.nowhere.model.MenuH;
+import com.maher.nowhere.model.MenuV;
 
 import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AccueilFragment.OnFragmentInteractionListener} interface
+ * {@link MenuFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AccueilFragment#newInstance} factory method to
+ * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccueilFragment extends Fragment {
+public class MenuFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "viewPager";
@@ -37,14 +37,14 @@ public class AccueilFragment extends Fragment {
 
     private String mParam2;
     private View view;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager lm;
-    private ArrayList<Post>posts;
-
+    private RecyclerView recyclerView_v,recyclerView_h;
+    private LinearLayoutManager lmV, lmH;
+    private ArrayList<MenuH> menuH;
+    private ArrayList<MenuV> menuV;
 
     private OnFragmentInteractionListener mListener;
 
-    public AccueilFragment() {
+    public MenuFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +54,11 @@ public class AccueilFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AccueilFragment.
+     * @return A new instance of fragment MenuFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AccueilFragment newInstance(String param1, String param2) {
-        AccueilFragment fragment = new AccueilFragment();
+    public static MenuFragment newInstance(String param1, String param2) {
+        MenuFragment fragment = new MenuFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,24 +78,51 @@ public class AccueilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        view=inflater.inflate(R.layout.fragment_menu, container, false);
+        recyclerView_v = view.findViewById(R.id.rv_menuV);
+        menuV = new ArrayList<>();
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
+        menuV.add(new MenuV());
 
-        view=inflater.inflate(R.layout.fragment_accueil, container, false);
-        recyclerView=view.findViewById(R.id.rv_acceuil);
-        posts=new ArrayList<>();
-        posts.add(new Post());
-        posts.add(new Post());
-        posts.add(new Post());
+        lmV = new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
+        MenuVAdapter menuVAdapter = new MenuVAdapter(getActivity(), menuV);
+        recyclerView_v.setLayoutManager(lmV);
+        recyclerView_v.setAdapter(menuVAdapter);
 
-        lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
-        AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts);
-        recyclerView.setLayoutManager(lm);
-        recyclerView.setAdapter(acceuilAdapter);
+        recyclerView_h = view.findViewById(R.id.rv_menuH);
+        menuH = new ArrayList<>();
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
+        menuH.add(new MenuH());
 
+        lmH = new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL,false);
+        MenuHAdapter menuHAdapter = new MenuHAdapter(getActivity(), menuH);
+        recyclerView_h.setLayoutManager(lmH);
+        recyclerView_h.setAdapter(menuHAdapter);
 
         return view;
     }
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -107,7 +134,6 @@ public class AccueilFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {

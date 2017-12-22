@@ -30,12 +30,15 @@ public class WeeklikInteractor {
     public interface OnSignUpFinishedListener{
        void onSuccess(ArrayList<Post> posts);
         void onError();
+        void onSuccessDelet();
+        void onErrorDelet();
+
 
     }
 
-    public void loadAllPosts(final OnSignUpFinishedListener listener, final Context context) {
+    public void loadAllPosts(int iduser,final OnSignUpFinishedListener listener, final Context context) {
         EventManager eventManager=new EventManager(context);
-        eventManager.getPosts(new VolleyCallback() {
+        eventManager.getPosts(iduser,new VolleyCallback() {
             @Override
             public void onSuccess(Object response) {
                 listener.onSuccess(new JsonToObjectParser().parsePosts((JSONArray) response));
@@ -44,6 +47,20 @@ public class WeeklikInteractor {
             @Override
             public void onError(Object error) {
                 listener.onError();
+            }
+        });
+    }
+    public void addTofavorit(int iduser,int idPost,final OnSignUpFinishedListener listener, final Context context) {
+        EventManager eventManager=new EventManager(context);
+        eventManager.addToFavorit(iduser,idPost,new VolleyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+
+            }
+
+            @Override
+            public void onError(Object error) {
+
             }
         });
     }
