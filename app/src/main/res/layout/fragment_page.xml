@@ -11,13 +11,15 @@
     android:id="@+id/profile_img"
     android:layout_width="40dp"
     android:layout_height="40dp"
-    android:src="@drawable/profile_image"
+    android:src="@drawable/profile_img1"
+    android:padding="4dp"
     android:layout_marginRight="8dp"
     android:layout_marginLeft="16dp"/>
     <TextView
+        android:id="@+id/tv_tt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vous voulez partager quelque chose Aeineb ?"
+        android:text=""
         android:textColor="@color/colorGreyText"
         android:layout_marginTop="15dp"
         android:textSize="12sp"

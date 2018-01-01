@@ -22,7 +22,7 @@ public class PhotoActivity extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.img);
 
      //   img.setImageResource(getIntent().getExtras().getInt("img"));
-        Picasso.with(this).load(Uri.parse(Urls.IMG_URL_PUBLICATION +getIntent().getExtras().getString("img"))).into(img);
+        Picasso.with(this).load(Uri.parse(getIntent().getExtras().getString("img"))).into(img);
 
 
 

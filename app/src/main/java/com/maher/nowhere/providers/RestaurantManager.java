@@ -92,7 +92,7 @@ public class RestaurantManager {
         ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
 
-    public void getPrestataireMenu(String id, final VolleyCallback volleyCallback) {
+    public void getPrestataireMenu(int id, final VolleyCallback volleyCallback) {
 
         JSONObject jsonObject = new JSONObject();
         try {

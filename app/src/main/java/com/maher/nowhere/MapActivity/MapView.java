@@ -1,8 +1,6 @@
 package com.maher.nowhere.MapActivity;
 
 import com.maher.nowhere.model.Owner;
-import com.maher.nowhere.model.Post;
-import com.maher.nowhere.model.Publication;
 
 import java.util.ArrayList;
 
@@ -15,7 +13,7 @@ public interface MapView {
     void showProgress();
     void hideProgress();
     void networkError();
-    void loadAllPosts(ArrayList<Owner> owners);
+    void loadAllPosts(ArrayList<Owner> owners, int mapDrawable);
     void loadNoPosts();
 
 }

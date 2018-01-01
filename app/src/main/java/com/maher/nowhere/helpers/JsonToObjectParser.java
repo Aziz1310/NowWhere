@@ -3,9 +3,12 @@ package com.maher.nowhere.helpers;
 
 import com.maher.nowhere.model.Comment;
 import com.maher.nowhere.model.Feedback;
+import com.maher.nowhere.model.Film;
 import com.maher.nowhere.model.Menu;
 import com.maher.nowhere.model.Owner;
+import com.maher.nowhere.model.Photo;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.model.Product;
 import com.maher.nowhere.model.Publication;
 import com.maher.nowhere.model.Reservation;
 import com.maher.nowhere.model.SubMenu;
@@ -96,7 +99,7 @@ public class JsonToObjectParser {
 
 
         try {
-            feedback.setContenu(jsonObject.getString("contenu"));
+            feedback.setContenu(jsonObject.getString("contenue"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -108,6 +111,12 @@ public class JsonToObjectParser {
         try {
             User user = parseUser(jsonObject.getJSONObject("_mobile_user"));
             feedback.setUser(user);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            feedback.setcDate(new Utiles().parseDate2(jsonObject.getString("created_at")));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -225,6 +234,7 @@ public class JsonToObjectParser {
             comment.setId(commentJson.getInt("id"));
             comment.setContenus(commentJson.getString("contenue"));
             comment.setDate(commentJson.getString("created_at"));
+            comment.setcDate(new Utiles().parseDate2(commentJson.getString("created_at")));
             JSONObject owner = commentJson.getJSONObject("_mobile_user");
             comment.setOwnerId(owner.getInt("id"));
             comment.setOwnerImage(owner.getString("photo"));
@@ -271,6 +281,8 @@ public class JsonToObjectParser {
         try {
             publication.setId(publicationJson.getInt("id"));
             publication.setDescription(publicationJson.getString("description"));
+            publication.setcDate(new Utiles().parseDate2(publicationJson.getString("created_at")));
+
             publication.setDate(publicationJson.getString("created_at"));
             publication.setImage(publicationJson.getString("image"));
             publication.setNbrJaime(publicationJson.getInt("nbr_jaime"));
@@ -343,7 +355,6 @@ public class JsonToObjectParser {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
         return owners;
     }
@@ -442,7 +453,7 @@ public class JsonToObjectParser {
         ArrayList<Menu> menus = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                Menu menu =new Menu();
+                Menu menu = new Menu();
                 try {
                     menu.setNom(jsonArray.getJSONObject(i).getString("nom"));
                 } catch (JSONException e) {
@@ -462,8 +473,8 @@ public class JsonToObjectParser {
         ArrayList<SubMenu> subMenus = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                SubMenu subMenu =new SubMenu();
-                JSONObject jsonObject=jsonArray.getJSONObject(i);
+                SubMenu subMenu = new SubMenu();
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
 
                 try {
@@ -491,5 +502,194 @@ public class JsonToObjectParser {
         return subMenus;
     }
 
+    public ArrayList<Photo> parsePhotos(JSONObject photoJson) {
+        JSONArray jsonArray = new JSONArray();
+        ArrayList<Photo> photos = new ArrayList<>();
+
+        try {
+            jsonArray = photoJson.getJSONArray("Photos");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            Photo photo = new Photo();
+            try {
+                photo.setUrl(jsonArray.getJSONObject(i).getString("photo"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                photo.setDescription(jsonArray.getJSONObject(i).getString("descreption"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            photos.add(photo);
+
+        }
+
+
+        return photos;
+
+    }
+
+    private Film parseFilm(JSONObject jsonFilm) {
+
+        Film film=new Film();
+
+
+        try {
+            film.setNom(jsonFilm.getString("_nom_film"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            film.setNom(jsonFilm.getString("_nom_film"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            film.setDuree(jsonFilm.getString("duree"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            film.setDateSortie(jsonFilm.getString("date_sortie"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            film.setRealisateur(jsonFilm.getString("realisateur"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            film.setActeurs(jsonFilm.getString("acteurs"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            film.setGenre(jsonFilm.getString("genre"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            film.setNationalites(jsonFilm.getString("nationalites"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            film.setSynopsis(jsonFilm.getString("synopsis"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            film.setDateDebut(jsonFilm.getString("date_debut"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            film.setDateFin(jsonFilm.getString("date_fin"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            film.setHeureDefusin(jsonFilm.getString("_heure_diffusion_1")+" "+
+                    jsonFilm.getString("_heure_diffusion_2")+" "+
+                    jsonFilm.getString("_heure_diffusion_3"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            film.setVideo(jsonFilm.getString("_u_r_l"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            film.setPhoto(jsonFilm.getString("photo"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            film.setOwner(parseOwner(jsonFilm.getJSONObject("prestataire")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return film;
+
+    }
+
+    public ArrayList<Film> parseFilms(JSONArray jsonArray) {
+        ArrayList<Film> films = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+                try {
+                    Film film = parseFilm(jsonArray.getJSONObject(i));
+                    films.add(film);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+        }
+        return films;
+    }
+
+    private Product parseProduit(JSONObject jsonProduit) {
+
+        Product product=new Product();
+
+
+        try {
+            product.setNom(jsonProduit.getString("_produit_nom"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            product.setDescription(jsonProduit.getString("description"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            product.setPrix(jsonProduit.getString("prix"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            product.setImg(jsonProduit.getString("photo"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return product;
+
+    }
+    public ArrayList<Product> parseProduits(JSONArray jsonArray) {
+        ArrayList<Product> products = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            try {
+                Product product = parseProduit(jsonArray.getJSONObject(i));
+                products.add(product);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return products;
+    }
 
 }

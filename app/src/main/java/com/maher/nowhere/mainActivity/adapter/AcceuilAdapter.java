@@ -31,11 +31,26 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
 
     private final Context mContext;
     private final ArrayList<Publication> posts;
+    private OnButtonsClickListener listener;
+
+    public interface OnButtonsClickListener{
+        void onCommentClick(Publication publication);
+        void onShareClick(Publication publication);
+        void onLiketClick(Publication publication);
+        void onSendClick(Publication publication);
+    }
 
     public AcceuilAdapter(Context context, ArrayList<Publication> posts){
 
         this.mContext = context;
         this.posts = posts;
+    }
+
+    public AcceuilAdapter(Context context, ArrayList<Publication> posts,OnButtonsClickListener listener){
+
+        this.mContext = context;
+        this.posts = posts;
+        this.listener=listener;
     }
 
     @Override
@@ -57,6 +72,14 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
         holder.tv1.setText(String.format(Locale.FRANCE,"%d", post.getNbrJaime()));
         holder.tvComment.setText(post.getDescription());
         holder.tvCommentOwner.setText(post.getOwnerName());
+
+        holder.tvDay.setText(post.getDayOfWeek().toUpperCase());
+        holder.tvMonth.setText(post.getMonthNumber().toUpperCase());
+        holder.tvYear.setText(post.getYear().toUpperCase());
+        holder.tvHeure.setText(String.format("%sh", post.getHour()));
+
+
+
         Picasso.with(mContext).load(Uri.parse(Urls.IMG_URL_USER +post.getOwnerImage())).into(holder.imgComment);
 
 
@@ -79,6 +102,12 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
 
             }
         });
+        holder.btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onShareClick(post);
+            }
+        });
 
     }
 
@@ -93,7 +122,7 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
 
 
         final TextView tvDay,tvMonth,tvYear,tvHeure,tvCommentOwner,tvComment,tv1;
-        final ImageView img;
+        final ImageView img,btnShare;
         final CircleImageView imgComment;
         final LinearLayout btnComment;
 
@@ -113,6 +142,7 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
             tvCommentOwner=itemView.findViewById(R.id.profineName);
             tvComment=itemView.findViewById(R.id.tvComment);
             btnComment=itemView.findViewById(R.id.btnComment);
+            btnShare=itemView.findViewById(R.id.btnShare);
         }
     }
 }

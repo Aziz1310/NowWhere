@@ -35,51 +35,31 @@
                 android:id="@+id/tv_avis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4,5"
+
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorAccent"
                 android:textSize="40sp" />
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/l_heart"
             android:layout_alignTop="@+id/l_avis"
             android:layout_toRightOf="@+id/l_avis"
             android:layout_toEndOf="@+id/l_avis">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/side_menu_heart"
-                android:layout_gravity="center"/>
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/side_menu_heart"
-                android:layout_gravity="center"/>
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/side_menu_heart"
-                android:layout_gravity="center"/>
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/side_menu_heart"
-                android:layout_gravity="center"/>
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/side_menu_heart"
-                android:layout_gravity="center"/>
-
+            <RatingBar
+                android:layout_marginLeft="12dp"
+                android:id="@+id/rb_resto"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:scaleY="1.3"
+                android:scaleX="1.3"
+                style="@style/RatingBar"
+                android:numStars="5"
+                android:isIndicator="true"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -90,9 +70,9 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/feedback_nbr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="22,000 avis"
                 android:textColor="@color/colorGreyText"/>
 
         </LinearLayout>
@@ -135,44 +115,25 @@
         android:layout_marginTop="30dp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
         android:layout_below="@+id/tv_noterAvis"
         android:id="@+id/avisNotation"
+        android:gravity="center"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp">
 
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginRight="6dp"
-            android:src="@drawable/side_menu_heart"
-            android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginRight="6dp"
-            android:src="@drawable/side_menu_heart"
-            android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginRight="6dp"
-            android:src="@drawable/side_menu_heart"
-            android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginRight="6dp"
-            android:src="@drawable/side_menu_heart"
-            android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginRight="6dp"
-            android:src="@drawable/side_menu_heart"
-            android:layout_gravity="center"/>
-
+        <RatingBar
+            android:layout_marginLeft="18dp"
+            android:id="@+id/rb_resto2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:scaleY="1.6"
+            android:scaleX="1.6"
+            style="@style/RatingBar"
+            android:numStars="5"
+            android:isIndicator="true"
+            />
     </LinearLayout>
 
     <RelativeLayout

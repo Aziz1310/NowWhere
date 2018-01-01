@@ -53,7 +53,7 @@ public class CommentActivity extends AppCompatActivity implements CommentView {
         recyclerView.setAdapter(commentAdapter);
 
 
-        Picasso.with(this).load(Uri.parse(Urls.IMG_URL_USER + publication.getOwnerImage())).into(profile_img, new com.squareup.picasso.Callback() {
+        Picasso.with(this).load(Uri.parse(Urls.IMG_URL_USER + User.getCurrentUser(this).getImage())).into(profile_img, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
                 System.out.println(" maher image loaded with success");

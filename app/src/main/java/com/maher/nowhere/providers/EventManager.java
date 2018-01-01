@@ -235,4 +235,33 @@ public class EventManager {
 
         ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
+
+    public void getListFilm(int isNow,final VolleyCallback volleyCallback) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("isNow", isNow);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.film_list,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
 }

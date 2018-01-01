@@ -14,6 +14,7 @@ import com.maher.nowhere.ProfileFriendActivity.fragments.photos.PhotosFragment;
 import com.maher.nowhere.R;
 import com.maher.nowhere.RestaurantProfileActivity.fragments.menu.MenuFragment;
 import com.maher.nowhere.RestaurantProfileActivity.fragments.RestaurantPagerAdapter;
+import com.maher.nowhere.model.Categorie;
 import com.maher.nowhere.model.Owner;
 import com.squareup.picasso.Picasso;
 
@@ -22,10 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.maher.nowhere.R.id.pagerRestaut;
 
 public class RestaurantProfileActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener,
-        PhotosFragment.OnFragmentInteractionListener{
+        PhotosFragment.OnFragmentInteractionListener {
     private Owner owner;
-
-
+    private String categorie;
 
 
     @Override
@@ -33,13 +33,14 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_profile);
         setUpToolbar();
-        owner=(Owner) getIntent().getSerializableExtra("owner");
+        owner = (Owner) getIntent().getSerializableExtra("owner");
+        categorie=getIntent().getStringExtra("categorie");
         collapsingToolbar();
 
-        TextView nomRestaut=findViewById(R.id.nomRestaut);
-        CircleImageView imgRestaut=findViewById(R.id.imgRestaut);
-        ImageView imgCover=findViewById(R.id.imgCover);
-        TextView lieuRestaut=findViewById(R.id.lieuRestaut);
+        TextView nomRestaut = findViewById(R.id.nomRestaut);
+        CircleImageView imgRestaut = findViewById(R.id.imgRestaut);
+        ImageView imgCover = findViewById(R.id.imgCover);
+        TextView lieuRestaut = findViewById(R.id.lieuRestaut);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLRestaut);
         tabLayout.addTab(tabLayout.newTab().setText("A propos"));
@@ -50,10 +51,11 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
         final ViewPager viewPager = (ViewPager) findViewById(pagerRestaut);
-        final RestaurantPagerAdapter restaurantPagerAdapter = new RestaurantPagerAdapter(getSupportFragmentManager(), 4,owner);
+        viewPager.setOffscreenPageLimit(4);
+        final RestaurantPagerAdapter restaurantPagerAdapter = new RestaurantPagerAdapter(getSupportFragmentManager(), 4, owner,categorie);
         viewPager.setAdapter(restaurantPagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -71,7 +73,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
             }
         });
 
-        if(owner !=null){
+        if (owner != null) {
 
             nomRestaut.setText(owner.getNom());
             lieuRestaut.setText(owner.getAdresse());
@@ -80,7 +82,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
                     load(Uri.parse(owner.getCouverture()))
                     .into(imgCover, new com.squareup.picasso.Callback() {
                         @Override
-                        public void onSuccess() {}
+                        public void onSuccess() {
+                        }
 
                         @Override
                         public void onError() {
@@ -90,14 +93,13 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
                     load(Uri.parse(owner.getUrlImage()))
                     .into(imgRestaut, new com.squareup.picasso.Callback() {
                         @Override
-                        public void onSuccess() {}
+                        public void onSuccess() {
+                        }
 
                         @Override
                         public void onError() {
                         }
                     });
-
-
 
 
         }
@@ -112,8 +114,8 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
         getSupportActionBar().setTitle("");
     }
 
-    private void collapsingToolbar(){
-        if (owner!=null){
+    private void collapsingToolbar() {
+        if (owner != null) {
             CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
             collapsingToolbarLayout.setTitle(owner.getNom());
             collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
@@ -129,7 +131,7 @@ public class RestaurantProfileActivity extends AppCompatActivity implements Menu
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }

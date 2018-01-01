@@ -48,9 +48,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.RecycleV
         Comment comment= comments.get(position);
        // holder.tvHeure.setText(post.getHeure());
 
+        String date= String.format("%s %s %s %sh:%s", comment.getDayOfWeek(), comment.getMonth(), comment.getYear(), comment.getHour(), comment.getMinute());
         holder.tvOwner.setText(comment.getOwnerName());
         holder.tvComment.setText(comment.getContenus());
-        holder.tvDate.setText(comment.getDate());
+        holder.tvDate.setText(date);
 
         Picasso.with(mContext).load(Uri.parse(Urls.IMG_URL_USER +comment.getOwnerImage())).into(holder.img, new com.squareup.picasso.Callback() {
             @Override
@@ -63,8 +64,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.RecycleV
         });
 
     }
-
-
 
     @Override
     public int getItemCount() {

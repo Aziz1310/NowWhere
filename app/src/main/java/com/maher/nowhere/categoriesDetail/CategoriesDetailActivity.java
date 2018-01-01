@@ -14,6 +14,7 @@ import com.maher.nowhere.MapActivity.MapActivity;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.SearchActivity.SearchActivity;
+import com.maher.nowhere.eventPlaceActivity.EventPlaceActivity;
 import com.maher.nowhere.mainActivity.MainActivity;
 import com.maher.nowhere.model.Categorie;
 import com.maher.nowhere.model.User;
@@ -56,15 +57,27 @@ public class CategoriesDetailActivity extends AppCompatActivity {
         btnShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CategoriesDetailActivity.this, SearchActivity.class);
-                intent.putExtra("categorie",categ.getShortName());
-                startActivity(intent);
+
+                if(categ.getShortName().equals("magic places") || categ.getShortName().equals("Discos")){
+                    Intent intent = new Intent(CategoriesDetailActivity.this, EventPlaceActivity.class);
+                    intent.putExtra("categorie",categ.getShortName());
+                    startActivity(intent);
+                }else {
+
+                    Intent intent = new Intent(CategoriesDetailActivity.this, SearchActivity.class);
+                    intent.putExtra("categorie",categ.getShortName());
+                    startActivity(intent);
+                }
+
+
+
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CategoriesDetailActivity.this, MapActivity.class);
+                intent.putExtra("categorie",categ.getShortName());
                 startActivity(intent);
             }
         });

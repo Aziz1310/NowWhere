@@ -30,6 +30,10 @@ public class PhotoPresenter implements PhotoInteractor.OnPhotoFinishedListener {
         photoView.showProgress();
         photoInteractor.getListPosts(idUser, this,mcContext);
         }
+    public void getListPhotos(int idUser) {
+        photoView.showProgress();
+        photoInteractor.getListPhotos(idUser, this,mcContext);
+    }
 
 
 
@@ -44,6 +48,21 @@ public class PhotoPresenter implements PhotoInteractor.OnPhotoFinishedListener {
 
     @Override
     public void onError() {
+        photoView.hideProgress();
+        photoView.networkError();
+    }
+
+    @Override
+    public void onSuccesPhoto(ArrayList<Photo> photos) {
+        photoView.hideProgress();
+        if(!photos.isEmpty())
+            photoView.loadAllPhotos(photos);
+        else photoView.loadNoPhotos(photos);
+
+    }
+
+    @Override
+    public void onErrorPhotos() {
         photoView.hideProgress();
         photoView.networkError();
     }

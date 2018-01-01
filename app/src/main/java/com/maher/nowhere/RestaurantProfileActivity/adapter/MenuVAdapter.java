@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Menu;
 import com.maher.nowhere.model.MenuV;
+import com.maher.nowhere.model.SubMenu;
 
 import java.util.ArrayList;
 
@@ -19,9 +21,9 @@ import java.util.ArrayList;
 public class MenuVAdapter extends RecyclerView.Adapter<MenuVAdapter.RecycleView_Holder> {
 
     private final Context mContext;
-    private final ArrayList<MenuV> menuV;
+    private final ArrayList<SubMenu> menuV;
 
-    public MenuVAdapter(Context context, ArrayList<MenuV> menuV){
+    public MenuVAdapter(Context context, ArrayList<SubMenu> menuV){
         this.mContext = context;
         this.menuV = menuV;
     }
@@ -36,7 +38,10 @@ public class MenuVAdapter extends RecyclerView.Adapter<MenuVAdapter.RecycleView_
 
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        MenuV menuVs = menuV.get(position);
+        SubMenu menuVs = menuV.get(position);
+        holder.menuNom.setText(menuVs.getNom());
+        holder.menuPrix.setText(String.format("%s DT", menuVs.getPrix()));
+        holder.menuPrst.setText(menuVs.getDescription());
     }
 
     @Override

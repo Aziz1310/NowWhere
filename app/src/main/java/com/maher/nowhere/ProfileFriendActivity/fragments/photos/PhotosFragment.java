@@ -16,6 +16,7 @@ import com.maher.nowhere.ProfileFriendActivity.adapter.PhotosAdapter;
 import com.maher.nowhere.R;
 import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
 import com.maher.nowhere.mainActivity.fragments.acceuil.AccueilPresenter;
+import com.maher.nowhere.model.Owner;
 import com.maher.nowhere.model.Photo;
 import com.maher.nowhere.model.Publication;
 import com.maher.nowhere.model.User;
@@ -39,8 +40,10 @@ public class PhotosFragment extends Fragment implements PhotoView {
     private static final String ARG_PARAM2 = "param2";
     public static final String FROM_PROFILE = "from_profile";
     public static final String FROM_FRIEND_PROFILE = "from_friend_profile";
+    public static final String FROM_PRESTATAIRE = "from_prestataire";
     private static String from = "";
     private static int FRIEND_ID = 0;
+    private Owner owner;
 
     private Context mContext;
     private View view;
@@ -82,6 +85,7 @@ public class PhotosFragment extends Fragment implements PhotoView {
         if (getArguments() != null) {
             from = getArguments().getString("from");
             User user = (User) getArguments().getSerializable("friend_id");
+            owner=(Owner)getArguments().getSerializable("owner");
             if (user != null)
                 FRIEND_ID = user.getId();
         }
@@ -96,12 +100,16 @@ public class PhotosFragment extends Fragment implements PhotoView {
         lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
         final PhotoPresenter photoPresenter = new PhotoPresenter(this, getActivity());
 
+        System.out.println("from equal "+from);
 
         if (from != null) {
             if (from.equals(FROM_PROFILE))
                 photoPresenter.getListPublication(User.getCurrentUser(getActivity()).getId());
             else if (from.equals(FROM_FRIEND_PROFILE))
                 photoPresenter.getListPublication(FRIEND_ID);
+            else if(from.equals(FROM_PRESTATAIRE)){
+                photoPresenter.getListPhotos(owner.getId());
+            }
         }
 
 
@@ -161,7 +169,7 @@ public class PhotosFragment extends Fragment implements PhotoView {
 
     @Override
     public void loadAllPosts(ArrayList<Publication> publications) {
-        System.out.println("load all publications");
+        System.out.println("load all publications "+publications.size() );
 
         posts = new ArrayList<>();
         posts = publications;
@@ -172,6 +180,19 @@ public class PhotosFragment extends Fragment implements PhotoView {
     @Override
     public void loadNoPosts(ArrayList<Publication> posts) {
         System.out.println("load No publication");
+
+    }
+
+    @Override
+    public void loadAllPhotos(ArrayList<Photo> photos) {
+        System.out.println("load all photos  " +photos.size());
+        PhotosAdapter photosAdapter = new PhotosAdapter(getActivity(), photos,1);
+        recyclerView.setAdapter(photosAdapter);
+    }
+
+    @Override
+    public void loadNoPhotos(ArrayList<Photo> photos) {
+        System.out.println("load no photos  " +photos.size());
 
     }
 

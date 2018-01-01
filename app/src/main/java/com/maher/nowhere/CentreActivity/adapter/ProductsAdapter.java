@@ -1,6 +1,7 @@
 package com.maher.nowhere.CentreActivity.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.Product;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,11 +23,11 @@ import java.util.ArrayList;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.RecycleView_Holder> {
 
     private final Context mContext;
-    private final ArrayList<Product> product;
+    private final ArrayList<Product> products;
 
     public ProductsAdapter(Context mContext, ArrayList<Product> product) {
         this.mContext = mContext;
-        this.product = product;
+        this.products = product;
     }
 
 
@@ -39,17 +42,23 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Recycl
 
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        Product products = product.get(position);
-        holder.img_product.setImageResource(products.getProduitImage());
-        holder.tv_titleProduct.setText(products.getTitleProduit());
-        holder.tv_nameProduct.setText(products.getNomProduit());
-        holder.prix_product.setText(products.getPrixProduit());
+        Product product = products.get(position);
+
+
+        Picasso.with(mContext).load(Uri.parse(Urls.IMG_URL_produit + product.getImg())).into(holder.img_product);
+
+
+
+
+        holder.tv_titleProduct.setText(product.getNom());
+        holder.tv_nameProduct.setText(product.getDescription());
+        holder.prix_product.setText(String.format("%s DT", product.getPrix()));
 
     }
 
     @Override
     public int getItemCount() {
-        return product.size();
+        return products.size();
     }
 
     class RecycleView_Holder extends RecyclerView.ViewHolder{

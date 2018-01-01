@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.maher.nowhere.CinemaActivity.FilmPresenter;
+import com.maher.nowhere.CinemaActivity.FilmView;
 import com.maher.nowhere.CinemaActivity.adapter.EnSalleAdapter;
 import com.maher.nowhere.R;
-import com.maher.nowhere.model.Search;
+import com.maher.nowhere.model.Film;
 
 import java.util.ArrayList;
 
@@ -25,21 +28,22 @@ import java.util.ArrayList;
  * Use the {@link ProchainementFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProchainementFragment extends Fragment {
+public class ProchainementFragment extends Fragment implements FilmView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+
     private String mParam2;
+    private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
-    private ArrayList<Search> lsearch;
-
+    private ArrayList<Film> lsearch;
 
     private OnFragmentInteractionListener mListener;
+    private LottieAnimationView lottieAnimationView;
 
     public ProchainementFragment() {
         // Required empty public constructor
@@ -51,7 +55,7 @@ public class ProchainementFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProchainementFragment.
+     * @return A new instance of fragment EnSalleFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static ProchainementFragment newInstance(String param1, String param2) {
@@ -67,7 +71,6 @@ public class ProchainementFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -76,18 +79,22 @@ public class ProchainementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_prochainement, container, false);
+
+        view = inflater.inflate(R.layout.fragment_en_salle, container, false);
+
+
+        lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
+        final FilmPresenter filmPresenter = new FilmPresenter(this, getActivity());
+        filmPresenter.getListPublication(0);
+
         recyclerView=view.findViewById(R.id.rv_enSalle);
         lsearch = new ArrayList<>();
-        lsearch.add(new Search(R.drawable.image,"23","09","2017","UN SAC DE BILLES", "Le Colisée"));
-        lsearch.add(new Search(R.drawable.img3,"11","09","2017","FIESTA GITANA", "Rio"));
-        lsearch.add(new Search(R.drawable.img1,"22","09","2017","SABRI MOSBAH", "masra7"));
-        lsearch.add(new Search(R.drawable.img2,"31","02","2017","SABRI MOSBAH", "baldi"));
-        lsearch.add(new Search(R.drawable.img4,"19","09","2017","SABRI MOSBAH", "Sabri"));
+
         lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
         recyclerView.setLayoutManager(lm);
         EnSalleAdapter enSalleAdapter = new EnSalleAdapter(getActivity(), lsearch);
         recyclerView.setAdapter(enSalleAdapter);
+
         return view;
     }
 
@@ -129,4 +136,38 @@ public class ProchainementFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+        @Override
+        public void showProgress() {
+            lottieAnimationView.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        public void hideProgress() {
+            lottieAnimationView.setVisibility(View.GONE);
+
+        }
+
+        @Override
+        public void networkError() {
+            System.out.println("network error load");
+
+        }
+
+        @Override
+        public void loadAllFilms(ArrayList<Film> films) {
+            System.out.println("load all films");
+
+            lsearch=new ArrayList<>();
+            lsearch=films;
+            EnSalleAdapter enSalleAdapter=new EnSalleAdapter(getActivity(),lsearch);
+            recyclerView.setAdapter(enSalleAdapter);
+        }
+
+        @Override
+        public void loadNoFilm(ArrayList<Film> films) {
+            System.out.println("load No film");
+
+           }
 }

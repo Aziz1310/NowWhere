@@ -18,6 +18,7 @@ import com.chootdev.csnackbar.Type;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.callbaks.VolleyCallback;
+import com.maher.nowhere.model.Owner;
 import com.maher.nowhere.model.Post;
 import com.maher.nowhere.model.Reservation;
 import com.maher.nowhere.model.User;
@@ -34,6 +35,7 @@ public class ReservationActivity extends AppCompatActivity implements Reservatio
 
     private Post post;
 
+    private Owner owner;
     private TextView tvNumPersonne;
     private TextView tvNumH;
     private LottieAnimationView lottieAnimationView;
@@ -65,27 +67,50 @@ public class ReservationActivity extends AppCompatActivity implements Reservatio
         img1 = (ImageView) findViewById(R.id.img1);
 
         post = (Post) getIntent().getSerializableExtra("post");
+        owner = (Owner) getIntent().getSerializableExtra("owner");
+
+        if (owner!=null){
+            tvNumH.setText(owner.getHeure_overture());
+            tvAdresse.setText(owner.getAdresse());
+            tvTitle.setText(owner.getNom());
+           // tvPlace.setText(post.getOwner().getNom());
+            tvDate.setText(String.format("Ouvert\n de %s à %s", owner.getHeure_overture(), owner.getHeure_fermeture()));
+            Picasso.with(this).
+                    load(Uri.parse(owner.getUrlImage()))
+                    .into(img1, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onError() {
+                        }
+                    });
+
+        }else if (post!=null){
+            tvNumH.setText(post.getHeureDebut());
+            tvAdresse.setText(post.getOwner().getAdresse());
+            tvTitle.setText(post.getName());
+            tvPlace.setText(post.getOwner().getNom());
+            tvDate.setText("Ouvert\n de " + post.getHeureDebut() + " à " + post.getHeureFin());
+            tvYear.setText(post.getYear());
+            tvDay.setText(post.getDayOfWeek());
+            tvMonth.setText(post.getMonthNumber());
+            Picasso.with(this).
+                    load(Uri.parse(post.getUrlImage()))
+                    .into(img1, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onError() {
+                        }
+                    });
+        }
 
 
-        tvNumH.setText(post.getHeureDebut());
-        tvAdresse.setText(post.getOwner().getAdresse());
-        tvTitle.setText(post.getName());
-        tvPlace.setText(post.getOwner().getNom());
-        tvDate.setText("Ouvert\n de " + post.getHeureDebut() + " à " + post.getHeureFin());
-        tvYear.setText(post.getYear());
-        tvDay.setText(post.getDayOfWeek());
-        tvMonth.setText(post.getMonthNumber());
-        Picasso.with(this).
-                load(Uri.parse(post.getUrlImage()))
-                .into(img1, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                    }
 
-                    @Override
-                    public void onError() {
-                    }
-                });
         ReservationPresenter reservationPresenter = new ReservationPresenter(this, this);
         buttonsClick(reservationPresenter);
     }
@@ -94,7 +119,11 @@ public class ReservationActivity extends AppCompatActivity implements Reservatio
         btnMinusH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (post!=null)
                 reservationPresenter.decrementHour(tvNumH.getText().toString(),post.getHeureDebut(),post.getHeureFin());
+                else if (owner!=null)
+                    reservationPresenter.decrementHour(tvNumH.getText().toString(),owner.getHeure_overture(),owner.getHeure_fermeture());
+
             }
         });
         btnMinusPersonne.setOnClickListener(new View.OnClickListener() {
@@ -113,15 +142,23 @@ public class ReservationActivity extends AppCompatActivity implements Reservatio
         btnPlusH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (post!=null)
                 reservationPresenter.incrementHour(tvNumH.getText().toString(),post.getHeureDebut(),post.getHeureFin());
+                else if (owner!=null)
+                    reservationPresenter.incrementHour(tvNumH.getText().toString(),owner.getHeure_overture(),owner.getHeure_fermeture());
+
             }
         });
 
         btnReserver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                if (post!=null)
                 reservationPresenter.reserver(post.getId(), tvNumPersonne.getText().toString()
                         , tvNumH.getText().toString());
+                else if (owner!=null)
+                    reservationPresenter.reserver(owner.getId(), tvNumPersonne.getText().toString()
+                            , tvNumH.getText().toString());
             }
         });
     }

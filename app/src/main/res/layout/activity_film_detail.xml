@@ -2,300 +2,417 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shadowLayout"
     class="com.maher.nowhere.utiles.ShadowLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/shadowLayout"
     tools:context="com.maher.nowhere.CinemaActivity.FilmDetailActivity">
 
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/too"/>
+    <include
+        android:id="@+id/too"
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/too"
-        >
+        android:layout_below="@id/too">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/item_en_salle"
-                android:id="@+id/rlFilm_header"
-                android:layout_height="200dp"
+            <RelativeLayout
+                android:id="@+id/rr"
                 android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/rlFilm_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    />
+                <com.google.android.youtube.player.YouTubePlayerView
+                    android:id="@+id/youtube_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvDayFilm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvMonthFilm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
+                    android:text="09"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvYearFilm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
+                    android:text="2017"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="150dp"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitleFilm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="UN SAC DE BILLES"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvLieuFilm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Le Colisée"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/lFilm_inof"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rlFilm_header"
+                android:layout_below="@id/rr"
                 android:background="@color/colorAccent"
                 android:paddingBottom="4dp"
-                android:paddingTop="4dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:paddingTop="4dp"
                 android:weightSum="3">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.4">
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/icon_clock"/>
-                <TextView
-                    android:id="@+id/tvDateFilm"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:textSize="12sp"
-                    android:textColor="@color/colorGreySoft"
-                    android:text="De 23 au 25 Octobre\n 11:45    16:30    20:00"/>
+                    android:layout_weight="1.4">
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="4dp"
+                        android:src="@drawable/icon_clock" />
+
+                    <TextView
+                        android:id="@+id/tvDateFilm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:maxLines="2"
+                        android:text="De 23 au 25 Octobre\n 11:45    16:30    20:00"
+                        android:textColor="@color/colorGreySoft"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/side_menu_devider"
+                    android:layout_weight="0.2"
                     android:alpha="0.5"
-                    android:layout_weight="0.2"/>
+                    android:src="@drawable/side_menu_devider" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.4">
-
-                <ImageView
-                    android:layout_marginTop="4dp"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/icon_pin"/>
-                <TextView
-                    android:id="@+id/tvAdresseLieufilm"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:textSize="12sp"
-                    android:textColor="@color/colorGreySoft"
-                    android:text="Avenue Habib Bourguiba\n Tunis - 2.5 Km"/>
+                    android:layout_weight="1.4">
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="4dp"
+                        android:src="@drawable/icon_pin" />
+
+                    <TextView
+                        android:id="@+id/tvAdresseLieufilm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:maxLines="2"
+                        android:text="Avenue Habib Bourguiba\n Tunis - 2.5 Km"
+                        android:textColor="@color/colorGreySoft"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <TextView
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
                 android:id="@+id/tvapropFilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lFilm_inof"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
+                android:text="A PROPOS"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:text="A PROPOS"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_dateFilm"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/tvapropFilm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorGreyText"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
                 android:text="Date de sortie"
-                android:textSize="15sp"/>
+                android:textColor="@color/colorGreyText"
+                android:textSize="15sp" />
+
             <TextView
+                android:id="@+id/dateFilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/dateFilm"
-                android:text="18 janvier 2017 (1h 54min)"
-                android:textColor="@color/colorMarron"
                 android:layout_alignBottom="@+id/tv_dateFilm"
                 android:layout_centerHorizontal="true"
-                android:layout_toRightOf="@+id/tv_dateFilm"
                 android:layout_toEndOf="@+id/tv_dateFilm"
-                android:textSize="15sp"/>
+                android:layout_toRightOf="@+id/tv_dateFilm"
+                android:text="18 janvier 2017 (1h 54min)"
+                android:textColor="@color/colorMarron"
+                android:textSize="15sp" />
+
             <TextView
+                android:id="@+id/tv_auteurFilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_auteurFilm"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="5dp"
                 android:layout_below="@+id/tv_dateFilm"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
                 android:text="De"
                 android:textColor="@color/colorGreyText"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
+
             <TextView
+                android:id="@+id/auteurFilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/auteurFilm"
-                android:text="Christian Duguay"
-                android:textSize="15sp"
-                android:textColor="@color/colorMarron"
                 android:layout_alignBottom="@+id/tv_auteurFilm"
                 android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/tv_auteurFilm"
                 android:layout_toRightOf="@+id/tv_auteurFilm"
-                android:layout_toEndOf="@+id/tv_auteurFilm"/>
+                android:text="Christian Duguay"
+                android:textColor="@color/colorMarron"
+                android:textSize="15sp" />
+
             <TextView
+                android:id="@+id/tv_acteurFilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_acteurFilm"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="5dp"
                 android:layout_below="@+id/tv_auteurFilm"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
                 android:text="Avec"
                 android:textColor="@color/colorGreyText"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
+
             <TextView
+                android:id="@+id/acteurFilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/acteurFilm"
-                android:text="Dorian Le Clech, Batyste Fleurial"
-                android:textSize="15sp"
-                android:lines="1"
-                android:textColor="@color/colorMarron"
                 android:layout_alignBottom="@+id/tv_acteurFilm"
+                android:layout_centerHorizontal="true"
                 android:layout_toEndOf="@+id/tv_acteurFilm"
                 android:layout_toRightOf="@+id/tv_acteurFilm"
-                android:layout_centerHorizontal="true"/>
+                android:lines="1"
+                android:text="Dorian Le Clech, Batyste Fleurial"
+                android:textColor="@color/colorMarron"
+                android:textSize="15sp" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/tv_genreFilm"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorGreyText"
-                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_acteurFilm"
-                android:text="Genre"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/genrefilm"
-                android:textSize="15sp"
-                android:textColor="@color/colorMarron"
-                android:layout_alignBottom="@+id/tv_genreFilm"
-                android:layout_toRightOf="@+id/tv_genreFilm"
-                android:layout_toEndOf="@+id/tv_genreFilm"
-                android:layout_centerHorizontal="true"
-                android:text="Drame"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_natFilm"
-                android:text="Nationalités"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:text="Genre"
                 android:textColor="@color/colorGreyText"
-                android:textSize="15sp"
-                android:layout_below="@+id/tv_genreFilm"/>
+                android:textSize="15sp" />
+
             <TextView
+                android:id="@+id/genrefilm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/natFilm"
-                android:text="Français, Canadien, Tchèque"
-                android:textSize="15sp"
-                android:textColor="@color/colorMarron"
+                android:layout_alignBottom="@+id/tv_genreFilm"
                 android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/tv_natFilm"
+                android:layout_toEndOf="@+id/tv_genreFilm"
+                android:layout_toRightOf="@+id/tv_genreFilm"
+                android:text="Drame"
+                android:textColor="@color/colorMarron"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_natFilm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_genreFilm"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:text="Nationalités"
+                android:textColor="@color/colorGreyText"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/natFilm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_genreFilm"
                 android:layout_toEndOf="@+id/tv_natFilm"
-                android:layout_toRightOf="@+id/tv_natFilm"/>
+                android:layout_toRightOf="@+id/tv_natFilm"
+                android:text="Français, Canadien, Tchèque"
+                android:textColor="@color/colorMarron"
+                android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/tvSynFilm"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@id/tv_natFilm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGreyText"
-                android:text="Synopsis"/>
+                android:layout_below="@id/tv_natFilm"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Synopsis"
+                android:textColor="@color/colorGreyText" />
 
             <TextView
                 android:id="@+id/tvDescriptionFilm"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="40dp"
-                android:layout_below="@id/tvSynFilm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorMarron"
-                android:text="Dans la france occupée, Maurice et Joseph, deux jeunes frères juifs livrés à eux mêmes, font preuve d'une incroyable dose de malice."/>
+                android:layout_below="@id/tvSynFilm"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Dans la france occupée, Maurice et Joseph, deux jeunes frères juifs livrés à eux mêmes, font preuve d'une incroyable dose de malice."
+                android:textColor="@color/colorMarron" />
 
-            <ImageView
-                android:id="@+id/friendsFilm"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_width="150dp"
-                android:layout_height="55dp"
-                android:layout_below="@id/tvDescriptionFilm"
-                android:src="@drawable/friends_list"/>
-            <ImageView
-                android:id="@+id/btnIGo"
-                android:layout_marginRight="20dp"
-                android:layout_below="@+id/tvDescriptionFilm"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/button_go"/>
+            <!--   <ImageView
+                   android:id="@+id/friendsFilm"
+                   android:layout_marginRight="20dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="150dp"
+                   android:layout_height="55dp"
+                   android:layout_below="@id/tvDescriptionFilm"
+                   android:src="@drawable/friends_list"/>
+               <ImageView
+                   android:id="@+id/btnIGo"
+                   android:layout_marginRight="20dp"
+                   android:layout_below="@+id/tvDescriptionFilm"
+                   android:layout_alignParentRight="true"
+                   android:layout_alignParentEnd="true"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/button_go"/>-->
 
             <android.support.v7.widget.AppCompatButton
-                android:layout_marginBottom="30dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_below="@+id/friendsFilm"
                 android:id="@+id/btnContacter"
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_below="@+id/tvDescriptionFilm"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/background_button"
                 android:text="Contacter"
-                android:textColor="@color/colorGreyTextDark"/>
+                android:textColor="@color/colorGreyTextDark" />
 
             <ImageView
-                android:layout_marginLeft="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/btnContacter"
                 android:layout_marginBottom="10dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/icon_direction"
-                android:layout_below="@+id/btnContacter" />
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/icon_direction" />
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/icon_share"
                 android:layout_below="@+id/btnContacter"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_share" />
 
             <ImageView
-                android:layout_marginRight="20dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/icon_like_soft"
-                android:layout_below="@+id/btnContacter"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@+id/btnContacter"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/icon_like_soft" />
 
         </RelativeLayout>
 

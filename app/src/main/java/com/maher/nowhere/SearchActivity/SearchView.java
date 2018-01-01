@@ -1,6 +1,7 @@
 package com.maher.nowhere.SearchActivity;
 
 import com.maher.nowhere.model.Owner;
+import com.maher.nowhere.model.Post;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ public interface SearchView {
     void hideProgress();
     void networkError();
     void loadAllPosts(ArrayList<Owner> owners);
+    void loadAllEvents(ArrayList<Post> posts);
+    void loadNoEvents(ArrayList<Post> posts);
     void loadNoPosts();
 
 }

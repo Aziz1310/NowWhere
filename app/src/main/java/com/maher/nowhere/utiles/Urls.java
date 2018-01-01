@@ -31,6 +31,17 @@ public class Urls {
     public static final String menu = serverAddress + "menus.json";
     public static final String feedback_list = serverAddress + "listavis.json";
     public static final String feedback_add = serverAddress + "addavis.json";
+    public static final String photo_list = serverAddress + "listphotos.json";
+    public static final String USER = serverAddress + "user/_ID_";
+    public static final String CHAT_ROOMS = serverAddress + "users/messages.json";
+    public static final String CHAT_THREAD = serverAddress + "chat_rooms/_ID_";
+    public static final String CHAT_ROOM_MESSAGE = serverAddress + "chat/messages.json";
+    public static final String CHAT_ROOM_MESSAGE_LIST = serverAddress + "messagebyrooms.json";
+    public static final String film_list= serverAddress + "listfilms.json";
+    public static final String produit_list= serverAddress + "listproduits.json";
+
+
+
 
 
 
@@ -41,5 +52,9 @@ public class Urls {
     public static final String IMG_URL_USER_COVER=serverAddressImg +"web/upload/users/covert/";
     public static final String IMG_URL_PRESTATAIRE_COVER=serverAddressImg +"web/upload/Prestataires/couverture/";
     public static final String IMG_URL_PRESTATAIRE=serverAddressImg +"web/upload/Prestataires/";
+    public static final String IMG_URL_film=serverAddressImg +"web/upload/Film/";
+    public static final String IMG_URL_produit=serverAddressImg +"web/upload/Produit/";
+
+
 
 }

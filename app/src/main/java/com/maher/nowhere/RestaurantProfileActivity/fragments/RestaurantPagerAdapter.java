@@ -17,23 +17,28 @@ import com.maher.nowhere.model.Owner;
 public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
     int numTab;
     Owner owner;
+    String categorie;
 
-    public RestaurantPagerAdapter(FragmentManager fm, int NumberOfTabs, Owner owner){
+    public RestaurantPagerAdapter(FragmentManager fm, int NumberOfTabs, Owner owner, String categorie){
         super(fm);
         this.numTab = NumberOfTabs;
         this.owner=owner;
+        this.categorie=categorie;
     }
     @Override
     public Fragment getItem(int position) {
         Bundle bundle=new Bundle();
         bundle.putSerializable("owner",owner);
+
         switch (position){
             case 0:
                 AProposFragment aProposFragment = new AProposFragment();
+                bundle.putString("categorie",categorie);
                 aProposFragment.setArguments(bundle);
                 return aProposFragment;
             case 1:
                 PhotosFragment photosFragment = new PhotosFragment();
+                bundle.putString("from",PhotosFragment.FROM_PRESTATAIRE);
                 photosFragment.setArguments(bundle);
                 return photosFragment;
             case 2:

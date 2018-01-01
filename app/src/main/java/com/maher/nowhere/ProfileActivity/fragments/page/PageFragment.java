@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -37,9 +38,14 @@ import com.maher.nowhere.model.Post;
 import com.maher.nowhere.model.Publication;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.providers.AccueilManager;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.vansuita.pickimage.IPickResult;
 import com.vansuita.pickimage.PickImageDialog;
 import com.vansuita.pickimage.PickSetup;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -51,6 +57,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,6 +149,12 @@ public class PageFragment extends Fragment implements PageView,IPickResult.IPick
         imgGalerie = view.findViewById(R.id.imageView6);
         imgSend = view.findViewById(R.id.imageView4);
         recyclerView = view.findViewById(R.id.rv_acceuil);
+        CircleImageView profile_img=view.findViewById(R.id.profile_img);
+        TextView tv_tt=view.findViewById(R.id.tv_tt);
+        tv_tt.setText("Vous voulez partager quelque chose "+User.getCurrentUser(getActivity()).getName());
+        Picasso.with(getActivity()).load(Uri.parse(Urls.IMG_URL_USER+User.getCurrentUser(getActivity()).getImage())).into(profile_img);
+
+
 
 
         lm = new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false);
@@ -284,7 +298,7 @@ public class PageFragment extends Fragment implements PageView,IPickResult.IPick
         byte bytes[] = new byte[size];
         byte tmpBuff[] = new byte[size];
         FileInputStream fis = new FileInputStream(file);
-        ;
+
         try {
 
             int read = fis.read(bytes, 0, size);

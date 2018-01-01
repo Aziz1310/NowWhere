@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maher.nowhere.ContactsActivity.ContactActivity;
+import com.maher.nowhere.chat.ListActivity;
 import com.maher.nowhere.login.LoginActivity;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.ProfileFriendActivity.ProfileFriendActivity;
@@ -39,7 +40,7 @@ public class RightFragmentNaviguation extends Fragment {
         View view = inflater.inflate(R.layout.fragment_right_naviguation, container, false);
         setUpRecyclerView(view);
         TextView tvName=(TextView)view.findViewById(R.id.title);
-            ImageView img=view.findViewById(R.id.img);
+            final ImageView img=view.findViewById(R.id.img);
             User user=User.getCurrentUser(getActivity());
             tvName.setText(user.getName());
             Picasso.with(getActivity()).load(Uri.parse(Urls.IMG_URL_USER_COVER +user.getCoverPhoto())).into(img, new com.squareup.picasso.Callback() {
@@ -49,6 +50,7 @@ public class RightFragmentNaviguation extends Fragment {
                 }
                 @Override
                 public void onError() {
+                    img.setImageDrawable(getResources().getDrawable(R.drawable.signup_image));
                 }
             });
 
@@ -79,8 +81,11 @@ public class RightFragmentNaviguation extends Fragment {
                     case 0:
                         getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
                         break;
-                    case 1:
+                   /* case 1:
                         getActivity().startActivity(new Intent(getActivity(), ProfileFriendActivity.class));
+                        break;*/
+                    case 2:
+                        getActivity().startActivity(new Intent(getActivity(), ListActivity.class));
                         break;
                     case 3:
                         getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));

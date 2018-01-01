@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,7 +30,10 @@ import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
 import com.maher.nowhere.model.Owner;
 import com.maher.nowhere.model.Post;
 import com.maher.nowhere.model.Search;
+import com.maher.nowhere.model.User;
 import com.maher.nowhere.providers.EventManager;
+import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -64,10 +68,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         lsearch = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_search);
-        lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(lm);
-        SearchOwnerAdapter searchAdapter = new SearchOwnerAdapter(this, lsearch, categorie);
-        recyclerView.setAdapter(searchAdapter);
+            lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(lm);
+            SearchOwnerAdapter searchAdapter = new SearchOwnerAdapter(this, lsearch, categorie);
+            recyclerView.setAdapter(searchAdapter);
 
     }
 
@@ -82,6 +86,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
 
         CircleImageView profile = (CircleImageView) toolbar.findViewById(R.id.toolbarProfileImg);
+        Picasso.with(this).
+                load(Uri.parse(Urls.IMG_URL_USER + User.getCurrentUser(this).getImage())).resize(50, 50)
+                .into(profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +141,16 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         lsearch = owners;
         SearchOwnerAdapter searchOwnerAdapter = new SearchOwnerAdapter(this, lsearch, categorie);
         recyclerView.setAdapter(searchOwnerAdapter);
+    }
+
+    @Override
+    public void loadAllEvents(ArrayList<Post> posts) {
+
+    }
+
+    @Override
+    public void loadNoEvents(ArrayList<Post> posts) {
+
     }
 
     @Override

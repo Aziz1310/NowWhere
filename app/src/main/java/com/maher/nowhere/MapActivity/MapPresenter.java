@@ -33,10 +33,10 @@ public class MapPresenter implements MapInteractor.OnMapFinishedListener {
 
 
     @Override
-    public void onSuccess(ArrayList<Owner> posts) {
+    public void onSuccess(ArrayList<Owner> posts,int mapDrawable) {
         mapView.hideProgress();
         if (!posts.isEmpty())
-            mapView.loadAllPosts(posts);
+            mapView.loadAllPosts(posts,mapDrawable);
         else mapView.loadNoPosts();
     }
 

@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maher.nowhere.ProfileFriendActivity.fragments.AmisFriendFragment;
@@ -32,6 +33,7 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
     ArrayList<Mur> murs;
     private User user;
     private CircleImageView img;
+    private ImageView imgCover;
     private TextView tvName;
 
     @Override
@@ -43,6 +45,8 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         dummyData();
         user=(User) getIntent().getSerializableExtra("friend_id");
         img=findViewById(R.id.imgFriend);
+        imgCover=findViewById(R.id.imgCover);
+
         tvName=findViewById(R.id.nomFriendProfile);
 
         if(user!=null){
@@ -50,6 +54,9 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
             Picasso.with(this).
                     load(Uri.parse(Urls.IMG_URL_USER + user.getImage())).resize(100, 100)
                     .into(img);
+            Picasso.with(this).
+                    load(Uri.parse(Urls.IMG_URL_USER_COVER + user.getCoverPhoto()))
+                    .into(imgCover);
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.layoutTab);
@@ -60,6 +67,7 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         tabLayout.setTabTextColors(getResources().getColor(R.color.colorGreyText), getResources().getColor(R.color.white));
 
         final ViewPager viewPager = (ViewPager) findViewById(pagerFriendProfile);
+        viewPager.setOffscreenPageLimit(3);
         final ProfileFriendPagerAdapter profileFriendPagerAdapter = new ProfileFriendPagerAdapter(getSupportFragmentManager(), 3,user);
         viewPager.setAdapter(profileFriendPagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

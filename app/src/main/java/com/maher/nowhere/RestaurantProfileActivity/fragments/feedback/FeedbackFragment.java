@@ -6,12 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.maher.nowhere.R;
@@ -24,6 +28,7 @@ import com.maher.nowhere.utiles.Urls;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,6 +48,7 @@ public class FeedbackFragment extends Fragment implements FeedbackView {
     private ArrayList<Feedback> feedbacks;
     private Owner owner;
     private LottieAnimationView lottieAnimationView;
+    private String rating="3";
 
 
     public FeedbackFragment() {
@@ -82,6 +88,7 @@ public class FeedbackFragment extends Fragment implements FeedbackView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_feedback, container, false);
+        setRetainInstance(true);
         lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
         CircleImageView profile_img=view.findViewById(R.id.profile_img);
         Picasso.with(getActivity()).load(Uri.parse(Urls.IMG_URL_USER +User.getCurrentUser(getActivity()).getImage())).into(profile_img, new com.squareup.picasso.Callback() {
@@ -103,6 +110,7 @@ public class FeedbackFragment extends Fragment implements FeedbackView {
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(feedbackAdapter);
 
+
         if (owner != null) {
             final FeedbackPresenter feedbackPresenter = new FeedbackPresenter(this, getActivity());
             feedbackPresenter.getListFeedback(User.getCurrentUser(getActivity()).getId(), owner.getId());
@@ -113,11 +121,41 @@ public class FeedbackFragment extends Fragment implements FeedbackView {
                     feedbackPresenter.addFeedback(User.getCurrentUser(getActivity()).getId(),
                             owner.getId(),
                             contenu,
-                            "4");
+                            rating);
                 }
             });
 
         }
+        final RatingBar rb_resto2=view.findViewById(R.id.rb_resto2);
+        rb_resto2.setRating(3.5f);
+        rb_resto2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    float touchPositionX = event.getX();
+                    float width = rb_resto2.getWidth();
+                    float starsf = (touchPositionX / width) * 5.0f;
+                    int stars = (int)starsf + 1;
+                    rb_resto2.setRating(stars);
+
+                    rating=stars+"";
+                    v.setPressed(false);
+                }
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    v.setPressed(true);
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    v.setPressed(false);
+                }
+
+
+
+
+                return true;
+            }});
+
+
 
 
         return view;
@@ -142,9 +180,18 @@ public class FeedbackFragment extends Fragment implements FeedbackView {
     @Override
     public void loadAllFeedbacks(ArrayList<Feedback> feedbacks) {
         System.out.println("load all feedbacks");
+        RatingBar rb_resto=view.findViewById(R.id.rb_resto);
+        rb_resto.setRating(Float.parseFloat(feedbacks.get(0).getGlobalNote()));
+        TextView feedbackNumber=view.findViewById(R.id.feedback_nbr);
+        feedbackNumber.setText(String.format(Locale.FRANCE,"%d avis", feedbacks.size()));
+        TextView tvAvis=view.findViewById(R.id.tv_avis);
+        tvAvis.setText(String.format("%s", Float.parseFloat(feedbacks.get(0).getGlobalNote())));
 
         FeedbackAdapter feedbackAdapter = new FeedbackAdapter(getActivity(), feedbacks);
         recyclerView.setAdapter(feedbackAdapter);
+
+
+
     }
 
     @Override
@@ -152,11 +199,14 @@ public class FeedbackFragment extends Fragment implements FeedbackView {
         FeedbackAdapter feedbackAdapter = new FeedbackAdapter(getActivity(), feedbacks);
         recyclerView.setAdapter(feedbackAdapter);
 
+
     }
 
     @Override
     public void addFeedbackSuccess(String message) {
         System.out.println("add feedback success");
+        final EditText etcomment=view.findViewById(R.id.etAvis);
+        etcomment.setText("");
         final FeedbackPresenter feedbackPresenter = new FeedbackPresenter(this, getActivity());
         feedbackPresenter.getListFeedback(User.getCurrentUser(getActivity()).getId(), owner.getId());
     }
@@ -164,5 +214,7 @@ public class FeedbackFragment extends Fragment implements FeedbackView {
     @Override
     public void addFeedbackError(String message) {
         System.out.println("add feedback error");
+        Toast.makeText(getActivity(),"Votre avis ne peut pas être ajoutée", Toast.LENGTH_SHORT).show();
+
     }
 }

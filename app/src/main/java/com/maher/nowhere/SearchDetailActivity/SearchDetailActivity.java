@@ -153,6 +153,7 @@ public class SearchDetailActivity extends AppCompatActivity implements OnMapRead
             public void onClick(View view) {
                 Intent intent = new Intent(SearchDetailActivity.this, ReservationActivity.class);
                 intent.putExtra("post",post);
+                intent.putExtra("owner",owner);
                 startActivity(intent);
             }
         });

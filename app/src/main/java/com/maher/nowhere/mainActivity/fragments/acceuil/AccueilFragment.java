@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.facebook.CallbackManager;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.maher.nowhere.R;
 import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
 import com.maher.nowhere.model.Publication;
@@ -29,7 +32,7 @@ import java.util.ArrayList;
  * Use the {@link AccueilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccueilFragment extends Fragment implements AccueilView {
+public class AccueilFragment extends Fragment implements AccueilView,AcceuilAdapter.OnButtonsClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "viewPager";
@@ -45,6 +48,8 @@ public class AccueilFragment extends Fragment implements AccueilView {
 
     private AccueilManager accueilManager;
     private LottieAnimationView lottieAnimationView;
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
 
 
     private OnFragmentInteractionListener mListener;
@@ -85,6 +90,8 @@ public class AccueilFragment extends Fragment implements AccueilView {
         // Inflate the layout for this fragment
 
         view=inflater.inflate(R.layout.fragment_accueil, container, false);
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
 
         lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
         final AccueilPresenter accueilPresenter = new AccueilPresenter(this, getActivity());
@@ -95,10 +102,9 @@ public class AccueilFragment extends Fragment implements AccueilView {
         posts=new ArrayList<>();
 
         lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
-        AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts);
+        AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts,this);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(acceuilAdapter);
-
 
         return view;
     }
@@ -154,7 +160,7 @@ public class AccueilFragment extends Fragment implements AccueilView {
 
             posts=new ArrayList<>();
             posts=publications;
-            AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts);
+            AcceuilAdapter acceuilAdapter=new AcceuilAdapter(getActivity(),posts,this);
             recyclerView.setAdapter(acceuilAdapter);
         }
 
@@ -163,6 +169,32 @@ public class AccueilFragment extends Fragment implements AccueilView {
             System.out.println("load No publication");
 
         }
+
+    @Override
+    public void onCommentClick(Publication publication) {
+
+    }
+
+    @Override
+    public void onShareClick(Publication publication) {
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse("http://developers.facebook.com/android")).
+                            setImageUrl(Uri.parse(publication.getImage()))
+                    .build();
+            shareDialog.show(linkContent);
+        }
+    }
+
+    @Override
+    public void onLiketClick(Publication publication) {
+
+    }
+
+    @Override
+    public void onSendClick(Publication publication) {
+
+    }
 
     /**
      * This interface must be implemented by activities that contain this

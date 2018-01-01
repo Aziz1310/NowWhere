@@ -34,7 +34,9 @@ import com.maher.nowhere.R;
 import com.maher.nowhere.SearchDetailActivity.SearchDetailActivity;
 import com.maher.nowhere.model.Owner;
 import com.maher.nowhere.model.Post;
+import com.maher.nowhere.reservationActivity.ReservationActivity;
 import com.maher.nowhere.utiles.ShadowLayout;
+import com.maher.nowhere.utiles.Utiles;
 
 
 public class AProposFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
@@ -69,6 +71,7 @@ public class AProposFragment extends Fragment implements OnMapReadyCallback, Goo
     private TextView tvTitle;
     private TextView tvPlace, tvDay, tvMonth, tvYear;
     private TextView tvDate, tvAdresse, tvDescription;
+    private String categorie;
 
 
     public AProposFragment() {
@@ -100,6 +103,7 @@ public class AProposFragment extends Fragment implements OnMapReadyCallback, Goo
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             owner = (Owner) getArguments().getSerializable("owner");
+            categorie=getArguments().getString("categorie");
         }
     }
 
@@ -108,7 +112,7 @@ public class AProposFragment extends Fragment implements OnMapReadyCallback, Goo
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_apropos_resto, container, false);
-
+        setRetainInstance(true);
         btnIgo = (ImageView) view.findViewById(R.id.btnIGo);
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
         tvAdresse = (TextView) view.findViewById(R.id.tvAdresse);
@@ -125,7 +129,7 @@ public class AProposFragment extends Fragment implements OnMapReadyCallback, Goo
             btnIgo.setOnClickListener(new android.view.View.OnClickListener() {
                 @Override
                 public void onClick(android.view.View v) {
-                    Intent intent = new Intent(getActivity(), SearchDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), ReservationActivity.class);
                     intent.putExtra("owner", owner);
                     getActivity().startActivity(intent);
                     (getActivity()).overridePendingTransition(R.anim.fragment_fade_in, R.anim.fragment_fade_out);
@@ -169,10 +173,10 @@ public class AProposFragment extends Fragment implements OnMapReadyCallback, Goo
         } catch (Resources.NotFoundException e) {
             Log.e("vv", "Can't find style. Error: ", e);
         }
-
-        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.icon_map_restorant);
+        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(new Utiles().getMapIcon(categorie));
         Bitmap b = bitmapdraw1.getBitmap();
         final Bitmap smallMarker1 = Bitmap.createScaledBitmap(b, 40, 60, false);
+
 
         MarkerOptions opt1 = new MarkerOptions();
 

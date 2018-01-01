@@ -1,6 +1,7 @@
 package com.maher.nowhere.RestaurantProfileActivity.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Menu;
 import com.maher.nowhere.model.MenuH;
 
 import java.util.ArrayList;
@@ -19,11 +21,18 @@ import java.util.ArrayList;
 public class MenuHAdapter extends RecyclerView.Adapter<MenuHAdapter.RecycleView_Holder> {
 
     private final Context mContext;
-    private final ArrayList<MenuH> menuH;
+    private final ArrayList<Menu> menuH;
+    private OnItemClickListener onItemClickListener;
+    private TextView lastSelected;
 
-    public MenuHAdapter (Context context, ArrayList<MenuH> menuH){
+    public interface OnItemClickListener{
+        public void onClickListener(int postition);
+    }
+
+    public MenuHAdapter (Context context, ArrayList<Menu> menuH,OnItemClickListener onItemClickListener){
         this.mContext = context;
         this.menuH = menuH;
+        this.onItemClickListener=onItemClickListener;
     }
 
     @Override
@@ -35,9 +44,26 @@ public class MenuHAdapter extends RecyclerView.Adapter<MenuHAdapter.RecycleView_
     }
 
     @Override
-    public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        MenuH menuHs = menuH.get(position);
+    public void onBindViewHolder(final RecycleView_Holder holder, int position) {
+        Menu menuHs = menuH.get(position);
+        holder.categorie.setText(menuHs.getNom());
+        lastSelected=holder.categorie;
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onClickListener(holder.getAdapterPosition());
+                lastSelected.setTextSize(14);
+                lastSelected.setTypeface(Typeface.DEFAULT);
+
+                holder.categorie.setTextSize(16);
+                holder.categorie.setTypeface(Typeface.DEFAULT_BOLD);
+
+                lastSelected=holder.categorie;
+
+
+            }
+        });
     }
 
     @Override

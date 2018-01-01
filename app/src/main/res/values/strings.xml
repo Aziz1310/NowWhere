@@ -10,5 +10,8 @@
     <string name="restaurants_food"><![CDATA[Restaurants & food]]></string>
     <string name="map_string"><![CDATA[Comptoir à cocktails-Bar à vin-Shooters Restaurants & Tapas-Dj Set-Musique Live]]></string>
     <string name="title_activity_salle_de_sport">SalleDeSportActivity</string>
+    <string name="youtube_key">AIzaSyCbxOzEKD2l2Ylh_dNmWtkzRIGzIRrvxd0</string>
+    <string name="facebook_app_id">653940411662602</string>
+
 
 </resources>

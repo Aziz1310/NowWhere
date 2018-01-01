@@ -11,10 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.maher.nowhere.CinemaActivity.FilmPresenter;
+import com.maher.nowhere.CinemaActivity.FilmView;
 import com.maher.nowhere.CinemaActivity.adapter.EnSalleAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
+import com.maher.nowhere.mainActivity.fragments.acceuil.AccueilPresenter;
 import com.maher.nowhere.model.EnSalle;
+import com.maher.nowhere.model.Film;
+import com.maher.nowhere.model.Publication;
 import com.maher.nowhere.model.Search;
+import com.maher.nowhere.model.User;
 
 import java.util.ArrayList;
 
@@ -26,7 +34,7 @@ import java.util.ArrayList;
  * Use the {@link EnSalleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EnSalleFragment extends Fragment {
+public class EnSalleFragment extends Fragment implements FilmView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,9 +46,10 @@ public class EnSalleFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
-    private ArrayList<Search> lsearch;
+    private ArrayList<Film> lsearch;
 
     private OnFragmentInteractionListener mListener;
+    private LottieAnimationView lottieAnimationView;
 
     public EnSalleFragment() {
         // Required empty public constructor
@@ -78,13 +87,18 @@ public class EnSalleFragment extends Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_en_salle, container, false);
+
+
+        lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
+        final FilmPresenter filmPresenter = new FilmPresenter(this, getActivity());
+        filmPresenter.getListPublication(1);
+
+
+
+
         recyclerView=view.findViewById(R.id.rv_enSalle);
         lsearch = new ArrayList<>();
-        lsearch.add(new Search(R.drawable.image,"23","09","2017","UN SAC DE BILLES", "Le Colisée"));
-        lsearch.add(new Search(R.drawable.img3,"11","09","2017","FIESTA GITANA", "Rio"));
-        lsearch.add(new Search(R.drawable.img1,"22","09","2017","SABRI MOSBAH", "masra7"));
-        lsearch.add(new Search(R.drawable.img2,"31","02","2017","SABRI MOSBAH", "baldi"));
-        lsearch.add(new Search(R.drawable.img4,"19","09","2017","SABRI MOSBAH", "Sabri"));
+
         lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
         recyclerView.setLayoutManager(lm);
         EnSalleAdapter enSalleAdapter = new EnSalleAdapter(getActivity(), lsearch);
@@ -131,4 +145,38 @@ public class EnSalleFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+        @Override
+        public void showProgress() {
+            lottieAnimationView.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        public void hideProgress() {
+            lottieAnimationView.setVisibility(View.GONE);
+
+        }
+
+        @Override
+        public void networkError() {
+            System.out.println("network error load");
+
+        }
+
+        @Override
+        public void loadAllFilms(ArrayList<Film> films) {
+            System.out.println("load all films");
+
+            lsearch=new ArrayList<>();
+            lsearch=films;
+            EnSalleAdapter enSalleAdapter=new EnSalleAdapter(getActivity(),lsearch);
+            recyclerView.setAdapter(enSalleAdapter);
+        }
+
+        @Override
+        public void loadNoFilm(ArrayList<Film> films) {
+            System.out.println("load No film");
+
+           }
 }

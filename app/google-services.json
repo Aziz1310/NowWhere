@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "266863085501",
+    "firebase_url": "https://nowwhere-app-1510940974812.firebaseio.com",
+    "project_id": "nowwhere-app-1510940974812",
+    "storage_bucket": "nowwhere-app-1510940974812.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266863085501:android:66ecce2233c7b16c",
+        "android_client_info": {
+          "package_name": "info.androidhive.gcm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266863085501-124mvqliem84fsnhea5isdmr7ae9mr4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXn943XzJhVoVoGkrJn_gTkXxgh7zjeuQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266863085501:android:e12f2a9219ba388b",
+        "android_client_info": {
+          "package_name": "com.maher.nowhere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266863085501-124mvqliem84fsnhea5isdmr7ae9mr4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXn943XzJhVoVoGkrJn_gTkXxgh7zjeuQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

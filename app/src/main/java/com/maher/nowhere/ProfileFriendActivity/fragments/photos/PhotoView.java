@@ -1,5 +1,6 @@
 package com.maher.nowhere.ProfileFriendActivity.fragments.photos;
 
+import com.maher.nowhere.model.Photo;
 import com.maher.nowhere.model.Publication;
 
 import java.util.ArrayList;
@@ -15,5 +16,7 @@ public interface PhotoView {
     void networkError();
     void loadAllPosts(ArrayList<Publication> posts);
     void loadNoPosts(ArrayList<Publication> posts);
+    void loadAllPhotos(ArrayList<Photo> photos);
+    void loadNoPhotos(ArrayList<Photo> photos);
 
 }

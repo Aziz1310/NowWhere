@@ -2,6 +2,7 @@ package com.maher.nowhere.SearchActivity;
 
 import android.content.Context;
 import com.maher.nowhere.model.Owner;
+import com.maher.nowhere.model.Post;
 
 import java.util.ArrayList;
 
@@ -22,9 +23,13 @@ public class SearchPresenter implements SearchInteractor.OnSearchFinishedListene
     }
 
 
-    void loadAllPosts(String type) {
+    public void loadAllPosts(String type) {
         searchView.showProgress();
         searchInteractor.loadAllPosts(type,this,mcContext);
+    }
+    public void loadAllEvents(int idUser) {
+        searchView.showProgress();
+        searchInteractor.loadAllEvents(idUser,this,mcContext);
     }
 
 
@@ -40,5 +45,13 @@ public class SearchPresenter implements SearchInteractor.OnSearchFinishedListene
     public void onError() {
         searchView.hideProgress();
         searchView.loadNoPosts();
+    }
+
+    @Override
+    public void onSuccessEvent(ArrayList<Post> posts) {
+        searchView.hideProgress();
+        if (!posts.isEmpty())
+            searchView.loadAllEvents(posts);
+        else searchView.loadNoEvents(posts);
     }
 }

@@ -127,7 +127,11 @@ public class SuggestionsFragment extends Fragment implements SuggestionView,Sugg
 
     @Override
     public void invitationSendSuccess() {
+
         System.out.println("invitation success");
+        final SuggestionPresenter suggestionPresenter=new SuggestionPresenter(this,getActivity());
+        suggestionPresenter.getListSuggestion(User.getCurrentUser(getActivity()).getId());
+
     }
 
     @Override

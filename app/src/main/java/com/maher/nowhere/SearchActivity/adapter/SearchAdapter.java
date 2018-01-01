@@ -38,6 +38,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
     public final static String CAT_RESTAURANT = "Réstaurant";
     public final static String CAT_SALLE = "Centres";
     public final static String CAT_ART = "Art";
+    public final static String CAT_CAFFE = "Caffées";
+    public final static String CAT_MIND  = "Mind";
+    public final static String CAT_Disco = "Discos";
     private String categorie;
     private OnDeleteFrindListener onDeleteFrindListener;
 
@@ -104,10 +107,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
 
                 switch (categorie) {
                     case CAT_RESTAURANT:
+                    case CAT_Disco:
+                    case CAT_CAFFE:
                         intent = new Intent(mContext, RestaurantProfileActivity.class);
                         break;
                     case CAT_SALLE:
                         intent = new Intent(mContext, SalleSportActivity.class);
+                        break;
+                    case CAT_ART:
+                        intent = new Intent(mContext, CentreActivity.class);
+                        intent.putExtra("owner",search);
+                        intent.putExtra("categorie",categorie);
                         break;
                     default:
                         intent = new Intent(mContext, SearchDetailActivity.class);

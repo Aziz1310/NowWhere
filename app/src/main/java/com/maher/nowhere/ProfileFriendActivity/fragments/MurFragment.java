@@ -11,9 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.maher.nowhere.ProfileActivity.fragments.page.PagePresenter;
+import com.maher.nowhere.ProfileActivity.fragments.page.PageView;
 import com.maher.nowhere.ProfileFriendActivity.adapter.MurAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
 import com.maher.nowhere.model.Mur;
+import com.maher.nowhere.model.Publication;
+import com.maher.nowhere.model.User;
+import com.maher.nowhere.providers.AccueilManager;
 
 import java.util.ArrayList;
 
@@ -25,7 +32,7 @@ import java.util.ArrayList;
  * Use the {@link MurFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MurFragment extends Fragment {
+public class MurFragment extends Fragment implements PageView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "viewPager";
@@ -37,7 +44,10 @@ public class MurFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
-    private ArrayList<Mur> mur;
+    private ArrayList<Publication> mur;
+    private User user;
+    private AccueilManager accueilManager;
+    private LottieAnimationView lottieAnimationView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,6 +78,7 @@ public class MurFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam2 = getArguments().getString(ARG_PARAM2);
+            user=(User) getArguments().getSerializable("friend_id");
         }
     }
 
@@ -78,9 +89,13 @@ public class MurFragment extends Fragment {
         view=inflater.inflate(R.layout.fragment_mur, container, false);
         recyclerView=view.findViewById(R.id.rv_mur);
         mur=new ArrayList<>();
-        mur.add(new Mur());
-        mur.add(new Mur());
-        mur.add(new Mur());
+
+        setRetainInstance(true);
+        lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
+        final PagePresenter pagePresenter = new PagePresenter(this, getActivity());
+        pagePresenter.getListPublication(user.getId());
+
+
 
         lm=new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false);
         MurAdapter murAdapter = new MurAdapter(getActivity(),mur);
@@ -127,5 +142,46 @@ public class MurFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void showProgress() {
+        lottieAnimationView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideProgress() {
+        lottieAnimationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void networkError() {
+        System.out.println("network error load pageFragment");
+
+    }
+
+    @Override
+    public void loadAllPosts(ArrayList<Publication> publications) {
+        System.out.println("load all publications froma page fragment");
+
+        mur = new ArrayList<>();
+        mur = publications;
+        MurAdapter murAdapter = new MurAdapter(getActivity(), mur);
+        recyclerView.setAdapter(murAdapter);
+    }
+
+    @Override
+    public void loadNoPosts(ArrayList<Publication> posts) {
+        System.out.println("load No publication from page fragment");
+    }
+
+    @Override
+    public void onSuccesAddPublication() {
+    }
+
+    @Override
+    public void onErrorAddPublication() {
     }
 }

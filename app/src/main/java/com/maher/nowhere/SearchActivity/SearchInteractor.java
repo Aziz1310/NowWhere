@@ -5,8 +5,10 @@ import android.content.Context;
 import com.maher.nowhere.callbaks.VolleyCallback;
 import com.maher.nowhere.helpers.JsonToObjectParser;
 import com.maher.nowhere.model.Owner;
+import com.maher.nowhere.model.Post;
 import com.maher.nowhere.providers.EventManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,14 +20,17 @@ import java.util.ArrayList;
 
 public class SearchInteractor {
 
-    public interface OnSearchFinishedListener{
-       void onSuccess(ArrayList<Owner> owners);
+    public interface OnSearchFinishedListener {
+        void onSuccess(ArrayList<Owner> owners);
+
         void onError();
+
+        void onSuccessEvent(ArrayList<Post> posts);
 
     }
 
-    private String getType(String type){
-        switch (type){
+    private String getType(String type) {
+        switch (type) {
             case "Réstaurant":
                 return EventManager.TYPE_RESAUTANTS;
             case "magic places":
@@ -44,18 +49,35 @@ public class SearchInteractor {
         return "null";
     }
 
-    public void loadAllPosts(String type,final OnSearchFinishedListener listener, final Context context) {
+    public void loadAllPosts(String type, final OnSearchFinishedListener listener, final Context context) {
 
-        EventManager eventManager=new EventManager(context);
-        eventManager.getPrestataires(getType(type),new VolleyCallback() {
+        EventManager eventManager = new EventManager(context);
+        eventManager.getPrestataires(getType(type), new VolleyCallback() {
             @Override
             public void onSuccess(Object response) {
 
                 try {
-                    listener.onSuccess(new JsonToObjectParser().parsePrestaire(( ((JSONObject)response).getJSONArray("list_prestataire"))));
+                    listener.onSuccess(new JsonToObjectParser().parsePrestaire((((JSONObject) response).getJSONArray("list_prestataire"))));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onError(Object error) {
+                listener.onError();
+            }
+        });
+    }
+
+    public void loadAllEvents(int iduser, final OnSearchFinishedListener listener, final Context context) {
+
+        EventManager eventManager = new EventManager(context);
+        eventManager.getPosts(iduser, new VolleyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+
+                listener.onSuccessEvent(new JsonToObjectParser().parsePosts((JSONArray) response));
             }
 
             @Override

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.maher.nowhere.CentreActivity.CentreActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.RestaurantProfileActivity.RestaurantProfileActivity;
 import com.maher.nowhere.SalleDeSportActivity.SalleSportActivity;
@@ -32,6 +33,9 @@ public class SearchOwnerAdapter extends RecyclerView.Adapter<SearchOwnerAdapter.
     public final static String CAT_RESTAURANT = "Réstaurant";
     public final static String CAT_SALLE = "Centres";
     public final static String CAT_ART = "Art";
+    public final static String CAT_Disco = "Discos";
+    public final static String CAT_CAFFE = "Caffées";
+    public final static String CAT_MIND  = "Mind";
     private String categorie;
     private OnDeleteFrindListener onDeleteFrindListener;
 
@@ -82,11 +86,19 @@ public class SearchOwnerAdapter extends RecyclerView.Adapter<SearchOwnerAdapter.
 
                 switch (categorie) {
                     case CAT_RESTAURANT:
+                    case CAT_Disco:
+                    case CAT_CAFFE:
                         intent = new Intent(mContext, RestaurantProfileActivity.class);
                         intent.putExtra("owner",search);
+                        intent.putExtra("categorie",categorie);
                         break;
                     case CAT_SALLE:
                         intent = new Intent(mContext, SalleSportActivity.class);
+                        break;
+                    case CAT_ART:
+                        intent = new Intent(mContext, CentreActivity.class);
+                        intent.putExtra("owner",search);
+                        intent.putExtra("categorie",categorie);
                         break;
                     default:
                         intent = new Intent(mContext, SearchDetailActivity.class);

@@ -56,7 +56,7 @@ public class AmisInteractor {
         contactsManager.acceptDeclineInvitation(currentUser,iduser, Urls.deleteFrind, new VolleyCallback() {
             @Override
             public void onSuccess(Object response) {
-                    listener.onDeleteError();
+                    listener.onDeleteSuccess();
 
             }
 

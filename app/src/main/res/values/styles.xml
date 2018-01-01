@@ -35,7 +35,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Small">
-        <item name="android:progressDrawable">@drawable/side_menu_heart</item>
+        <item name="android:progressDrawable">@drawable/rating_bar_style</item>
     </style>
 
 

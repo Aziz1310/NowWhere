@@ -8,25 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
         <ImageView
+            android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:src="@drawable/image"
             android:scaleType="centerCrop"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginRight="4dp"
-                android:src="@drawable/supprimer"/>
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -82,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/titre"
-                android:text="BYE BYE SUMMER"
+                android:text=""
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -91,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/nom"
-                android:text="Carpe Dieam"
+                android:text=""
                 android:textSize="16sp"
                 android:textColor="@color/colorAccent"
                 android:textStyle="normal"
@@ -162,18 +149,17 @@
             android:layout_below="@+id/rv_like">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileIM"
+                android:id="@+id/ivProfile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/profile_image"/>
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/friendName"
-                android:text="Ahmed Khedher"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorGreyTextDark"
                 android:textSize="16sp"
@@ -182,8 +168,8 @@
                 android:layout_marginStart="11dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/profileIM"
-                android:layout_toEndOf="@+id/profileIM"/>
+                android:layout_toRightOf="@+id/ivProfile"
+                android:layout_toEndOf="@+id/ivProfile"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -194,6 +180,7 @@
                 android:layout_marginRight="20dp">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/icon_refresh"
@@ -204,29 +191,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/commentTV"
-                android:text="Eclosion"
+                android:maxLines="1"
+                android:freezesText="true"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorGreyText"
                 android:textSize="16sp"
                 android:textStyle="normal"
+                android:text=""
                 android:layout_marginLeft="11dp"
                 android:layout_marginStart="11dp"
-                android:layout_below="@+id/profileIM"
-                android:layout_toRightOf="@+id/profileIM"
+                android:layout_below="@+id/ivProfile"
+                android:layout_toRightOf="@+id/ivProfile"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/voirComment_tv"
-                android:text="Voir les 21 commentaires"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorGreyText"
+                android:text="Voir les commentaires"
                 android:textStyle="normal"
                 android:layout_below="@+id/commentTV"
                 android:layout_marginLeft="11dp"
                 android:layout_marginStart="11dp"
-                android:layout_toRightOf="@+id/profileIM"
+                android:layout_toRightOf="@+id/ivProfile"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="17dp"/>
 

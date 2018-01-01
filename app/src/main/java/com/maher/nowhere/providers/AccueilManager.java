@@ -38,7 +38,34 @@ public class AccueilManager {
             e.printStackTrace();
         }
 
+        System.out.println("iduser friend "+idUser);
         final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.listPublication,jsonUser, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
+    public void getPhotos(int idUser,final VolleyCallback volleyCallback) {
+
+        JSONObject jsonUser = new JSONObject();
+        try {
+            jsonUser.put("idprestataire", idUser);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.photo_list,jsonUser, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -76,6 +103,33 @@ public class AccueilManager {
 
                 volleyCallback.onSuccess(response);
 
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
+
+    public void getProduits(int idPrestataire,final VolleyCallback volleyCallback) {
+
+        JSONObject jsonUser = new JSONObject();
+        try {
+            jsonUser.put("idPrestataire", idPrestataire);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.produit_list,jsonUser, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
 
             }
         }, new Response.ErrorListener() {

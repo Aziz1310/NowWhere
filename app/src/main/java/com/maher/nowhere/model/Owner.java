@@ -17,8 +17,8 @@ public class Owner implements Serializable{
     private  String gouvernorat;
     private String telFix;
     private String telMobile;
-    private Double latitude;
-    private Double longitude;
+    private double latitude;
+    private double longitude;
     private String urlImage;
 
     private String mot_cles;
@@ -94,19 +94,19 @@ public class Owner implements Serializable{
         this.telMobile = telMobile;
     }
 
-    public Double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public Double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -156,5 +156,14 @@ public class Owner implements Serializable{
 
     public void setValide(boolean valide) {
         this.valide = valide;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Owner owner = (Owner) o;
+        return latitude== owner.latitude &&
+                longitude== owner.longitude;
     }
 }

@@ -1,4 +1,4 @@
-package com.maher.nowhere.CentreActivity.fragments;
+package com.maher.nowhere.CentreActivity.fragments.products;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.maher.nowhere.CentreActivity.adapter.ProductsAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
+import com.maher.nowhere.model.Owner;
 import com.maher.nowhere.model.Product;
+import com.maher.nowhere.model.Publication;
 
 import java.util.ArrayList;
 
@@ -24,7 +28,7 @@ import java.util.ArrayList;
  * Use the {@link ProductsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProductsFragment extends Fragment {
+public class ProductsFragment extends Fragment implements ProduitView{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,6 +43,10 @@ public class ProductsFragment extends Fragment {
     private ArrayList<Product> products;
 
     private OnFragmentInteractionListener mListener;
+    private LottieAnimationView lottieAnimationView;
+    private Owner owner;
+    private String categorie;
+
 
     public ProductsFragment() {
         // Required empty public constructor
@@ -68,6 +76,8 @@ public class ProductsFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            owner=(Owner)getArguments().getSerializable("owner");
+
         }
     }
 
@@ -76,12 +86,13 @@ public class ProductsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_products, container, false);
+        setRetainInstance(true);
         products = new ArrayList<>();
-        products.add(new Product(R.drawable.profile_image,"Product","Name","60 DT"));
-        products.add(new Product(R.drawable.profile_image,"Product","Name","60 DT"));
-        products.add(new Product(R.drawable.profile_image,"Product","Name","60 DT"));
-        products.add(new Product(R.drawable.profile_image,"Product","Name","60 DT"));
-        products.add(new Product(R.drawable.profile_image,"Product","Name","60 DT"));
+        lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.loadingAnimation);
+
+        ProductsPresenter productsPresenter=new ProductsPresenter(this,getActivity());
+        productsPresenter.getListProduit(owner.getId());
+
 
         ProductsAdapter productsAdapter = new ProductsAdapter(getActivity(), products);
         recyclerView=(RecyclerView)view.findViewById(R.id.rv_product);
@@ -115,6 +126,40 @@ public class ProductsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    @Override
+    public void showProgress() {
+        lottieAnimationView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideProgress() {
+        lottieAnimationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void networkError() {
+        System.out.println("network error load");
+
+    }
+
+    @Override
+    public void loadAllProducts(ArrayList<Product> products) {
+        System.out.println("load all publications");
+
+        this.products=new ArrayList<>();
+        this.products=products;
+        ProductsAdapter productsAdapter=new ProductsAdapter(getActivity(),products);
+        recyclerView.setAdapter(productsAdapter);
+    }
+
+    @Override
+    public void loadNoProduct(ArrayList<Product> products) {
+        System.out.println("load No publication");
+
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

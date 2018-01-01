@@ -8,50 +8,52 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-    private int produitImage;
-    private String nomProduit;
-    private String titleProduit;
-    private String prixProduit;
+    private String prix;
+    private String nom;
+    private String description;
+    private String date;
+    private String img;
 
     public Product() {
     }
 
-    public Product(int produitImage, String nomProduit, String titleProduit, String prixProduit) {
-        this.produitImage = produitImage;
-        this.nomProduit = nomProduit;
-        this.titleProduit = titleProduit;
-        this.prixProduit = prixProduit;
+    public String getPrix() {
+        return prix;
     }
 
-    public int getProduitImage() {
-        return produitImage;
+    public void setPrix(String prix) {
+        this.prix = prix;
     }
 
-    public void setProduitImage(int produitImage) {
-        this.produitImage = produitImage;
+    public String getNom() {
+        return nom;
     }
 
-    public String getNomProduit() {
-        return nomProduit;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public void setNomProduit(String nomProduit) {
-        this.nomProduit = nomProduit;
+    public String getDescription() {
+        return description;
     }
 
-    public String getTitleProduit() {
-        return titleProduit;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setTitleProduit(String titleProduit) {
-        this.titleProduit = titleProduit;
+    public String getDate() {
+        return date;
     }
 
-    public String getPrixProduit() {
-        return prixProduit;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setPrixProduit(String prixProduit) {
-        this.prixProduit = prixProduit;
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

@@ -23,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by RaniaH on 01/12/2017.
  */
 
-public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.RecycleView_Holder>{
+public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.RecycleView_Holder> {
 
     private final Context mContext;
     private final ArrayList<Feedback> feedbacks;
@@ -44,39 +44,56 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Recycl
     @Override
     public void onBindViewHolder(RecycleView_Holder holder, int position) {
         Feedback feedback = feedbacks.get(position);
-        holder.nomProf.setText(feedback.getUser().getName());
+        String date= String.format("%s %s %s %sh:%s", feedback.getDayOfWeek(), feedback.getMonth(), feedback.getYear(), feedback.getHour(), feedback.getMinute());
+
+        holder.time_avis.setText(date);
+        if (feedback.getUser() != null)
+            holder.nomProf.setText(feedback.getUser().getName());
         holder.comment_avis.setText(feedback.getContenu());
         holder.ratingBar.setRating(Float.parseFloat(feedback.getUserNote()));
+        if (feedback.getUser() != null)
+            Picasso.with(mContext).load(Uri.parse(Urls.IMG_URL_USER + feedback.getUser().getImage())).into(holder.img, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    System.out.println(" maher image loaded with success");
+                }
 
-        Picasso.with(mContext).load(Uri.parse(Urls.IMG_URL_USER +feedback.getUser().getImage())).into(holder.img, new com.squareup.picasso.Callback() {
+                @Override
+                public void onError() {
+                }
+            });
+        holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+
             @Override
-            public void onSuccess() {
-                System.out.println(" maher image loaded with success");
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                // TODO Auto-generated method stub
+                System.out.println("rating "+Float.toString(rating));
+
             }
-            @Override
-            public void onError() {
-            }
+
         });
 
     }
 
     @Override
     public int getItemCount() {
-        return (null !=feedbacks ? feedbacks.size() : 0);
+        return (null != feedbacks ? feedbacks.size() : 0);
     }
 
-    class RecycleView_Holder extends RecyclerView.ViewHolder{
+    class RecycleView_Holder extends RecyclerView.ViewHolder {
 
         final TextView nomProf, comment_avis, time_avis;
         final CircleImageView img;
         final RatingBar ratingBar;
+
         public RecycleView_Holder(View itemView) {
             super(itemView);
-            nomProf=itemView.findViewById(R.id.tv_nomProf);
-            comment_avis=itemView.findViewById(R.id.comment_avis);
-            time_avis=itemView.findViewById(R.id.time_avis);
-            img=itemView.findViewById(R.id.prof_img);
-            ratingBar=itemView.findViewById(R.id.rb_resto);
+            nomProf = itemView.findViewById(R.id.tv_nomProf);
+            comment_avis = itemView.findViewById(R.id.comment_avis);
+            time_avis = itemView.findViewById(R.id.time_avis);
+            img = itemView.findViewById(R.id.prof_img);
+            ratingBar = itemView.findViewById(R.id.rb_resto);
         }
     }
 }
