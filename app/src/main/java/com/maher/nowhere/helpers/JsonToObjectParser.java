@@ -6,6 +6,7 @@ import com.maher.nowhere.model.Feedback;
 import com.maher.nowhere.model.Film;
 import com.maher.nowhere.model.Menu;
 import com.maher.nowhere.model.Owner;
+import com.maher.nowhere.model.Pack;
 import com.maher.nowhere.model.Photo;
 import com.maher.nowhere.model.Post;
 import com.maher.nowhere.model.Product;
@@ -691,5 +692,70 @@ public class JsonToObjectParser {
         }
         return products;
     }
+    private Pack parsePack(JSONObject jsonObject) {
+
+        Pack pack=new Pack();
+
+
+        try {
+            pack.setNom(jsonObject.getString("_nom_pack"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            pack.setType1(jsonObject.getString("_prix_pack_3"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            pack.setType2(jsonObject.getString("_prix_pack_6"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            pack.setType3(jsonObject.getString("_prix_pack_9"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            pack.setType4(jsonObject.getString("_prix_pack_12"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONArray jsonArray=jsonObject.getJSONArray("detail");
+            ArrayList<String> details=new ArrayList<>();
+            for(int i=0;i<jsonArray.length();i++){
+                details.add(jsonArray.getString(i));
+            }
+            pack.setDetails(details);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            pack.setId(jsonObject.getInt("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return pack;
+
+    }
+
+    public ArrayList<Pack> parsePacks(JSONArray jsonArray) {
+    ArrayList<Pack> packs = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+        try {
+            Pack pack = parsePack(jsonArray.getJSONObject(i));
+            packs.add(pack);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+        return packs;
+}
 
 }

@@ -28,7 +28,7 @@
         <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/cover_photo_hieght"
             android:id="@+id/relativeLayout">
 
             <ImageView

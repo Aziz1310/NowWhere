@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maher.nowhere.ContactsActivity.ContactActivity;
+import com.maher.nowhere.Settings.SettingsActivity;
 import com.maher.nowhere.chat.ListActivity;
 import com.maher.nowhere.login.LoginActivity;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
@@ -33,30 +34,28 @@ public class RightFragmentNaviguation extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_right_naviguation, container, false);
         setUpRecyclerView(view);
-        TextView tvName=(TextView)view.findViewById(R.id.title);
-            final ImageView img=view.findViewById(R.id.img);
-            User user=User.getCurrentUser(getActivity());
-            tvName.setText(user.getName());
-            Picasso.with(getActivity()).load(Uri.parse(Urls.IMG_URL_USER_COVER +user.getCoverPhoto())).into(img, new com.squareup.picasso.Callback() {
-                @Override
-                public void onSuccess() {
-                    System.out.println(" maher image loaded with success cover photo");
-                }
-                @Override
-                public void onError() {
-                    img.setImageDrawable(getResources().getDrawable(R.drawable.signup_image));
-                }
-            });
+        TextView tvName = (TextView) view.findViewById(R.id.title);
+        final ImageView img = view.findViewById(R.id.img);
+        User user = User.getCurrentUser(getActivity());
+        tvName.setText(user.getName());
+        Picasso.with(getActivity()).load(Uri.parse(Urls.IMG_URL_USER_COVER + user.getCoverPhoto())).into(img, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                System.out.println(" maher image loaded with success cover photo");
+            }
+
+            @Override
+            public void onError() {
+                img.setImageDrawable(getResources().getDrawable(R.drawable.signup_image));
+            }
+        });
 
         return view;
     }
-
 
 
     private RecyclerView setUpRecyclerView(View view) {
@@ -65,30 +64,30 @@ public class RightFragmentNaviguation extends Fragment {
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(getActivity(), NavigationDrawerItem.getData());
 
 
-
-
         RecyclerView recyclerView = view.findViewById(R.id.rvSettings);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                switch (position){
+                switch (position) {
                     case 0:
-                        getActivity().startActivity(new Intent(getActivity(), ContactActivity.class));
+                        startActivity(new Intent(getActivity(), ProfileActivity.class));
                         break;
                    /* case 1:
                         getActivity().startActivity(new Intent(getActivity(), ProfileFriendActivity.class));
                         break;*/
                     case 2:
-                        getActivity().startActivity(new Intent(getActivity(), ListActivity.class));
+                        startActivity(new Intent(getActivity(), ListActivity.class));
                         break;
                     case 3:
-                        getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+                        startActivity(new Intent(getActivity(), ContactActivity.class));
+                        break;
+                    case 4:
+                        startActivity(new Intent(getActivity(), SettingsActivity.class));
                         break;
                     case 5:
                         User.logOut(getActivity());
@@ -139,8 +138,6 @@ public class RightFragmentNaviguation extends Fragment {
             }
         });
     }
-
-
 
 
 }

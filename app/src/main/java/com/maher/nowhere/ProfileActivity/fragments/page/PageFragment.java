@@ -150,8 +150,6 @@ public class PageFragment extends Fragment implements PageView,IPickResult.IPick
         imgSend = view.findViewById(R.id.imageView4);
         recyclerView = view.findViewById(R.id.rv_acceuil);
         CircleImageView profile_img=view.findViewById(R.id.profile_img);
-        TextView tv_tt=view.findViewById(R.id.tv_tt);
-        tv_tt.setText("Vous voulez partager quelque chose "+User.getCurrentUser(getActivity()).getName());
         Picasso.with(getActivity()).load(Uri.parse(Urls.IMG_URL_USER+User.getCurrentUser(getActivity()).getImage())).into(profile_img);
 
 

@@ -97,8 +97,8 @@ public class Comment implements Serializable{
             dayOfMonth="0"+dayOfMonth;
         setDayOfWeek(dayOfMonth);//01/09...31
 
-        if(formatedMonth.length()==4)
-            setMonth(formatedMonth.substring(0,(formatedMonth.length()-1)));//nov-oct
+        if(formatedMonth.length()>3)
+            setMonth(formatedMonth.substring(0,3));//nov-oct
         else
             setMonth(formatedMonth);//nov-oct
 

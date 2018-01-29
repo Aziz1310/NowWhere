@@ -38,6 +38,7 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
         void onShareClick(Publication publication);
         void onLiketClick(Publication publication);
         void onSendClick(Publication publication);
+        void onItemClick(Publication publication);
     }
 
     public AcceuilAdapter(Context context, ArrayList<Publication> posts){
@@ -106,6 +107,13 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.RecycleV
             @Override
             public void onClick(View v) {
                 listener.onShareClick(post);
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(post);
             }
         });
 

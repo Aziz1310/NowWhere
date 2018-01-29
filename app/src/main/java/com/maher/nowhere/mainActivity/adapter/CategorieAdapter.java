@@ -61,12 +61,12 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.Recy
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(categ.getShortName().equals("Cinémas")){
+               /* if(categ.getShortName().equals("Cinémas")){
                     Intent intent=new Intent(mContext, CinemaActivity.class);
                  //   intent.putExtra("categorie",categ);
                     mContext.startActivity(intent);
                     return;
-                }
+                }*/
                 Intent intent=new Intent(mContext, CategoriesDetailActivity.class);
                 intent.putExtra("categorie",categ);
                 mContext.startActivity(intent);

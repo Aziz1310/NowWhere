@@ -5,23 +5,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Pack;
 import com.maher.nowhere.model.Trynow;
 
 import java.util.ArrayList;
 
-/**
- * Created by RaniaH on 24/11/2017.
- */
-
 public class TrynowAdapter extends RecyclerView.Adapter<TrynowAdapter.RecycleView_Holder>{
 
     private final Context mContext;
-    private final ArrayList<Trynow> trynow;
+    private final ArrayList<Pack> trynow;
 
-    public TrynowAdapter(Context mContext, ArrayList<Trynow> trynow) {
+    public TrynowAdapter(Context mContext, ArrayList<Pack> trynow) {
         this.mContext = mContext;
         this.trynow = trynow;
     }
@@ -35,8 +34,30 @@ public class TrynowAdapter extends RecyclerView.Adapter<TrynowAdapter.RecycleVie
     }
 
     @Override
-    public void onBindViewHolder(RecycleView_Holder holder, int position) {
-        Trynow trynows = trynow.get(position);
+    public void onBindViewHolder(final RecycleView_Holder holder, int position) {
+        final Pack pack = trynow.get(position);
+        holder.tv_pack.setText(pack.getNom());
+        holder.pack_prix.setText(String.format("%s DT / 3 MOIS", pack.getType1()));
+        holder.pack_prst.setText(pack.getDetails().toString());
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if (holder.btnArrow.getRotation()==180f){
+                   holder.btnArrow.setRotation(0f);
+                   holder.pack_prst.setText("");
+                   holder.pack_prix.setText(String.format("%s DT / 3 MOIS\n%s DT / 3 MOIS\n%s DT / 3 MOIS\n%s DT / 3 MOIS",
+                           pack.getType1(), pack.getType2(), pack.getType3(), pack.getType4()));
+                   for (String s:pack.getDetails()){
+                       holder.pack_prst.setText(String.format("%s\n%s", holder.pack_prst.getText().toString(), s));
+                   }
+               }else {
+                   holder.btnArrow.setRotation(180f);
+                   holder.pack_prst.setText(pack.getDetails().toString());
+                   holder.pack_prix.setText(String.format("%s DT / 3 MOIS", pack.getType1()));
+
+               }
+            }
+        });
     }
 
     @Override
@@ -46,11 +67,15 @@ public class TrynowAdapter extends RecyclerView.Adapter<TrynowAdapter.RecycleVie
 
     class RecycleView_Holder extends RecyclerView.ViewHolder{
         final TextView tv_pack, pack_prst, pack_prix;
+        final ImageView btnArrow;
+        final LinearLayout ll;
         public RecycleView_Holder(View itemView) {
             super(itemView);
-            tv_pack = itemView.findViewById(R.id.tv_pack);
+            tv_pack = itemView.findViewById(R.id.tv_pack);//pack name
             pack_prst = itemView.findViewById(R.id.pack_prst);
             pack_prix = itemView.findViewById(R.id.pack_prix);
+            btnArrow=itemView.findViewById(R.id.btnArrow);
+            ll=itemView.findViewById(R.id.ll);
         }
     }
 }

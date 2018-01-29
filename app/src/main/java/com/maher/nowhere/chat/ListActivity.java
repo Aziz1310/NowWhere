@@ -23,12 +23,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.maher.nowhere.R;
 import com.maher.nowhere.chat.adapter.ChatRoomsAdapter;
-import com.maher.nowhere.gcm.GcmIntentService;
 import com.maher.nowhere.gcm.NotificationUtils;
 import com.maher.nowhere.login.LoginActivity;
 import com.maher.nowhere.model.ChatRoom;
+import com.maher.nowhere.model.Conversation;
+import com.maher.nowhere.model.ConversationUser;
 import com.maher.nowhere.model.Message;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.Config;
@@ -50,7 +58,7 @@ public class ListActivity extends AppCompatActivity {
     private String TAG = ListActivity.class.getSimpleName();
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private ArrayList<ChatRoom> chatRoomArrayList;
+    private ArrayList<Conversation> chatRoomArrayList;
     private ChatRoomsAdapter mAdapter;
     private RecyclerView recyclerView;
 
@@ -85,7 +93,7 @@ public class ListActivity extends AppCompatActivity {
                 if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
-                    subscribeToGlobalTopic();
+                    // subscribeToGlobalTopic();
 
                 } else if (intent.getAction().equals(Config.SENT_TOKEN_TO_SERVER)) {
                     // gcm registration id is stored in our server's MySQL
@@ -112,12 +120,20 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 // when chat is clicked, launch full chat thread activity
-                ChatRoom chatRoom = chatRoomArrayList.get(position);
+                Conversation chatRoom = chatRoomArrayList.get(position);
+                User currentUser = User.getCurrentUser(ListActivity.this);
+                ConversationUser conversationUser;
+                if (String.valueOf(currentUser.getId()).equals(chatRoom.getUser1().getId()))
+                    conversationUser = chatRoom.getUser2();
+                else conversationUser = chatRoom.getUser1();
+
+
                 Intent intent = new Intent(ListActivity.this, ChatRoomActivity.class);
                 intent.putExtra("chat_room_id", chatRoom.getId());
-                intent.putExtra("reciver_id", chatRoom.getIdRecever());
-                intent.putExtra("sender_id", chatRoom.getIdSender());
-                intent.putExtra("name", chatRoom.getName());
+                intent.putExtra("reciver_id", conversationUser.getId());
+                intent.putExtra("sender_id", currentUser.getId());
+                intent.putExtra("name", conversationUser.getName());
+                intent.putExtra("img", conversationUser.getPhoto());
                 startActivity(intent);
             }
 
@@ -132,7 +148,6 @@ public class ListActivity extends AppCompatActivity {
          * proceeding further with GCM
          * */
         if (checkPlayServices()) {
-            registerGCM();
             fetchChatRooms();
         }
     }
@@ -150,13 +165,13 @@ public class ListActivity extends AppCompatActivity {
             String chatRoomId = intent.getStringExtra("chat_room_id");
 
             if (message != null && chatRoomId != null) {
-                updateRow(chatRoomId, message);
+                //  updateRow(chatRoomId, message);
             }
         } else if (type == Config.PUSH_TYPE_USER) {
             // push belongs to user alone
             // just showing the message in a toast
             Message message = (Message) intent.getSerializableExtra("message");
-            Toast.makeText(getApplicationContext(), "New push: " + message.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "New push: " + message.getText(), Toast.LENGTH_LONG).show();
         }
 
 
@@ -164,7 +179,7 @@ public class ListActivity extends AppCompatActivity {
 
     /**
      * Updates the chat list unread count and the last message
-     */
+     *//*
     private void updateRow(String chatRoomId, Message message) {
         for (ChatRoom cr : chatRoomArrayList) {
             if (cr.getId().equals(chatRoomId)) {
@@ -177,99 +192,66 @@ public class ListActivity extends AppCompatActivity {
             }
         }
         mAdapter.notifyDataSetChanged();
-    }
+    }*/
 
 
     /**
      * fetching the chat rooms by making http call
      */
     private void fetchChatRooms() {
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                Urls.CHAT_ROOMS, new Response.Listener<String>() {
+        System.out.println("fetchatrooms");
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Urls.FIREBASE_CONVERSATIONS);
+        myRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "response: " + response);
-
-                try {
-                    JSONObject obj = new JSONObject(response);
-
-                    // check for error flag
-
-                    JSONArray chatRoomsArray = obj.getJSONArray("rooms");
-                    for (int i = 0; i < chatRoomsArray.length(); i++) {
-                        System.out.println(chatRoomsArray.length() + " maldini");
-                        JSONObject chatRoomsObj = (JSONObject) chatRoomsArray.get(i);
-                        ChatRoom cr = new ChatRoom();
-                        JSONObject m = chatRoomsObj.getJSONObject("user");
-
-                        cr.setName(m.getString("username"));
-                        cr.setUrlImg(m.getString("photo"));
-                        cr.setIdRecever(m.getInt("id"));
-                        cr.setIdSender(User.getCurrentUser(ListActivity.this).getId());
-                        cr.setId(chatRoomsObj.getString("id"));
-
-                        cr.setLastMessage(chatRoomsObj.getString("message"));
-                        cr.setUnreadCount(0);
-                        cr.setTimestamp(chatRoomsObj.getString("created_at"));
-
-                        chatRoomArrayList.add(cr);
-                    }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "json parsing error: " + e.getMessage());
-                    Toast.makeText(getApplicationContext(), "Json parse error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG, "onChildAdded: "+dataSnapshot.getValue());
+                Conversation conversation = dataSnapshot.getValue(Conversation.class);
+                conversation.setId(dataSnapshot.getKey());
+                System.out.println("fetchatrooms " + conversation.getId());
+                if (conversation.getId().contains(User.getCurrentUser(ListActivity.this).getId() + "")) {
+                    System.out.println("fetchatrooms " + conversation.getId());
+                    chatRoomArrayList.add(conversation);
                 }
 
                 mAdapter.notifyDataSetChanged();
-
-                // subscribing to all chat room topics
-                subscribeToAllTopics();
             }
-        }, new Response.ErrorListener() {
 
             @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                Log.e(TAG, "Volley error: " + error.getMessage() + ", code: " + networkResponse);
-                Toast.makeText(getApplicationContext(), "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
             }
-        }) {
 
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("idUser", User.getCurrentUser(ListActivity.this).getId() + "");
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-
-                Log.e(TAG, "params: " + params.toString());
-                return params;
             }
-        };
 
-        //Adding request to request queue
-        ConnectionSingleton.getInstance(this).addToRequestque(strReq);
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        mAdapter.notifyDataSetChanged();
+        // subscribing to all chat room topics
+        subscribeToAllTopics();
+
     }
 
-    // subscribing to global topic
-    private void subscribeToGlobalTopic() {
-        Intent intent = new Intent(this, GcmIntentService.class);
-        intent.putExtra(GcmIntentService.KEY, GcmIntentService.SUBSCRIBE);
-        intent.putExtra(GcmIntentService.TOPIC, Config.TOPIC_GLOBAL);
-        startService(intent);
-    }
 
     // Subscribing to all chat room topics
     // each topic name starts with `topic_` followed by the ID of the chat room
     // Ex: topic_1, topic_2
     private void subscribeToAllTopics() {
-        for (ChatRoom cr : chatRoomArrayList) {
 
-            Intent intent = new Intent(this, GcmIntentService.class);
-            intent.putExtra(GcmIntentService.KEY, GcmIntentService.SUBSCRIBE);
-            intent.putExtra(GcmIntentService.TOPIC, "topic_" + cr.getId());
-            startService(intent);
-        }
     }
 
     private void launchLoginActivity() {
@@ -277,36 +259,6 @@ public class ListActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // register GCM registration complete receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.REGISTRATION_COMPLETE));
-
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.PUSH_NOTIFICATION));
-
-        // clearing the notification tray
-        NotificationUtils.clearNotifications();
-    }
-
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        super.onPause();
-    }
-
-    // starting the service to register with GCM
-    private void registerGCM() {
-        Intent intent = new Intent(this, GcmIntentService.class);
-        intent.putExtra("key", "register");
-        startService(intent);
     }
 
     private boolean checkPlayServices() {
@@ -337,8 +289,9 @@ public class ListActivity extends AppCompatActivity {
         TextView title = toolbar.findViewById(R.id.toolbarTitle);
         title.setText("Messages");
     }
+
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }

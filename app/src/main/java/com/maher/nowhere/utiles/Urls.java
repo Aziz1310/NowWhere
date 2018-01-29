@@ -39,6 +39,7 @@ public class Urls {
     public static final String CHAT_ROOM_MESSAGE_LIST = serverAddress + "messagebyrooms.json";
     public static final String film_list= serverAddress + "listfilms.json";
     public static final String produit_list= serverAddress + "listproduits.json";
+    public static final String pack_list= serverAddress + "listpacks.json";
 
 
 
@@ -54,6 +55,13 @@ public class Urls {
     public static final String IMG_URL_PRESTATAIRE=serverAddressImg +"web/upload/Prestataires/";
     public static final String IMG_URL_film=serverAddressImg +"web/upload/Film/";
     public static final String IMG_URL_produit=serverAddressImg +"web/upload/Produit/";
+
+
+    //firebase tables
+    public static final String FIREBASE_CONVERSATIONS="conversations";
+    public static final String FIREBASE_CHANELS="channels";
+    public static final String FIREBASE_MESSAGES="messages";
+
 
 
 

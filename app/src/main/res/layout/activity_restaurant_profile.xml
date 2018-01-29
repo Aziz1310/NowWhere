@@ -30,7 +30,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="@dimen/cover_photo_hieght"
                     android:id="@+id/rlRestaut"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"

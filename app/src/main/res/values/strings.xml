@@ -12,6 +12,8 @@
     <string name="title_activity_salle_de_sport">SalleDeSportActivity</string>
     <string name="youtube_key">AIzaSyCbxOzEKD2l2Ylh_dNmWtkzRIGzIRrvxd0</string>
     <string name="facebook_app_id">653940411662602</string>
+    <string name="_300_dt_3_mois_nm">300 DT / 3 MOIS \n mm</string>
+    <string name="title_activity_detail_acceuil">Détails</string>
 
 
 </resources>

@@ -27,6 +27,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
     public interface OnSendInvitListener{
         void onSendBtnClick(User user);
+        void onItemClick(User user);
     }
 
     private final Context mContext;
@@ -62,6 +63,12 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
             @Override
             public void onClick(View v) {
                 listener.onSendBtnClick(user);
+            }
+        });
+        holder.img_addAmisSugg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(user);
             }
         });
 

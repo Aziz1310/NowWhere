@@ -120,15 +120,15 @@ public class EventFragment extends Fragment implements SearchView {
 
         lsearch = new ArrayList<>();
         lsearch = posts;
-        SearchAdapter searchOwnerAdapter = new SearchAdapter(getActivity(), lsearch, categorie);
-        recyclerView.setAdapter(searchOwnerAdapter);
+        SearchAdapter searchAdapter = new SearchAdapter(getActivity(), lsearch, categorie);
+        recyclerView.setAdapter(searchAdapter);
     }
 
     @Override
     public void loadNoEvents(ArrayList<Post> posts) {
         lsearch = new ArrayList<>();
-        SearchAdapter searchOwnerAdapter = new SearchAdapter(getActivity(), lsearch, categorie);
-        recyclerView.setAdapter(searchOwnerAdapter);
+        SearchAdapter searchAdapter = new SearchAdapter(getActivity(), lsearch, categorie);
+        recyclerView.setAdapter(searchAdapter);
     }
 
     @Override

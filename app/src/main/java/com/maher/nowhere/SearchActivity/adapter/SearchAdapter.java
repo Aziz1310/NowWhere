@@ -105,25 +105,34 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.RecycleVie
                 Intent intent;
 
 
-                switch (categorie) {
+                /*switch (categorie) {
                     case CAT_RESTAURANT:
                     case CAT_Disco:
                     case CAT_CAFFE:
                         intent = new Intent(mContext, RestaurantProfileActivity.class);
+                        intent.putExtra("post",search);
+                        intent.putExtra("categorie",categorie);
                         break;
                     case CAT_SALLE:
                         intent = new Intent(mContext, SalleSportActivity.class);
+                        intent.putExtra("post",search);
+                        intent.putExtra("categorie",categorie);
                         break;
                     case CAT_ART:
                         intent = new Intent(mContext, CentreActivity.class);
-                        intent.putExtra("owner",search);
+                        intent.putExtra("post",search);
                         intent.putExtra("categorie",categorie);
                         break;
                     default:
                         intent = new Intent(mContext, SearchDetailActivity.class);
                         intent.putExtra("post",search);
 
-                }
+
+                }*/
+
+                intent = new Intent(mContext, SearchDetailActivity.class);
+                intent.putExtra("post",search);
+                intent.putExtra("categorie",categorie);
 
 
                 int[] screenLocation = new int[2];

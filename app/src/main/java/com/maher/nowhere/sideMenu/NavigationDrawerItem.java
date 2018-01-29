@@ -59,7 +59,8 @@ class NavigationDrawerItem {
 
 
 		return new String[] {
-				"Contacts", "Notifications", "Messages","Mon Compte", "Aide","Déconnexion"
+				"Profil","Notifications","Messages","Amis","Paramètres","Déconnexion"
+			/*	"Contacts", "Notifications", "Messages","Mon Compte", "Aide","Déconnexion"*/
 		};
 	}
 }

@@ -48,7 +48,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         owners = new ArrayList<>();
 
         categorie = getIntent().getStringExtra("categorie");
-        System.out.println(categorie + " categorie");
 
         setUpToolbar();
 

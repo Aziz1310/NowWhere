@@ -14,7 +14,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
-
     <application
         android:name=".utiles.MyApplication"
         android:allowBackup="true"
@@ -26,10 +25,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDK4glYe0KTd2qReFq0B8dF5uXTXdvNC4s" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
 
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -58,7 +56,6 @@
         <activity
             android:name=".PhotoActivity.PhotoActivity"
             android:theme="@style/ThemeTransparent" />
-
         <activity android:name=".RestaurantProfileActivity.RestaurantProfileActivity" />
         <activity android:name=".CinemaActivity.CinemaActivity" />
         <activity android:name=".CinemaActivity.FilmDetailActivity" />
@@ -71,40 +68,26 @@
         <activity android:name=".eventPlaceActivity.EventPlaceActivity" />
         <activity android:name=".chat.ListActivity" />
         <activity android:name=".chat.ChatRoomActivity" />
-        <activity android:name=".commentsActivity.CommentActivity"
-            android:label="Commentaires"></activity>
+        <activity
+            android:name=".commentsActivity.CommentActivity"
+            android:label="Commentaires" />
+        <activity
+            android:name=".detailAcceuilActivity.DetailAcceuilActivity"
+            android:label="@string/title_activity_detail_acceuil"
+            android:theme="@style/AppTheme"
+           />
 
-        <!-- START Added for GCM -->
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <service android:name=".Services.FirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="info.androidhive.gcm" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".gcm.MyGcmPushReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".gcm.GcmIntentService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
-        </service>
-
-        <provider android:authorities="com.facebook.app.FacebookContentProvider653940411662602"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider653940411662602"
+            android:exported="true" />
+
 
     </application>
 

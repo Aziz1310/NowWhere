@@ -1,6 +1,7 @@
 package com.maher.nowhere.mainActivity.fragments.acceuil;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.maher.nowhere.R;
+import com.maher.nowhere.commentsActivity.CommentActivity;
+import com.maher.nowhere.detailAcceuilActivity.DetailAcceuilActivity;
 import com.maher.nowhere.mainActivity.adapter.AcceuilAdapter;
 import com.maher.nowhere.model.Publication;
 import com.maher.nowhere.model.User;
@@ -179,7 +182,7 @@ public class AccueilFragment extends Fragment implements AccueilView,AcceuilAdap
     public void onShareClick(Publication publication) {
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                    .setContentUrl(Uri.parse("http://developers.facebook.com/android")).
+                    .setContentUrl(Uri.parse("http://devellopers.facebook.com/android")).
                             setImageUrl(Uri.parse(publication.getImage()))
                     .build();
             shareDialog.show(linkContent);
@@ -193,6 +196,15 @@ public class AccueilFragment extends Fragment implements AccueilView,AcceuilAdap
 
     @Override
     public void onSendClick(Publication publication) {
+
+    }
+
+    @Override
+    public void onItemClick(Publication publication) {
+        Intent intent=new Intent(getContext(), DetailAcceuilActivity.class);
+        intent.putExtra("publication",publication);
+        startActivity(intent);
+
 
     }
 

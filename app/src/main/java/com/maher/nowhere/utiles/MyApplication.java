@@ -5,17 +5,8 @@ package com.maher.nowhere.utiles;
  */
 
 import android.app.Application;
-import android.content.Intent;
-import android.text.TextUtils;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.maher.nowhere.helpers.MyPreferenceManager;
-
-/**
- * Created by Ravi on 13/05/15.
- */
 
 public class MyApplication extends Application {
 
@@ -33,6 +24,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        Fresco.initialize(this);
     }
 
     public static synchronized MyApplication getInstance() {

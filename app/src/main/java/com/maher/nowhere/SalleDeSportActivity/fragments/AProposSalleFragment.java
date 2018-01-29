@@ -1,6 +1,7 @@
 package com.maher.nowhere.SalleDeSportActivity.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,6 +25,9 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.maher.nowhere.R;
+import com.maher.nowhere.model.Owner;
+import com.maher.nowhere.reservationActivity.ReservationActivity;
+import com.maher.nowhere.utiles.Utiles;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +38,7 @@ import com.maher.nowhere.R;
  * create an instance of this fragment.
  */
 public class AProposSalleFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
-        GoogleMap.OnMarkerClickListener{
+        GoogleMap.OnMarkerClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,8 +48,11 @@ public class AProposSalleFragment extends Fragment implements OnMapReadyCallback
     private String mParam1;
     private String mParam2;
     private GoogleMap map;
-    private TextView tvTimeSalle,tvAdresseSalle,tvDescriptionSalle;
+    private TextView tvTimeSalle, tvAdresseSalle, tvDescriptionSalle;
     private View view;
+
+    private Owner owner;
+    private String categorie;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,6 +84,9 @@ public class AProposSalleFragment extends Fragment implements OnMapReadyCallback
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            owner = (Owner) getArguments().getSerializable("owner");
+            categorie = getArguments().getString("categorie");
+
         }
     }
 
@@ -85,9 +95,15 @@ public class AProposSalleFragment extends Fragment implements OnMapReadyCallback
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_apropos_salle, container, false);
-        tvDescriptionSalle=(TextView) view.findViewById(R.id.tvDescriptionSalle);
-        tvAdresseSalle=(TextView)view.findViewById(R.id.tvAdresseSalle);
-        tvTimeSalle=(TextView)view.findViewById(R.id.tvTimeSalle);
+        tvDescriptionSalle = (TextView) view.findViewById(R.id.tvDescriptionSalle);
+        tvAdresseSalle = (TextView) view.findViewById(R.id.tvAdresseSalle);
+        tvTimeSalle = (TextView) view.findViewById(R.id.tvTimeSalle);
+        if (owner != null) {
+            tvAdresseSalle.setText(owner.getAdresse());
+            tvTimeSalle.setText(String.format("Ouvert\n de %s à %s", owner.getHeure_overture(), owner.getHeure_fermeture()));
+            tvDescriptionSalle.setText(owner.getDescription());
+        }
+
 
         MapView mMapView = (MapView) view.findViewById(R.id.map);
         MapsInitializer.initialize(getActivity());
@@ -148,26 +164,30 @@ public class AProposSalleFragment extends Fragment implements OnMapReadyCallback
         } catch (Resources.NotFoundException e) {
             Log.e("vv", "Can't find style. Error: ", e);
         }
-
-        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.icon_map_mind);
+        BitmapDrawable bitmapdraw1 = (BitmapDrawable) getResources().getDrawable(new Utiles().getMapIcon(categorie));
         Bitmap b = bitmapdraw1.getBitmap();
         final Bitmap smallMarker1 = Bitmap.createScaledBitmap(b, 40, 60, false);
 
+
         MarkerOptions opt1 = new MarkerOptions();
-        opt1.position(new LatLng(36.7629800, 10.1659399))
-                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker1))
-                .anchor(0.5f,1);
-        googleMap.addMarker(opt1);
 
-        googleMap.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(36.7629800, 10.1659399), 12));
+        if (owner != null) {
+            opt1.position(new LatLng(owner.getLatitude(), owner.getLongitude()))
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker1))
+                    .anchor(0.5f, 1);
 
+            googleMap.addMarker(opt1);
+
+            googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(owner.getLatitude(), owner.getLongitude()), 12));
+        }
 
 
         googleMap.getUiSettings().setScrollGesturesEnabled(false);
 
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

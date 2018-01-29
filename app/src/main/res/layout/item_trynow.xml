@@ -32,7 +32,7 @@
             android:layout_marginBottom="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="18dp"
-            android:layout_weight="2.73"
+            android:layout_weight="2.6"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
                     android:id="@+id/tv_pack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PACK PAR\nPERSONNE"
+                    android:text="PACK PAR \n PERSONNE"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textSize="14sp"
                     android:textStyle="normal" />
@@ -58,11 +58,28 @@
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorGreyText"
                 android:textSize="12sp"
-                android:lines="1"
                 android:freezesText="true"
                 android:textStyle="normal"
                 android:layout_marginTop="10dp"/>
 
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_weight=".3"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/btnArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="matrix"
+                android:rotation="180"
+                android:src="@drawable/arrow_up"/>
         </LinearLayout>
 
             <RelativeLayout
@@ -81,7 +98,7 @@
                         android:id="@+id/pack_prix"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="300 DT / 3 MOIS"
+                        android:text="@string/_300_dt_3_mois_nm"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorAccent"
                         android:textSize="14sp"
@@ -93,5 +110,13 @@
         </LinearLayout>
 
     </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/background_tab"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:alpha=".2"
+        android:scaleType="fitXY"/>
 
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.maher.nowhere.CinemaActivity.CinemaActivity;
 import com.maher.nowhere.MapActivity.MapActivity;
 import com.maher.nowhere.ProfileActivity.ProfileActivity;
 import com.maher.nowhere.R;
@@ -49,7 +50,7 @@ public class CategoriesDetailActivity extends AppCompatActivity {
 
 
         if (categ != null) {
-            btnSearch.setText(categ.getShortName() + " à proximité");
+            btnSearch.setText(String.format("%s à proximité", categ.getShortName()));
             icon.setImageResource(categ.getImg2());
             tvName.setText(categ.getText());
 
@@ -62,7 +63,14 @@ public class CategoriesDetailActivity extends AppCompatActivity {
                     Intent intent = new Intent(CategoriesDetailActivity.this, EventPlaceActivity.class);
                     intent.putExtra("categorie",categ.getShortName());
                     startActivity(intent);
-                }else {
+                }
+               else if(categ.getShortName().equals("Cinémas")){
+                    Intent intent=new Intent(CategoriesDetailActivity.this, CinemaActivity.class);
+                    intent.putExtra("categorie",categ);
+                    startActivity(intent);
+
+                }
+                else {
 
                     Intent intent = new Intent(CategoriesDetailActivity.this, SearchActivity.class);
                     intent.putExtra("categorie",categ.getShortName());

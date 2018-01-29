@@ -9,6 +9,7 @@
     android:paddingRight="16dp">
 
     <TextView
+        android:layout_marginTop="4dp"
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +17,7 @@
         android:layout_marginRight="10dp"
         android:textIsSelectable="true"
         android:background="@drawable/bg_bubble_gray"
+        android:textStyle="bold"
         android:textSize="14dp" />
 
     <TextView
@@ -25,7 +27,7 @@
         android:layout_alignRight="@id/message"
         android:layout_below="@id/message"
         android:layout_marginBottom="5dp"
-        android:padding="10dp"
+        android:padding="4dp"
         android:textSize="10dp" />
 
 </RelativeLayout>

@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/relativeLayoutP"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="@dimen/cover_photo_hieght"
                 android:contentDescription="profile image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/signup_image" />
@@ -36,24 +36,27 @@
                 android:layout_margin="16dp" />
 
             <RelativeLayout
+                android:id="@+id/relativeLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="85dp"
-                android:id="@+id/relativeLayout2">
+                android:layout_marginTop="140dp">
+
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
                     android:id="@+id/imageProfile"
-                    android:src="@drawable/profile_image"/>
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/profile_img1" />
             </RelativeLayout>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageAdd"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="165dp"
+                    android:layout_marginTop="175dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -65,7 +68,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="165dp"
+                    android:layout_marginTop="175dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="22dp"

@@ -35,7 +35,7 @@ public class CinemaActivity extends AppCompatActivity implements EnSalleFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cinema);
         setupToolbar();
-        dummyData();
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutCinema);
         tabLayout.addTab(tabLayout.newTab().setText("En Salle"));
@@ -84,12 +84,7 @@ public class CinemaActivity extends AppCompatActivity implements EnSalleFragment
 
     }
 
-    private void dummyData() {
-        enSalle = new ArrayList<>();
-        enSalle.add(new EnSalle(R.drawable.image,"23","09","2017","UN SAC DE BILLES", "Le Colisée"));
-        enSalle.add(new EnSalle(R.drawable.img3,"23","09","2017","BABY DRIVER", "Le RIO"));
-        enSalle.add(new EnSalle(R.drawable.img2,"23","09","2017","ASKIM", "JCC"));
-    }
+
 
 
     @Override

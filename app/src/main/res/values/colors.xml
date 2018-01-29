@@ -10,11 +10,12 @@
     <color name="tab_indocator">#7a7878</color>
     <color name="colorAccentBright">#BB7D4B</color>
     <color name="colorBlackTransparent">#e8161616</color>
+    <color name="colorBlackTransparent2">#44161616</color>
     <color name="colorGrey">#e81b1b1b</color>
     <color name="black_overlay">#66000000</color>
     <color name="green_button">#60CB8F</color>
     <color name="colorMarron">#9c6543</color>
 
     <color name="list_divider">#dedede</color>
-    <color name="bg_bubble_self">#E1E1E1</color>
+    <color name="bg_bubble_self">#CFD8DC</color><!--old color E1E1E1-->
 </resources>

@@ -14,7 +14,11 @@ import android.widget.TextView;
 import com.maher.nowhere.ProfileFriendActivity.ProfileFriendActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.model.ChatRoom;
+import com.maher.nowhere.model.Conversation;
+import com.maher.nowhere.model.ConversationUser;
+import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.Urls;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -30,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<ChatRoom> chatRoomArrayList;
+    private ArrayList<Conversation> chatRoomArrayList;
     private static String today;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -48,7 +52,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
     }
 
 
-    public ChatRoomsAdapter(Context mContext, ArrayList<ChatRoom> chatRoomArrayList) {
+    public ChatRoomsAdapter(Context mContext, ArrayList<Conversation> chatRoomArrayList) {
         this.mContext = mContext;
         this.chatRoomArrayList = chatRoomArrayList;
 
@@ -66,20 +70,37 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ChatRoom chatRoom = chatRoomArrayList.get(position);
-        holder.name.setText(chatRoom.getName());
-        holder.message.setText(chatRoom.getLastMessage());
-        if (chatRoom.getUnreadCount() > 0) {
+        Conversation chatRoom = chatRoomArrayList.get(position);
+        User currentUser = User.getCurrentUser(mContext);
+        ConversationUser conversationUser;
+        if (String.valueOf(currentUser.getId()).equals(chatRoom.getUser1().getId()))
+            conversationUser = chatRoom.getUser2();
+        else conversationUser = chatRoom.getUser1();
+
+
+        holder.name.setText(conversationUser.getName());
+        //    holder.message.setText(chatRoom.getLastMessage());
+        /*if (chatRoom.getUnreadCount() > 0) {
             holder.count.setText(String.valueOf(chatRoom.getUnreadCount()));
             holder.count.setVisibility(View.VISIBLE);
         } else {
             holder.count.setVisibility(View.GONE);
-        }
+        }*/
         Picasso.with(mContext).
-                load(Uri.parse(chatRoom.getUrlImg())).resize(100, 100)
-                .into(holder.img);
+                load(Uri.parse(Urls.IMG_URL_USER + conversationUser.getPhoto())).resize(100, 100)
+                .into(holder.img, new Callback() {
+                    @Override
+                    public void onSuccess() {
 
-         holder.timestamp.setText(getTimeStamp(chatRoom.getTimestamp()));
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
+        //  holder.timestamp.setText(getTimeStamp(chatRoom.getTimestamp()));
     }
 
     @Override
@@ -88,16 +109,16 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
     }
 
     public static String getTimeStamp(String dateStr) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+'SS:SS",Locale.FRANCE);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+'SS:SS", Locale.FRANCE);
         String timestamp = "";
 
         today = today.length() < 2 ? "0" + today : today;
 
         try {
             Date date = format.parse(dateStr);
-            SimpleDateFormat todayFormat = new SimpleDateFormat("dd",Locale.FRANCE);
+            SimpleDateFormat todayFormat = new SimpleDateFormat("dd", Locale.FRANCE);
             String dateToday = todayFormat.format(date);
-            format = dateToday.equals(today) ? new SimpleDateFormat("hh:mm a",Locale.FRANCE) : new SimpleDateFormat("dd LLL, hh:mm a",Locale.FRANCE);
+            format = dateToday.equals(today) ? new SimpleDateFormat("hh:mm a", Locale.FRANCE) : new SimpleDateFormat("dd LLL, hh:mm a", Locale.FRANCE);
             String date1 = format.format(date);
             timestamp = date1.toString();
         } catch (ParseException e) {

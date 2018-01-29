@@ -50,7 +50,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.RecycleVie
     }
 
     @Override
-    public void onBindViewHolder(final RecycleView_Holder holder, int position) {
+    public void onBindViewHolder(final RecycleView_Holder holder, final int position) {
 
         String url = "";
         String description = "";
@@ -64,6 +64,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.RecycleVie
             description = photo.getDescription();
         }
         final String finalUrl = url;
+        final String finalDesc = description;
 
         // holder.img.setMaxHeight(holder.img.getWidth());
         Picasso.with(mContext).load(Uri.parse(url)).resize(100,100).into(holder.img, new Callback() {
@@ -87,7 +88,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.RecycleVie
                         makeSceneTransitionAnimation((Activity) mContext, (View) holder.img, "img");
                 Intent intent = new Intent(mContext, PhotoActivity.class);
                 intent.putExtra("img", finalUrl);
-                mContext.startActivity(intent, options.toBundle());
+                intent.putExtra("description",finalDesc);
+
+                mContext.startActivity(intent);
             }
         });
 

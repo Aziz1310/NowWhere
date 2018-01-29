@@ -59,7 +59,7 @@ public class DetailMapActivity extends AppCompatActivity {
                         case "Caffées":
                             intent=new Intent(DetailMapActivity.this, RestaurantProfileActivity.class);
                             break;
-                        case "magic places":
+                    //    case "magic places":
                         case "Cinémas":
                             intent = new Intent(DetailMapActivity.this, FilmDetailActivity.class);
                             break;

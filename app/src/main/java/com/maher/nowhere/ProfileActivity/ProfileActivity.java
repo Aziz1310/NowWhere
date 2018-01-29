@@ -167,7 +167,6 @@ public class ProfileActivity extends AppCompatActivity implements PageFragment.O
         int index = viewPager.getCurrentItem();
         ProfilePagerAdapter adapter = ((ProfilePagerAdapter)viewPager.getAdapter());
         PageFragment fragment = (PageFragment) adapter.getItem(index);
-        final int unmaskedRequestCode = requestCode & 0x0000ffff;
         fragment.onActivityResult(requestCode, resultCode, data);
     }
 }

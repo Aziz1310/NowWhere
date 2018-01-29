@@ -1,5 +1,6 @@
 package com.maher.nowhere.ProfileFriendActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -7,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import com.maher.nowhere.ProfileFriendActivity.fragments.MurFragment;
 import com.maher.nowhere.ProfileFriendActivity.fragments.photos.PhotosFragment;
 import com.maher.nowhere.ProfileFriendActivity.fragments.ProfileFriendPagerAdapter;
 import com.maher.nowhere.R;
+import com.maher.nowhere.chat.ChatRoomActivity;
+import com.maher.nowhere.chat.ListActivity;
 import com.maher.nowhere.model.Mur;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.Urls;
@@ -30,7 +34,7 @@ import static com.maher.nowhere.R.id.useLogo;
 public class ProfileFriendActivity extends AppCompatActivity implements MurFragment.OnFragmentInteractionListener,
         PhotosFragment.OnFragmentInteractionListener, AmisFriendFragment.OnFragmentInteractionListener {
 
-    ArrayList<Mur> murs;
+
     private User user;
     private CircleImageView img;
     private ImageView imgCover;
@@ -42,14 +46,13 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
         setContentView(R.layout.activity_profile_friend);
         setUpToolbar();
         collapsingToolbar();
-        dummyData();
-        user=(User) getIntent().getSerializableExtra("friend_id");
-        img=findViewById(R.id.imgFriend);
-        imgCover=findViewById(R.id.imgCover);
+        user = (User) getIntent().getSerializableExtra("friend_id");
+        img = findViewById(R.id.imgFriend);
+        imgCover = findViewById(R.id.imgCover);
 
-        tvName=findViewById(R.id.nomFriendProfile);
+        tvName = findViewById(R.id.nomFriendProfile);
 
-        if(user!=null){
+        if (user != null) {
             tvName.setText(user.getName());
             Picasso.with(this).
                     load(Uri.parse(Urls.IMG_URL_USER + user.getImage())).resize(100, 100)
@@ -68,10 +71,10 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
 
         final ViewPager viewPager = (ViewPager) findViewById(pagerFriendProfile);
         viewPager.setOffscreenPageLimit(3);
-        final ProfileFriendPagerAdapter profileFriendPagerAdapter = new ProfileFriendPagerAdapter(getSupportFragmentManager(), 3,user);
+        final ProfileFriendPagerAdapter profileFriendPagerAdapter = new ProfileFriendPagerAdapter(getSupportFragmentManager(), 3, user);
         viewPager.setAdapter(profileFriendPagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -87,30 +90,43 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
 
             }
         });
+
+        ImageView btnMsg = findViewById(R.id.imageChat);
+        btnMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String chatRoomId;
+                int senderId = User.getCurrentUser(ProfileFriendActivity.this).getId();
+                int recieverId = user.getId();
+                chatRoomId = senderId > recieverId ? senderId + "_" + recieverId : recieverId + "_" + senderId;
+                Intent intent = new Intent(ProfileFriendActivity.this, ChatRoomActivity.class);
+                intent.putExtra("chat_room_id", chatRoomId);
+                intent.putExtra("reciver_id", recieverId);
+                intent.putExtra("sender_id", senderId);
+                intent.putExtra("name", user.getName());
+                intent.putExtra("img", user.getImage());
+                startActivity(intent);
+            }
+        });
     }
 
 
     private void setUpToolbar() {
         Toolbar toolbar;
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
     }
-    private void collapsingToolbar(){
+
+    private void collapsingToolbar() {
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        if (user!=null)
-        collapsingToolbarLayout.setTitle(user.getName());
+        if (user != null)
+            collapsingToolbarLayout.setTitle(user.getName());
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
     }
 
-    private void dummyData() {
-        murs = new ArrayList<>();
-        murs.add(new Mur(R.drawable.image));
-        murs.add(new Mur(R.drawable.signup_image));
-        murs.add(new Mur(R.drawable.gg));
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -118,7 +134,7 @@ public class ProfileFriendActivity extends AppCompatActivity implements MurFragm
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }

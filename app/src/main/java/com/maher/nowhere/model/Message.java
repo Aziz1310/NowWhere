@@ -6,17 +6,10 @@ import java.io.Serializable;
  * Created by Lincoln on 07/01/16.
  */
 public class Message implements Serializable {
-    String id, message, createdAt;
+    String id, text, date,senderName,senderId;
     User user;
 
     public Message() {
-    }
-
-    public Message(String id, String message, String createdAt, User user) {
-        this.id = id;
-        this.message = message;
-        this.createdAt = createdAt;
-        this.user = user;
     }
 
     public String getId() {
@@ -27,20 +20,36 @@ public class Message implements Serializable {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getDate() {
+        return date;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
     public User getUser() {

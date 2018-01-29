@@ -73,7 +73,7 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemViewType(int position) {
         Message message = messageArrayList.get(position);
-        if ((message.getUser().getId()+"").equals(userId)) {
+        if ((message.getSenderId()+"").equals(userId)) {
             return SELF;
         }
 
@@ -83,9 +83,9 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         Message message = messageArrayList.get(position);
-        ((ViewHolder) holder).message.setText(message.getMessage());
+        ((ViewHolder) holder).message.setText(message.getText());
 
-        String timestamp = getTimeStamp(message.getCreatedAt());
+        String timestamp = getTimeStamp(message.getDate());
 
         /*if (message.getUser().getName() != null)
             timestamp = message.getUser().getName() + ", " + timestamp;*/
@@ -119,7 +119,7 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return timestamp;
     }
     private static String getTimeStamp2(String dateStr) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss'Z'", Locale.US);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE);
         String timestamp = "";
 
         today = today.length() < 2 ? "0" + today : today;
@@ -129,8 +129,7 @@ public class ChatRoomThreadAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             SimpleDateFormat todayFormat = new SimpleDateFormat("dd",Locale.FRANCE);
             String dateToday = todayFormat.format(date);
             format = dateToday.equals(today) ? new SimpleDateFormat("hh:mm a",Locale.FRANCE) : new SimpleDateFormat("dd LLL, hh:mm a",Locale.FRANCE);
-            String date1 = format.format(date);
-            timestamp = date1.toString();
+            timestamp = format.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }

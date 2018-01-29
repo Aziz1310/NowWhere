@@ -142,5 +142,31 @@ public class AccueilManager {
 
         ConnectionSingleton.getInstance(context).addToRequestque(req);
     }
+    public void getPacks(int idPrestataire,final VolleyCallback volleyCallback) {
+
+        JSONObject jsonUser = new JSONObject();
+        try {
+            jsonUser.put("idprestataire", idPrestataire);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, Urls.pack_list,jsonUser, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                volleyCallback.onSuccess(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                volleyCallback.onError(error);
+
+            }
+        });
+
+        ConnectionSingleton.getInstance(context).addToRequestque(req);
+    }
 
 }

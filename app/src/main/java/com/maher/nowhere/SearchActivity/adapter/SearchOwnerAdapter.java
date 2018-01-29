@@ -94,6 +94,8 @@ public class SearchOwnerAdapter extends RecyclerView.Adapter<SearchOwnerAdapter.
                         break;
                     case CAT_SALLE:
                         intent = new Intent(mContext, SalleSportActivity.class);
+                        intent.putExtra("owner",search);
+                        intent.putExtra("categorie",categorie);
                         break;
                     case CAT_ART:
                         intent = new Intent(mContext, CentreActivity.class);

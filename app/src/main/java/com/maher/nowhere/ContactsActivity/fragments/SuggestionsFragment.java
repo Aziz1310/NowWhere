@@ -1,5 +1,6 @@
 package com.maher.nowhere.ContactsActivity.fragments;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.maher.nowhere.ContactsActivity.adapters.SuggestionsAdapter;
 import com.maher.nowhere.ContactsActivity.presenters.SuggestionPresenter;
 import com.maher.nowhere.ContactsActivity.views.SuggestionView;
+import com.maher.nowhere.ProfileActivity.FriendsActivity;
 import com.maher.nowhere.R;
 import com.maher.nowhere.login.LoginPresenter;
 import com.maher.nowhere.model.Suggestions;
@@ -145,6 +147,13 @@ public class SuggestionsFragment extends Fragment implements SuggestionView,Sugg
         final SuggestionPresenter suggestionPresenter=new SuggestionPresenter(this,getActivity());
         suggestionPresenter.sendInvitation(User.getCurrentUser(getActivity()).getId(),user.getId());
 
+    }
+
+    @Override
+    public void onItemClick(User user) {
+        Intent intent=new Intent(getContext(), FriendsActivity.class);
+        intent.putExtra("user",user);
+        startActivity(intent);
     }
 
 

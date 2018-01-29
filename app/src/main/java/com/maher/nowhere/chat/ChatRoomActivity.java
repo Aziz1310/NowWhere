@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -26,21 +28,38 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.maher.nowhere.R;
 import com.maher.nowhere.chat.adapter.ChatRoomThreadAdapter;
 import com.maher.nowhere.gcm.NotificationUtils;
+import com.maher.nowhere.model.Conversation;
+import com.maher.nowhere.model.ConversationUser;
 import com.maher.nowhere.model.Message;
 import com.maher.nowhere.model.User;
 import com.maher.nowhere.utiles.Config;
 import com.maher.nowhere.utiles.ConnectionSingleton;
+import com.maher.nowhere.utiles.EndlessRecyclerViewScrollListener;
 import com.maher.nowhere.utiles.MyApplication;
 import com.maher.nowhere.utiles.Urls;
+import com.maher.nowhere.utiles.Utiles;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,26 +73,43 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ArrayList<Message> messageArrayList;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private EditText inputMessage;
-    private ImageView btnSend;
+    private ImageView btnSend, imgProfile;
+    private String urlPhoto;
+    private String title;
+    private int numMsg=10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         inputMessage = (EditText) findViewById(R.id.message);
         btnSend = (ImageView) findViewById(R.id.btn_send);
+        imgProfile = findViewById(R.id.img);
 
         Intent intent = getIntent();
         chatRoomId = intent.getStringExtra("chat_room_id");
         senderid = intent.getIntExtra("sender_id", User.getCurrentUser(this).getId());
         reciverid = intent.getIntExtra("reciver_id", 0);
-        String title = intent.getStringExtra("name");
+        title = intent.getStringExtra("name");
+        urlPhoto = intent.getStringExtra("img");
+        setUpToolbar(title);
 
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Picasso.with(this).
+                load(Uri.parse(Urls.IMG_URL_USER + urlPhoto)).resize(100, 100)
+                .into(imgProfile, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
 
         if (chatRoomId == null) {
             Toast.makeText(getApplicationContext(), "Chat room not found!", Toast.LENGTH_SHORT).show();
@@ -93,26 +129,140 @@ public class ChatRoomActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+        fetchChatRooms();
 
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+        EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    // new push message is received
-                    handlePushNotification(intent);
-                }
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                numMsg+=10;
+                fetchChatRooms();
+                loadNextDataFromApi(page);
+                Log.d(TAG, "onLoadMore: "+page+" total "+totalItemsCount);
             }
         };
+      //  recyclerView.addOnScrollListener(scrollListener);
+
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage();
+                if (inputMessage.getText().toString().isEmpty())
+                    return;
+                btnSend.setClickable(false);
+                Message message = new Message();
+
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                Date date = new Date();
+                String ourformat = formatter.format(date.getTime());
+                //ServerValue.TIMESTAMP
+                message.setSenderId(senderid + "");
+                message.setSenderName(User.getCurrentUser(ChatRoomActivity.this).getName());
+                message.setDate(ourformat);
+                message.setText(inputMessage.getText().toString());
+                sendMessage(message);
+                inputMessage.setText("");
             }
         });
 
-        fetchChatThread();
+        registerChatRoom();
+
     }
+
+    private void loadNextDataFromApi(int page) {
+
+    }
+
+    private void sendMessage(Message message) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference().child(Urls.FIREBASE_CHANELS).child(chatRoomId);
+
+        String idMessage = myRef.child(Urls.FIREBASE_MESSAGES).push().getKey();
+        message.setId(idMessage);
+
+        myRef.orderByKey().equalTo(chatRoomId).getRef().child(Urls.FIREBASE_MESSAGES).child(idMessage).setValue(message).
+                addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            inputMessage.setText("");
+                        }
+                        btnSend.setClickable(true);
+                    }
+                });
+    }
+
+    private void fetchChatRooms() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference().child(Urls.FIREBASE_CHANELS).child(chatRoomId).child(Urls.FIREBASE_MESSAGES);
+        myRef.orderByKey().limitToLast(numMsg).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Message message = dataSnapshot.getValue(Message.class);
+                messageArrayList.add(message);
+                mAdapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(messageArrayList.size() - 1);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void registerChatRoom() {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference().child(Urls.FIREBASE_CONVERSATIONS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(chatRoomId)) {
+                    Log.d(TAG, "registerChatRoom: chatRoom already exist");
+                    return;
+                }
+                Log.d(TAG, "registerChatRoom: chatRoom does not exist");
+                User currentUser=User.getCurrentUser(ChatRoomActivity.this);
+                Conversation conversation = new Conversation();
+                conversation.setId(chatRoomId);
+                conversation.setUser1(
+                        new ConversationUser(String.valueOf(reciverid),title,urlPhoto )
+                );
+                conversation.setUser2(
+                        new ConversationUser(String.valueOf(currentUser.getId()),currentUser.getName(),currentUser.getImage())
+                );
+
+                DatabaseReference myRef1 = database.getReference().child(Urls.FIREBASE_CONVERSATIONS);
+                myRef1.child(chatRoomId).setValue(conversation);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     @Override
     protected void onResume() {
@@ -125,200 +275,28 @@ public class ChatRoomActivity extends AppCompatActivity {
         NotificationUtils.clearNotifications();
     }
 
+    private void setUpToolbar(String title) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setTitle(title);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        } catch (NullPointerException ignore) {
+        }
+    }
+
     @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        super.onPause();
-    }
-
-    /**
-     * Handling new push message, will add the message to
-     * recycler view and scroll it to bottom
-     */
-    private void handlePushNotification(Intent intent) {
-        Message message = (Message) intent.getSerializableExtra("message");
-        String chatRoomId = intent.getStringExtra("chat_room_id");
-
-        if (message != null && chatRoomId != null) {
-            if(message.getUser().getId()!=User.getCurrentUser(this).getId())
-            messageArrayList.add(message);
-            mAdapter.notifyDataSetChanged();
-            if (mAdapter.getItemCount() > 1) {
-                recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount() - 1);
-            }
-        }
-    }
-
-    /**
-     * Posting a new message in chat room
-     * will make an http call to our server. Our server again sends the message
-     * to all the devices as push notification
-     */
-    private void sendMessage() {
-        final String message = this.inputMessage.getText().toString().trim();
-
-        if (TextUtils.isEmpty(message)) {
-            Toast.makeText(getApplicationContext(), "ecrire un message", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String endPoint = Urls.CHAT_ROOM_MESSAGE;
-
-        Log.e(TAG, "endpoint: " + endPoint);
-
-        this.inputMessage.setText("");
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                endPoint, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "response: " + response);
-
-                try {
-                    JSONObject obj = new JSONObject(response);
-
-                    // check for error
-
-                    JSONObject commentObj = obj.getJSONObject("data");
-
-                    String commentId = commentObj.getString("chat_room_id");
-                    String commentText = commentObj.getString("message");
-                    String createdAt = commentObj.getString("created_at");
-
-                    int userId = commentObj.getInt("iduser");
-                    String userName = commentObj.getString("username");
-                    User user = new User(userId, userName);
-
-                    Message message = new Message();
-                    message.setId(commentId);
-                    message.setMessage(commentText);
-                    message.setCreatedAt(createdAt);
-                    message.setUser(user);
-
-                    messageArrayList.add(message);
-
-                    mAdapter.notifyDataSetChanged();
-                    if (mAdapter.getItemCount() > 1) {
-                        // scrolling to bottom of the recycler view
-                        recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount() - 1);
-                    }
-
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "json parsing error: " + e.getMessage());
-                    Toast.makeText(getApplicationContext(), "json parse error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                Log.e(TAG, "Volley error: " + error.getMessage() + ", code: " + networkResponse);
-                Toast.makeText(getApplicationContext(), "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                inputMessage.setText(message);
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("idUserSender", User.getCurrentUser(ChatRoomActivity.this).getId() + "");
-                params.put("contenu", message);
-                params.put("idUserReciver", reciverid.toString());
-
-                Log.e(TAG, "Params: " + params.toString());
-
-                return params;
-            }
-        };
-
-
-        // disabling retry policy so that it won't make
-        // multiple http calls
-        int socketTimeout = 0;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
-        strReq.setRetryPolicy(policy);
-
-        //Adding request to request queue
-        ConnectionSingleton.getInstance(ChatRoomActivity.this).addToRequestque(strReq);
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 
-    /**
-     * Fetching all the messages of a single chat room
-     */
-    private void fetchChatThread() {
-
-        String endPoint = Urls.CHAT_ROOM_MESSAGE_LIST;
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                endPoint, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "response: " + response);
-
-                try {
-                    JSONObject obj = new JSONObject(response);
-
-                    // check for error
-
-                    JSONArray commentsObj = obj.getJSONArray("rooms");
-
-                    for (int i = 0; i < commentsObj.length(); i++) {
-                        JSONObject commentObj = (JSONObject) commentsObj.get(i);
-
-                        String commentId = commentObj.getString("id");
-                        String commentText = commentObj.getString("contenue");
-                        String createdAt = commentObj.getString("created_at");
-
-                        JSONObject userObj = commentObj.getJSONObject("_mobile_user");
-                        int userId = userObj.getInt("id");
-                        String userName = userObj.getString("username");
-                        User user = new User(userId, userName);
-
-                        Message message = new Message();
-                        message.setId(commentId);
-                        message.setMessage(commentText);
-                        message.setCreatedAt(createdAt);
-                        message.setUser(user);
-
-                        messageArrayList.add(message);
-                    }
-
-                    mAdapter.notifyDataSetChanged();
-                    if (mAdapter.getItemCount() > 1) {
-                        recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView, null, mAdapter.getItemCount() - 1);
-                    }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "json parsing error: " + e.getMessage());
-                    Toast.makeText(getApplicationContext(), "json parse error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                Log.e(TAG, "Volley error: " + error.getMessage() + ", code: " + networkResponse);
-                Toast.makeText(getApplicationContext(), "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("idRoom", chatRoomId);
-                return params;
-            }
-        };
-
-        //Adding request to request queue
-        ConnectionSingleton.getInstance(ChatRoomActivity.this).addToRequestque(strReq);
+    @Override
+    public void onBackPressed() {
+        finish();
     }
+
+
 }
